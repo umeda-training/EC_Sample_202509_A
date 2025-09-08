@@ -41,6 +41,7 @@ public class ItemController {
 		item.setItemprice(itemprice);
 		itemService.addToCart(session, item);
 	
-	return "redirect:/cart";
+		
+        return "redirect:" ;  // 直前のページにリダイレクト
 	}
 }
