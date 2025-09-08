@@ -20,7 +20,12 @@
                 <td style="vertical-align: top; width: 50%; padding-right: 20px; font-size: 2em;">
                     <h2 style="font-size: 2em;" th:text="${item.itemName}">商品名</h2>
                     <p th:text="${item.explanation}">商品説明</p>
-                    <p>価格: <span th:text="${item.itemPrice}">0</span> 円</p>
+                    <p>
+                        価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円
+                        &nbsp;&nbsp;
+                        <!-- 税込価格 10% を計算して表示 -->
+                        (税込: <span th:text="${#numbers.formatDecimal(item.itemPrice * 1.1, 0, 'COMMA')}">0</span> 円)
+                    </p>
                     <p>発売開始日: <span th:text="${item.rsDate}">2023/10/01</span></p>
                 </td>
 
