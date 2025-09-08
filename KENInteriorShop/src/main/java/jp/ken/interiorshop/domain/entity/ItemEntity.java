@@ -31,5 +31,5 @@ public class ItemEntity {
 	//在庫数
 	private int stock;
 	
-	private CategoryEntity caterogy;
+	private CategoryEntity category;
 }
