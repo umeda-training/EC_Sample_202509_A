@@ -1,5 +1,12 @@
 package jp.ken.interiorshop.domain.entity;
 
-public class CategoryEntity {
+import lombok.Data;
 
+@Data
+public class CategoryEntity {
+	//カテゴリーID
+	private int categoryid;
+	
+	//カテゴリー名
+	private String categoryname;
 }
