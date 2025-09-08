@@ -1,64 +1,61 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<title>カート一覧</title>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>カート一覧</title>
+</head>
 <body>
-    <h2 style="text-align:center;">カート一覧</h2>
+<h2 style="text-align:center;">カート一覧</h2>
 
-    <form th:action="@{/cart/update}" method="post">
-   <!-- 表を中央に配置 -->
-<div style="text-align:center;">
-    <table border="1" style="margin:0 auto;" id="cart-table">
-        <tr>
-            <th>商品名</th>
-            <th>税別価格</th>
-            <th>数量</th>
-            <th>操作</th>
-        </tr>
-        <tr th:each="item, iterStat : ${cartItems}">
-            <td th:text="${item.productName}">商品名</td>
-            <td th:text="${item.price}">1000</td>
-            <td>
-                <select name="quantities" th:name="'quantities[' + ${iterStat.index} + ']'" th:value="${item.quantity}">
-                    <option th:each="i : ${#numbers.sequence(1,10)}" th:value="${i}" th:text="${i}" th:selected="${i == item.quantity}">1</option>
-                </select>
-            </td>
-            <td>
-                <form th:action="@{/cart/remove}" method="post" style="display:inline;">
-                    <input type="hidden" name="productId" th:value="${item.productId}" />
-                    <button type="submit">削除</button>
-                </form>
-            </td>
-        </tr>
-        <!-- 全削除ボタン -->
-        <tr>
-            <td colspan="3" style="text-align:right; font-weight:bold;"></td>
-            <td>
-                <form th:action="@{/cart/clear}" method="post">
-                    <button type="submit">全削除</button>
-                </form>
-            </td>
-        </tr>
-    </table>
+<!-- カート更新フォーム -->
+<form th:action="@{/cart/update}" method="post">
+    <div style="text-align:center;">
+        <table border="1" style="margin:0 auto;" id="cart-table">
+            <tr>
+                <th>商品名</th>
+                <th>税別価格</th>
+                <th>数量</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="item, iterStat : ${cartItems}">
+                <td th:text="${item.productName}">商品名</td>
+                <td th:text="${item.price}">1000</td>
+                <td>
+                    <select th:name="'quantities[' + ${iterStat.index} + ']'">
+                        <option th:each="i : ${#numbers.sequence(1,10)}"
+                                th:value="${i}"
+                                th:text="${i}"
+                                th:selected="${i == item.quantity}">1
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <!-- 削除ボタン -->
+                    <button type="submit" th:name="'removeProductId'" th:value="${item.productId}">削除</button>
+                </td>
+            </tr>
 
-	<!-- 表の下に右寄せで合計欄（枠なし） -->
-	<div style="display:inline-block; text-align:right; width:300px; padding:5px; margin-top:10px;">
+            <!-- 全削除ボタン -->
+            <tr>
+                <td colspan="3" style="text-align:right; font-weight:bold;"></td>
+                <td>
+                    <button type="submit" name="clearCart" value="true">全削除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+   <!-- 表の下に合計金額欄を表示 -->
+	<div style="width:300px; padding:5px; margin:50px 0 0 760px; text-align:left;">
     	<p>税別合計: <span th:text="${totalExclTax}">0</span> 円</p>
     	<p>消費税合計: <span th:text="${totalTax}">0</span> 円</p>
     	<p>税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
 	</div>
+</form>
 
+<br><br>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-    <!-- 注文ボタンと買い物を続けるリンクを中央に配置 -->
+<!-- 注文ボタンと買い物を続けるリンクを中央に配置 -->
 <div style="text-align:center; margin-top:20px;">
     <!-- 注文ボタン -->
     <form th:action="@{/order/checkout}" method="get">
@@ -68,7 +65,8 @@
     <br>
 
     <!-- 買い物を続けるリンク -->
-    <a href="/">買い物を続ける</a></div>
+    <a href="/">買い物を続ける</a>
+</div>
 
 </body>
 </html>
