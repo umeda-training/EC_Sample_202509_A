@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>商品一覧</title>
+		<style>
+        /* 商品一覧全体 */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;       /* 横幅が足りなくなったら折り返す */
+            gap: 20px;             /* 商品カードの間隔 */
+        }
+
+        /* 商品カード */
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            width: 200px;           /* 横幅固定 */
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column; /* 縦に積む */
+            align-items: center;    /* 中央揃え */
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product-card button {
+            margin-top: auto;       /* 下に押し付ける */
+            padding: 5px 10px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .product-card button:hover {
+            background-color: #218838;
+        }
+    </style>
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			
+		</header>
+		<main>
+			<body>
+			    <h1>商品一覧</h1>
+			    
+			    <div class="product-list">
+			        <!-- 商品を繰り返し -->
+			        <div class="item-card">
+						<th:block th:each="items : ${itemForm}">
+							<h3 th:text="${items.itemname}"></h3>
+				            <img th:src="@{${items.image}}" th:alt="${items.itemname}">
+				            <p th:text="'¥' + ${items.itemprice}"></p>
+					            <form th:action="@{/cart/add}" method="post">
+					                <input type="hidden" th:name="itemId" th:value="${items.itemid}">
+					                <button type="submit">カートに追加</button>
+					            </form>
+						</th:block>
+			        </div>
+			    </div>
+			</body>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>

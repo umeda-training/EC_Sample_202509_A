@@ -19,6 +19,7 @@ public class ItemMapper implements RowMapper<ItemEntity> {
 		itemEntity.setCategoryid(rs.getInt("category_id"));
 		itemEntity.setItemprice(rs.getInt("item_price"));
 		itemEntity.setRsdate(rs.getDate("rs_date"));
+		itemEntity.setImage(rs.getString("image"));
 		itemEntity.setExplanation(rs.getString("explanation"));
 		itemEntity.setStock(rs.getInt("stock"));
 		

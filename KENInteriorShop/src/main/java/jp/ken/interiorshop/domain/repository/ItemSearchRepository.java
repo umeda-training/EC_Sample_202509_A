@@ -23,7 +23,7 @@ public class ItemSearchRepository {
 	public List<ItemEntity> getItemAllList() throws Exception {
 		
 		StringBuilder sb = createCommonSQL();
-		sb.append(" ORDER BY");
+		sb.append(" ORDER BY ");
 		sb.append(" item_id");
 		String sql = sb.toString();
 		
@@ -38,10 +38,13 @@ public class ItemSearchRepository {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
 		sb.append(" item_id");
-		sb.append(" item_name");
-		sb.append(" category_id");
-		sb.append(" item_price");
-		sb.append(" image");
+		sb.append(", item_name");
+		sb.append(", category_id");
+		sb.append(", item_price");
+		sb.append(", rs_date");
+		sb.append(", image");
+		sb.append(", explanation");
+		sb.append(", stock");
 		sb.append(" FROM");
 		sb.append(" m_items");
 		
