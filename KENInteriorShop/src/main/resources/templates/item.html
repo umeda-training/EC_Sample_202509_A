@@ -3,33 +3,40 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>商品一覧</title>
-		<!--<style>
+		<style>
+		
+		h1 {
+			text-align: center;
+		}
         /* 商品一覧全体 */
-        .product-list {
-            display: flex;
-            flex-wrap: wrap;       /* 横幅が足りなくなったら折り返す */
-            gap: 20px;             /* 商品カードの間隔 */
+        .item-list {            
+            display: grid;                          /* グリッドレイアウト */
+    		grid-template-columns: repeat(5, 1fr);  /* 5列 */
+    		gap: 20px;                              /* カード間の余白 */
+    		justify-content: center;  /* 中央寄せ */
+		    margin: 0 auto;           /* 左右中央 */
+		    max-width: 1000px;        /* 幅制限（大きすぎ防止） */
         }
 
         /* 商品カード */
-        .product-card {
+        .item-card {
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 10px;
-            width: 200px;           /* 横幅固定 */
+            width: 250px;           /* 横幅固定 */
             box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column; /* 縦に積む */
             align-items: center;    /* 中央揃え */
         }
 
-        .product-card img {
+        .item-card img {
             max-width: 100%;
             height: auto;
             margin-bottom: 10px;
         }
 
-        .product-card button {
+        .item-card button {
             margin-top: auto;       /* 下に押し付ける */
             padding: 5px 10px;
             border: none;
@@ -39,10 +46,10 @@
             cursor: pointer;
         }
 
-        .product-card button:hover {
+        .item-card button:hover {
             background-color: #218838;
         }
-    </style>-->
+    </style>
 	</head>
 <body>
 	<div id="wrapper">
@@ -53,18 +60,16 @@
 			<body>
 			    <h1>商品一覧</h1>
 			    
-			    <div class="product-list">
+			    <div class="item-list">
 			        <!-- 商品を繰り返し -->
-			        <div class="item-card">
-						<th:block th:each="items : ${itemForm}">
+			        <div class="item-card" th:each="items : ${itemForm}">
 							<h3 th:text="${items.itemname}"></h3>
-				            <img th:src="@{${items.image}}" th:alt="${items.itemname}">
+				            <img th:src="@{/images/{img}(img=${items.image})}" th:alt="${items.itemname}">
 				            <p th:text="'¥' + ${items.itemprice}"></p>
 					            <form th:action="@{/cart/add}" method="post">
 					                <input type="hidden" th:name="itemId" th:value="${items.itemid}">
 					                <button type="submit">カートに追加</button>
 					            </form>
-						</th:block>
 			        </div>
 			    </div>
 			</body>
