@@ -16,7 +16,7 @@ public class CategoryMapper implements RowMapper<CategoryEntity> {
 		ItemEntity itemEntity = new ItemEntity();
 		
 		categoryEntity.setCategoryid(rs.getInt("category_id"));
-		categoryEntity.setCategoryid(rs.getInt("category_name"));
+		categoryEntity.setCategoryname(rs.getString("category_name"));
 		
 		itemEntity.setItemid(rs.getInt("item_id"));
 		itemEntity.setItemname(rs.getString("item_name"));
