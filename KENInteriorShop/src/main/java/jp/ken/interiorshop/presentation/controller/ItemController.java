@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.application.service.ItemService;
 import jp.ken.interiorshop.presentation.form.ItemForm;
 
@@ -18,11 +21,26 @@ public class ItemController {
 		this.itemService = itemService;
 	}
 	
+	//トップページを表示
 	@GetMapping(value = "/item")
 	public String showItem(Model model) throws Exception {
 		List<ItemForm> formList = itemService.getItemList();
 		model.addAttribute("itemForm", formList);
 		
 		return "item";
+		
+		
+	}
+	
+	//カートに追加ボタン押下
+	@PostMapping(value = "/cart/add")
+	public String addToCart(@RequestParam String itemId, @RequestParam String itemname, @RequestParam String itemprice, HttpSession session) {
+		ItemForm item = new ItemForm();
+		item.setItemid(itemId);
+		item.setItemname(itemname);
+		item.setItemprice(itemprice);
+		itemService.addToCart(session, item);
+	
+	return "redirect:/cart";
 	}
 }
