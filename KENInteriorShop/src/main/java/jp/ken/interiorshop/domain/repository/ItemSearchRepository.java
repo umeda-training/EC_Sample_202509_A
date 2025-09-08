@@ -19,6 +19,7 @@ public class ItemSearchRepository {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
+	//createCommonSQL()で取得した値を商品ID順にし、Mapperクラスへ渡す
 	public List<ItemEntity> getItemAllList() throws Exception {
 		
 		StringBuilder sb = createCommonSQL();
@@ -31,6 +32,7 @@ public class ItemSearchRepository {
 		return itemList;
 	}
 	
+	//DBから商品テーブル（ID、商品名、カテゴリーID、価格、画像データ）の値を取得
 	private StringBuilder createCommonSQL() {
 		
 		StringBuilder sb = new StringBuilder();

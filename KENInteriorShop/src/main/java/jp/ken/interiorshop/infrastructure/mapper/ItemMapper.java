@@ -9,6 +9,7 @@ import jp.ken.interiorshop.domain.entity.ItemEntity;
 
 public class ItemMapper implements RowMapper<ItemEntity> {
 
+	//DBから取得したアイテムテーブルの値をアイテムEntityにセット
 	@Override
 	public ItemEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ItemEntity itemEntity = new ItemEntity();
