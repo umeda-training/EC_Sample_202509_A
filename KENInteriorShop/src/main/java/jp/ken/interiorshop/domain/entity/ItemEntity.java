@@ -1,7 +1,7 @@
 package jp.ken.interiorshop.domain.entity;
 
 public class ItemEntity {
-	public void testPrint() {
+	public static void main (String[] args) {
 		System.out.print("test success!");
 	}
 }
