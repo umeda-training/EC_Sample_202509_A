@@ -38,8 +38,8 @@
 
         <!-- 動的版：from によって戻る先を切り替え -->
         <div style="text-align: center; margin-top: 30px;">
-            <!-- from が 'list' の場合：商品一覧画面に戻る -->
-            <form th:if="${from == 'list'}" th:action="@{/items/list}" method="get" style="display:inline;">
+            <!-- from が 'item' の場合：商品一覧画面に戻る -->
+            <form th:if="${from == 'item'}" th:action="@{/items/list}" method="get" style="display:inline;">
                 <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">戻る</button>
             </form>
 
