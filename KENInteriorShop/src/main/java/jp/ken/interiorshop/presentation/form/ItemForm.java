@@ -30,4 +30,7 @@ public class ItemForm implements Serializable {
 	
 	//在庫数
 	private String stock;
+	
+	//categoryフォームの情報を保持
+	private CategoryForm category;
 }
