@@ -34,13 +34,33 @@ public class ItemController {
 		return "item";
 	}
 	
+	@GetMapping(value = "/cart")
+	public String showCart(Model model, HttpSession session) {
+        List<ItemForm> cartItems = itemService.getCart(session);
+        model.addAttribute("cartItems", cartItems);
+
+        // 合計金額を計算（仮）
+        int totalExclTax = cartItems.stream()
+                .mapToInt(item -> Integer.parseInt(item.getItemPrice()))
+                .sum();
+        int totalTax = (int)(totalExclTax * 0.1);
+        int totalInclTax = totalExclTax + totalTax;
+
+        model.addAttribute("totalExclTax", totalExclTax);
+        model.addAttribute("totalTax", totalTax);
+        model.addAttribute("totalInclTax", totalInclTax);
+
+        return "cart"; //
+    }
+	
 	//カートに追加ボタン押下
 	@PostMapping(value = "/cart/add")
-	public String addToCart(@RequestParam String itemId, @RequestParam String itemname, @RequestParam String itemprice, @RequestParam String redirectUrl, HttpSession session) {
+	public String addToCart(@RequestParam String itemId, @RequestParam String itemName, @RequestParam String itemPrice, @RequestParam int itemQuantity, @RequestParam String redirectUrl, HttpSession session) {
 		ItemForm item = new ItemForm();
 		item.setItemId(itemId);
-		item.setItemName(itemname);
-		item.setItemPrice(itemprice);
+		item.setItemName(itemName);
+		item.setItemPrice(itemPrice);
+		item.setItemQuantity(itemQuantity);
 		itemService.addToCart(session, item);
 	
 		//元のページに戻る
@@ -63,8 +83,8 @@ public class ItemController {
 	
 	//カートの数量変更
 	@PostMapping("/cart/updateQuantity")
-	public String updateQuantity(@RequestParam("itemId") String itemId, @RequestParam("quantity") String quantity, HttpSession session) {
-	    itemService.updateQuantity(session, itemId, quantity);
+public String updateQuantity(@RequestParam("itemId") String itemId, @RequestParam("itemQuantity") int itemQuantity, HttpSession session) {
+	    itemService.updateQuantity(session, itemId, itemQuantity);
 	    return "redirect:/cart";
 	}
 
