@@ -162,4 +162,14 @@ public class ItemService {
 		            return itemSearchRepository.getItemAllList();
 		        }
 		 }
+
+			//商品IDから商品詳細を取得するメソッド
+			public ItemForm getItemById(int itemId) throws Exception {
+				// RepositoryからEntityを取得
+				ItemEntity entity = itemSearchRepository.getItemById(itemId);
+				// Entity → Form へ変換
+				ItemForm form = modelMapper.map(entity, ItemForm.class);
+				return form;
+			}
+
 }

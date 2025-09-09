@@ -132,4 +132,16 @@ public class ItemSearchRepository {
 		
 		return sb;
 	}
+	
+	//商品IDから商品を取得
+	public ItemEntity getItemById(int itemId) throws Exception {
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE");
+		sb.append(" item_id = ?");
+		String sql = sb.toString();
+		
+		// 指定した商品IDに一致する商品を1件取得
+		ItemEntity itemEntity = jdbcTemplate.queryForObject(sql, itemMapper, itemId);
+		return itemEntity;
+	}
 }
