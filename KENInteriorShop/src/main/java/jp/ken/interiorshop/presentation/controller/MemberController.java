@@ -98,7 +98,6 @@ public class MemberController {
 	//「戻る」を押したら元の画面へ
 	@PostMapping(value="/login", params = "back")
 	public String back(HttpServletRequest request) {
-		
 		String url = request.getRequestURI();
 		return url;
 	}
