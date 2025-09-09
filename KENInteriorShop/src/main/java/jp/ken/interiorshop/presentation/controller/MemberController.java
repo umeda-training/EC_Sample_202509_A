@@ -8,6 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -15,12 +17,18 @@ import jp.ken.interiorshop.application.service.LoginService;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
 
 @Controller
+@SessionAttributes("login")
 public class MemberController {
 	
 	private LoginService loginService;
 	
 	public MemberController(LoginService loginService) {
 		this.loginService = loginService;
+	}
+	
+	@ModelAttribute("login")
+	public MemberLoginForm memberLoginForm() {
+		return new MemberLoginForm();
 	}
 	
 	//ログイン画面表示
@@ -30,7 +38,7 @@ public class MemberController {
 	}
 	
 	//ログイン処理
-	@PostMapping(value = "/login", params = "login")
+	@PostMapping(value = "/login", params = "doLogin")
 	 public String doLogin(@Valid @ModelAttribute MemberLoginForm form,
 			 BindingResult result,Model model, HttpServletRequest request) {
 		
@@ -82,11 +90,11 @@ public class MemberController {
 	}
 	
 	//ログアウト処理
-	@PostMapping(value = "/logout")
-	public String doLogout(@ModelAttribute List<MemberLoginForm> login, HttpServletRequest request) {
+	@GetMapping(value = "/logout")
+	public String doLogout(SessionStatus status, HttpServletRequest request) {
 		
 		String url = request.getRequestURI();
-		login = null;
+		status.setComplete();
 		
 		return url;
 	}
