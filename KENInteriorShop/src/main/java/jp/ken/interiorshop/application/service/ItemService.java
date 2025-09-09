@@ -77,7 +77,7 @@ public class ItemService {
 				List<ItemForm> cart = getCart(session);
 				List<ItemForm> newCart = new ArrayList<>();
 				for (ItemForm item : cart) {
-					if(!item.getItemid().equals(String.valueOf(itemId))) {
+					if(!item.getItemId().equals(String.valueOf(itemId))) {
 						newCart.add(item);
 					}
 				}
