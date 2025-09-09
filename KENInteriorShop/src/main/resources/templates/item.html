@@ -93,7 +93,7 @@
 				            <p th:text="'¥' + ${items.itemPrice}"></p>
 								<form th:action="@{/cart/add}" method="post">
     								<input type="hidden" name="itemId" th:value="${items.itemId}">
-    								<input type="hidden" name="itemName" th:value="{items.itemName}">
+    								<input type="hidden" name="itemName" th:value="${items.itemName}">
    									<input type="hidden" name="itemPrice" th:value="${items.itemPrice}">
    									<input type="hidden" name="itemQuantity" th:value="1">
    									<input type="hidden" name="redirectUrl" value="/item"> 
