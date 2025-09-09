@@ -93,4 +93,11 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	    itemService.updateQuantity(session, itemId, itemQuantity);
 	    return "redirect:/cart";
 	}
+	
+	//検索結果表示メソッドの呼び出し
+	@PostMapping("/search")
+	public String showSearchResult(@RequestParam("keyword") String keyword, @RequestParam("categoryId") int categoryId) throws Exception {
+		itemService.searchItem(keyword, categoryId);
+		return "redirect:/item";
+	}
 }
