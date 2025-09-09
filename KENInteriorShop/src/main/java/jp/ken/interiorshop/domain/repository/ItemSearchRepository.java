@@ -53,21 +53,16 @@ public class ItemSearchRepository {
 	//キーワードとカテゴリの両方で検索
 	public List<ItemEntity> getItemByKeywordAndCategoryList(String keyword, Integer categoryId) throws Exception {
 	    StringBuilder sb = createCommonSQL();
-	    sb.append(" WHERE 1=1"); // 条件を柔軟に追加するためのベース
-
 	    List<Object> params = new ArrayList<>();
 
-	    if (keyword != null && !keyword.isEmpty()) {
-	        sb.append(" AND item_name LIKE ?");
-	        keyword = keyword.replace("%", "\\%").replace("_", "\\_");
-	        keyword = "%" + keyword + "%";
-	        params.add(keyword);
-	    }
+	    sb.append(" WHERE");
+	    sb.append(" item_name LIKE ?");
+	    keyword = keyword.replace("%", "\\%").replace("_", "\\_");
+	    keyword = "%" + keyword + "%";
+	    params.add(keyword);
 
-	    if (categoryId != null) {
-	        sb.append(" AND category_id = ?");
-	        params.add(categoryId);
-	    }
+	    sb.append(" AND category_id = ?");
+	    params.add(categoryId);
 
 	    sb.append(" ORDER BY category_id");
 
@@ -95,15 +90,15 @@ public class ItemSearchRepository {
 	}
 
 	//カテゴリで検索
-	public ItemEntity getItemByCategoryList(int categoryId) throws Exception{
+	public List<ItemEntity> getItemByCategoryList(int categoryId) throws Exception{
 		StringBuilder sb = createCommonSQL();
 		sb.append(" WHERE");
 		sb.append(" category_id = ?");
 		String sql = sb.toString();
 		
-		ItemEntity itemEntity = jdbcTemplate.queryForObject(sql, itemMapper, categoryId);
+		List<ItemEntity> itemList = jdbcTemplate.query(sql, itemMapper, categoryId);
 		
-		return itemEntity;	
+		return itemList;	
 	}
 	
 	//DBからカテゴリーテーブル（ID、カテゴリー名）の値を取得

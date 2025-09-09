@@ -146,5 +146,20 @@ public class ItemService {
 		    }
 		    session.setAttribute(session_cart, cart);
 		}
+		
+		//検索結果を表示するメソッド
+		 public List<ItemEntity> searchItem(String keyword, Integer categoryId) throws Exception {
+		        boolean hasKeyword = keyword != null && !keyword.isEmpty();
+		        boolean hasCategory = categoryId != null;
 
+		        if (hasKeyword && hasCategory) {
+		            return itemSearchRepository.getItemByKeywordAndCategoryList(keyword, categoryId);
+		        } else if (hasKeyword) {
+		            return itemSearchRepository.getItemByKeywordList(keyword);
+		        } else if (hasCategory) {
+		            return itemSearchRepository.getItemByCategoryList(categoryId);
+		        } else {
+		            return itemSearchRepository.getItemAllList();
+		        }
+		 }
 }
