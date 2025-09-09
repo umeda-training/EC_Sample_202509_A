@@ -55,6 +55,14 @@ public class ItemController {
 	    itemService.clearCart(session); 
 	    return "redirect:/cart";        
 	}
+	
+	//カートの数量変更
+	@PostMapping("/cart/updateQuantity")
+	public String updateQuantity(@RequestParam("itemId") String itemId, @RequestParam("quantity") String quantity, HttpSession session) {
+	    itemService.updateQuantity(session, itemId, quantity);
+	    return "redirect:/cart";
+	}
+
 
 
 }
