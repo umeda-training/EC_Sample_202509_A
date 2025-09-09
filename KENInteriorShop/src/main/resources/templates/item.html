@@ -88,7 +88,7 @@
 			        <!-- 商品を繰り返し -->
 			        <div class="item-card" th:each="items : ${itemForm}">
 							<h3 th:text="${items.itemName}"></h3>
-				            <a th:href="@{/item/detail/{id}(id=${item.itemId})}">
+				            <a th:href="@{/item/detail/{id}(id=${items.itemId})}">
 								<img th:src="@{/images/{img}(img=${items.image})}" th:alt="${items.itemName}">
 							</a>
 				            <p th:text="'¥' + ${items.itemPrice}"></p>
