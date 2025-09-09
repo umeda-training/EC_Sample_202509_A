@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>商品一覧</title>
+		<style>
+		
+		h1 {
+			text-align: center;
+		}
+        /* 商品一覧全体 */
+        .item-list {            
+            display: grid;                          /* グリッドレイアウト */
+    		grid-template-columns: repeat(5, 1fr);  /* 5列 */
+    		gap: 20px;                              /* カード間の余白 */
+    		justify-content: center;  /* 中央寄せ */
+		    margin: 0 auto;           /* 左右中央 */
+		    max-width: 1000px;        /* 幅制限（大きすぎ防止） */
+        }
+
+        /* 商品カード */
+        .item-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            width: 250px;           /* 横幅固定 */
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column; /* 縦に積む */
+            align-items: center;    /* 中央揃え */
+        }
+
+        .item-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .item-card button {
+            margin-top: auto;       /* 下に押し付ける */
+            padding: 5px 10px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .item-card button:hover {
+            background-color: #218838;
+        }
+        
+        /* ----- form内一行レイアウト ----- */
+		.item-row {
+			margin: 8px auto;
+		}
+		
+		/* ----- フォームレイアウト ----- */
+		#form-area {
+			width: 850px;
+			margin: 0px auto;
+		}
+    </style>
+	</head>
+<body>
+	<div id="wrapper">
+		    <!-- 共通ヘッダーを挿入 -->
+    <header th:insert="~{header :: header_area}"></header>
+		<main>
+			<body>
+			    <h1>商品検索結果</h1>
+			    
+			    <div class="item-row">
+					<form th:action="@{/search}" th:object="${itemNewForm}" method="post">
+						<input th:field="*{itemName}" th:value="${itemName}" placeholder="キーワード入力">
+						<select th:field="*{categoryId}">
+					        <option value="">-- 選択してください --</option>
+					        <option th:each="cat : ${categoryForm}" th:value="${cat.categoryId}" th:text="${cat.categoryName}">
+					        </option>
+					    </select>
+					    <input type="button" value="検索" name="search" class="btn">
+					</form>
+					<label>商品画像をクリックすると詳細ページに遷移します</label>
+				</div>
+			    
+			    <div class="item-list">
+			        <!-- 検索結果に該当する商品を繰り返し -->
+			        <div class="item-card" th:each="items : ${itemList}">
+							<h3 th:text="${items.itemName}"></h3>
+				            <a th:href="@{/item/detail/{id}(id=${items.itemId})}">
+								<img th:src="@{/images/{img}(img=${items.image})}" th:alt="${items.itemName}">
+							</a>
+				            <p th:text="'¥' + ${items.itemPrice}"></p>
+								<form th:action="@{/cart/add}" method="post">
+    								<input type="hidden" name="itemId" th:value="${items.itemId}">
+    								<input type="hidden" name="itemName" th:value="{items.itemName}">
+   									<input type="hidden" name="itemPrice" th:value="${items.itemPrice}">
+   									<input type="hidden" name="itemQuantity" th:value="1">
+   									<input type="hidden" name="redirectUrl" value="/item"> 
+    								<button type="submit">カートに追加</button>
+								</form>
+			        </div>
+			    </div>
+			</body>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>
