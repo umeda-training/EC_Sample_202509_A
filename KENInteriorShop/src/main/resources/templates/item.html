@@ -72,8 +72,8 @@
 			    
 			    <div class="item-row">
 					<form th:action="@{/search}" th:object="${itemNewForm}" method="post">
-						<input th:field="*{itemName}" th:value="${itemName}" placeholder="キーワード入力">
-						<select th:field="*{categoryId}">
+						<input name="keyword" th:field="*{itemName}" th:value="${itemName}" placeholder="キーワード入力">
+						<select name="categoryId" th:field="*{categoryId}">
 					        <option value="">-- 選択してください --</option>
 					        <option th:each="cat : ${categoryForm}" th:value="${cat.categoryId}" th:text="${cat.categoryName}">
 					        </option>
