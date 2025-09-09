@@ -89,6 +89,20 @@ public class MemberController {
 					
 	}
 	
+	//新規登録画面へ遷移
+	@PostMapping(value = "/login", params = "regist")
+	public String regist() {
+		return "/regist";
+	}
+	
+	//「戻る」を押したら元の画面へ
+	@PostMapping(value="/login", params = "back")
+	public String back(HttpServletRequest request) {
+		
+		String url = request.getRequestURI();
+		return url;
+	}
+	
 	//ログアウト処理
 	@GetMapping(value = "/logout")
 	public String doLogout(SessionStatus status, HttpServletRequest request) {
