@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.application.service.ItemService;
+import jp.ken.interiorshop.presentation.form.CategoryForm;
 import jp.ken.interiorshop.presentation.form.ItemForm;
 
 @Controller
@@ -23,8 +24,12 @@ public class ItemController {
 	
 	@GetMapping(value = "/item")
 	public String showItem(Model model) throws Exception {
-		List<ItemForm> formList = itemService.getItemList();
-		model.addAttribute("itemForm", formList);
+		List<ItemForm> formItemList = itemService.getItemList();
+		List<CategoryForm> forCategorymList = itemService.getCategoryList();
+		model.addAttribute("itemForm", formItemList);
+		model.addAttribute("categoryForm", forCategorymList);
+		model.addAttribute("itemNewForm", new ItemForm());
+		
 		
 		return "item";
 	}

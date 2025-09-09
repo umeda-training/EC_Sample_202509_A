@@ -49,6 +49,17 @@
         .item-card button:hover {
             background-color: #218838;
         }
+        
+        /* ----- form内一行レイアウト ----- */
+		.item-row {
+			margin: 8px auto;
+		}
+		
+		/* ----- フォームレイアウト ----- */
+		#form-area {
+			width: 850px;
+			margin: 0px auto;
+		}
     </style>
 	</head>
 <body>
@@ -60,8 +71,8 @@
 			<body>
 			    <h1>商品一覧</h1>
 			    
-			    <!--<div class="item-row">
-					<form th:action="@{/search}" th:object="${itemForm}" method="post">
+			    <div class="item-row">
+					<form th:action="@{/search}" th:object="${itemNewForm}" method="post">
 						<input th:field="*{itemName}" th:value="${itemName}" placeholder="キーワード入力">
 						<select th:field="*{categoryId}">
 					        <option value="">-- 選択してください --</option>
@@ -70,7 +81,8 @@
 					    </select>
 					    <input type="button" value="検索" name="search" class="btn">
 					</form>
-				</div>-->
+					<label>商品画像をクリックすると詳細ページに遷移します</label>
+				</div>
 			    
 			    <div class="item-list">
 			        <!-- 商品を繰り返し -->

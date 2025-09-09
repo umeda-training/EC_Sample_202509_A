@@ -45,9 +45,9 @@ public class ItemSearchRepository {
 		sb.append(" category_id");
 		String sql = sb.toString();
 		
-		List<CategoryEntity> itemList = jdbcTemplate.query(sql, categoryMapper);
+		List<CategoryEntity> categoryList = jdbcTemplate.query(sql, categoryMapper);
 		
-		return itemList;
+		return categoryList;
 	}
 
 	//キーワードとカテゴリの両方で検索
@@ -112,7 +112,6 @@ public class ItemSearchRepository {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
 		sb.append(" category_id");
-		sb.append(", item_name");
 		sb.append(", category_name");
 		sb.append(" FROM");
 		sb.append(" category");
