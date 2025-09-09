@@ -7,8 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
+import jp.ken.interiorshop.domain.entity.CategoryEntity;
 import jp.ken.interiorshop.domain.entity.ItemEntity;
 import jp.ken.interiorshop.domain.repository.ItemSearchRepository;
+import jp.ken.interiorshop.presentation.form.CategoryForm;
 import jp.ken.interiorshop.presentation.form.ItemForm;
 
 @Service
@@ -30,18 +32,44 @@ public class ItemService {
 		
 		entityList = itemSearchRepository.getItemAllList();
 		
-		formList = convert(entityList);
+		formList = convertItemForm(entityList);
 		
 		return formList;
 	}
 	
-	//EntityからFormへ値を変換
-	private List<ItemForm> convert(List<ItemEntity> entityList) {
+	//ItemSearchRepositoryからDBのデータを取得するメソッドを呼び出す
+	public List<CategoryForm> getCategoryList() throws Exception {
+		
+		List<CategoryEntity> entityList = null;
+		List<CategoryForm> formList = null;
+		
+		entityList = itemSearchRepository.getCategoryAllList();
+		
+		formList = convertCategoryForm(entityList);
+		
+		return formList;
+	}
+	
+	//EntityからFormへ値を変換(アイテム)
+	private List<ItemForm> convertItemForm(List<ItemEntity> entityList) {
 		
 		List<ItemForm> formList = new ArrayList<ItemForm>();
 		
 		for (ItemEntity entity : entityList) {
 			ItemForm form = modelMapper.map(entity, ItemForm.class);
+			formList.add(form);
+		}
+		
+		return formList;
+	}
+	
+	//EntityからFormへ値を変換(カテゴリー)
+	private List<CategoryForm> convertCategoryForm(List<CategoryEntity> entityList) {
+		
+		List<CategoryForm> formList = new ArrayList<CategoryForm>();
+		
+		for (CategoryEntity entity : entityList) {
+			CategoryForm form = modelMapper.map(entity, CategoryForm.class);
 			formList.add(form);
 		}
 		
