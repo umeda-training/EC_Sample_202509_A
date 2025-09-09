@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -104,4 +105,44 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	    model.addAttribute("itemList", itemList); // ← ここで検索結果を渡す
 	    return "search";
 	}
+	
+    // 商品詳細画面表示
+    @GetMapping("/items/{itemId}")
+    public String showItemDetail(
+            @PathVariable("itemId") String itemId,
+            @RequestParam(name = "from", required = false, defaultValue = "item") String from,
+            Model model) throws Exception {
+
+        // String → int 変換して既存の getItemById を呼び出す
+        int id = Integer.parseInt(itemId);
+        ItemForm item = itemService.getItemById(id);
+
+        // モデルにセット
+        model.addAttribute("item", item);
+        model.addAttribute("from", from);
+
+        return "itemDetails";
+    }
+
+    // 商品詳細ページからカート追加
+    @PostMapping("/items/{itemId}/add-to-cart")
+    public String addToCartOnDetail(
+            @PathVariable("itemId") String itemId,
+            HttpSession session,
+            Model model) throws Exception {
+
+        // String → int 変換して既存の getItemById を呼び出す
+        int id = Integer.parseInt(itemId);
+        ItemForm item = itemService.getItemById(id);
+
+        // セッションに追加
+        itemService.addToCart(session, item);
+
+        // モデルに再セットして同じページに戻す
+        model.addAttribute("item", item);
+        model.addAttribute("from", "item");
+
+        return "itemDetails";
+    }
+
 }

@@ -69,6 +69,8 @@
                 <input type="hidden" name="itemname" th:value="${item.itemName}">
                 <!-- 商品価格（カート画面表示用 / 計算用） -->
                 <input type="hidden" name="itemprice" th:value="${item.itemPrice}">
+                <!-- 数量指定 -->
+                <input type="hidden" name="itemQuantity" value="1">
 
                 <!-- ★カート追加後に戻るページを指定するためのURL -->
                 <!-- 「商品詳細ページ」にリダイレクトできるように仕込む -->
