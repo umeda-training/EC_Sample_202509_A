@@ -57,8 +57,7 @@ public class MemberController {
 			}
 			
 			if(match) {
-				System.out.print("OK"); //テスト用メッセージ
-				return "memberLogin"; //本来は検索画面に遷移
+				return "item"; //本来は検索画面に遷移
 			}else {
 				model.addAttribute("loginError", "従業員IDまたは氏名が正しくありません");
 				return "memberLogin";
