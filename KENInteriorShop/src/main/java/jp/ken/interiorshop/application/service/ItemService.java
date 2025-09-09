@@ -35,6 +35,19 @@ public class ItemService {
 		return formList;
 	}
 	
+	//ItemSearchRepositoryからDBのデータを取得するメソッドを呼び出す
+	public List<ItemForm> getCategoryList() throws Exception {
+		
+		List<ItemEntity> entityList = null;
+		List<ItemForm> formList = null;
+		
+		entityList = itemSearchRepository.getItemAllList();
+		
+		formList = convert(entityList);
+		
+		return formList;
+	}
+	
 	//EntityからFormへ値を変換
 	private List<ItemForm> convert(List<ItemEntity> entityList) {
 		
