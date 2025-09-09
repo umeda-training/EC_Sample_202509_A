@@ -107,7 +107,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	}
 	
     // 商品詳細画面表示
-    @GetMapping("/items/{itemId}")
+    @GetMapping("/item/detail/{itemId}")
     public String showItemDetail(
             @PathVariable("itemId") String itemId,
             @RequestParam(name = "from", required = false, defaultValue = "item") String from,
@@ -125,7 +125,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     }
 
     // 商品詳細ページからカート追加
-    @PostMapping("/items/{itemId}/add-to-cart")
+    @PostMapping("/item/detail/{itemId}/add-to-cart")
     public String addToCartOnDetail(
             @PathVariable("itemId") String itemId,
             HttpSession session,
