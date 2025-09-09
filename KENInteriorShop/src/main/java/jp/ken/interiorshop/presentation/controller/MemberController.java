@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.LoginService;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
@@ -31,6 +32,11 @@ public class MemberController {
 		return new MemberLoginForm();
 	}
 	
+	@ModelAttribute("currentUrl")
+	public String currentUrl() {
+		return null;
+	}
+	
 	//ログイン画面表示
 	@GetMapping("/login")
 	public String memberLoginForm(@ModelAttribute MemberLoginForm form) {
@@ -39,11 +45,11 @@ public class MemberController {
 	
 	//ログイン処理
 	@PostMapping(value = "/login", params = "doLogin")
-	 public String doLogin(@Valid @ModelAttribute MemberLoginForm form,
+	 public String doLogin(@Valid @ModelAttribute("login")MemberLoginForm form,
 			 BindingResult result,Model model, HttpServletRequest request) {
 		
 		//直前のURLを取得
-		String url = request.getRequestURI();
+		//String url = request.getRequestURI();
 		
 		//エラー時にログイン画面に戻る
 		if(result.hasErrors()) {
@@ -73,9 +79,9 @@ public class MemberController {
 			}
 			
 			if(match) {
-				//メールアドレスとパスワードが一致していれば、ログイン情報をmodelに保存
+				//メールアドレスとパスワードが一致していれば、ログイン情報をsessionに保存
 				model.addAttribute(login);
-				return url; 
+				return "redirect:/item"; 
 			}else {
 				model.addAttribute("loginError", "従業員IDまたは氏名が正しくありません");
 				return "memberLogin";
@@ -90,24 +96,25 @@ public class MemberController {
 	}
 	
 	//新規登録画面へ遷移
-	@PostMapping(value = "/login", params = "regist")
+	@GetMapping(value = "/login", params = "regist")
 	public String regist() {
 		return "/regist";
 	}
 	
 	//「戻る」を押したら元の画面へ
-	@PostMapping(value="/login", params = "back")
-	public String back(HttpServletRequest request) {
-		String url = request.getRequestURI();
+	@GetMapping(value="/login", params = "back")
+	public String back(HttpServletRequest request, Model model) {
+		Object currentUrl = model.getAttribute("currentUrl");
+		String url = String.valueOf(currentUrl);
 		return url;
 	}
 	
 	//ログアウト処理
 	@GetMapping(value = "/logout")
-	public String doLogout(SessionStatus status, HttpServletRequest request) {
+	public String doLogout(SessionStatus status, HttpServletRequest request, HttpSession session) {
 		
-		String url = request.getRequestURI();
 		status.setComplete();
+//		String url = String.valueOf(session.getAttribute("currentUrl"));
 		
 		return url;
 	}

@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.application.service.ItemService;
@@ -14,12 +16,18 @@ import jp.ken.interiorshop.presentation.form.CategoryForm;
 import jp.ken.interiorshop.presentation.form.ItemForm;
 
 @Controller
+@SessionAttributes("currentUrl")
 public class ItemController {
 
 	private ItemService itemService;
 	
 	public ItemController(ItemService itemService) {
 		this.itemService = itemService;
+	}
+	
+	@ModelAttribute("currentUrl")
+	public String currentUrl() {
+		return null;
 	}
 	
 	@GetMapping(value = "/item")
@@ -31,7 +39,7 @@ public class ItemController {
 		model.addAttribute("itemNewForm", new ItemForm());
 		
 		 // ログイン判定
-	    Boolean loggedIn = (session.getAttribute("user") != null);
+	    Boolean loggedIn = (session.getAttribute("login") != null);
 	    model.addAttribute("userLoggedIn", loggedIn);
 
 	    // 現在のURL（簡易的）
