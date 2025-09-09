@@ -48,9 +48,11 @@ public class ItemController {
         model.addAttribute("cartItems", cartItems);
 
         // 合計金額を計算（仮）
-        int totalExclTax = cartItems.stream()
-                .mapToInt(item -> Integer.parseInt(item.getItemPrice()))
-                .sum();
+        int totalExclTax = 0;
+
+        for (ItemForm item : cartItems) {
+            totalExclTax += Integer.parseInt(item.getItemPrice());
+        }
         int totalTax = (int)(totalExclTax * 0.1);
         int totalInclTax = totalExclTax + totalTax;
 
