@@ -71,7 +71,7 @@
 			    <h1>商品検索結果</h1>
 			    
 			    <div class="item-row">
-					<form th:action="@{/search}" th:object="${itemNewForm}" method="post">
+					<form th:action="@{/search}" th:object="${itemForm}" method="post">
 						<input name="keyword" th:field="*{itemName}" th:value="${itemName}" placeholder="キーワード入力">
 						<select name="categoryId" th:field="*{categoryId}">
 					        <option value="">-- 選択してください --</option>
