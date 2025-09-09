@@ -114,7 +114,7 @@ public class MemberController {
 	public String doLogout(SessionStatus status, HttpServletRequest request, HttpSession session) {
 		
 		status.setComplete();
-//		String url = String.valueOf(session.getAttribute("currentUrl"));
+		String url = String.valueOf(session.getAttribute("currentUrl"));
 		
 		return url;
 	}
