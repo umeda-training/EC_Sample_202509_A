@@ -77,56 +77,74 @@ public class ItemService {
 	}
 	
 	//カート処理
-		//カートに追加ボタンのURL格納
-			private static final String session_cart = "";
-			
-			//セッションのカート情報を取得
-			public List<ItemForm> getCart(HttpSession session){
-				List<ItemForm> cart = (List<ItemForm>) session.getAttribute(session_cart);
-				if(cart == null) {
-					cart = new ArrayList<>();
-					session.setAttribute(session_cart, cart);
-				}
-				
-				return cart;
-			}
-			
-			//カートに追加するメソッド
-			public void addToCart(HttpSession session, ItemForm form) {
-				List<ItemForm> cart = getCart(session);
-				
-				cart.add(form);
-				
+	//カートに追加ボタンのURL格納
+		private static final String session_cart = "cart";
+		
+		//セッションのカート情報を取得
+		public List<ItemForm> getCart(HttpSession session){
+			List<ItemForm> cart = (List<ItemForm>) session.getAttribute(session_cart);
+			if(cart == null) {
+				cart = new ArrayList<>();
 				session.setAttribute(session_cart, cart);
 			}
 			
-			//カートの商品を削除するメソッド
-			public void removeCart(HttpSession session, String itemId) {
-				List<ItemForm> cart = getCart(session);
-				List<ItemForm> newCart = new ArrayList<>();
-				for (ItemForm item : cart) {
-					if(!item.getItemId().equals(String.valueOf(itemId))) {
-						newCart.add(item);
-					}
+			return cart;
+		}
+		
+		//カートに追加するメソッド
+		public void addToCart(HttpSession session, ItemForm form) {
+			List<ItemForm> cart = getCart(session);
+
+		    boolean found = false;
+		    for (ItemForm item : cart) {
+		        if (item.getItemId().equals(form.getItemId())) {
+		            // 同じ商品なら数量を加算
+		            item.setItemQuantity(item.getItemQuantity() + form.getItemQuantity());
+		            found = true;
+		            break;
+		        }
+		    }
+
+		    if (!found) {
+		        // 新しい商品なら追加
+		        ItemForm newItem = new ItemForm();
+		        newItem.setItemId(form.getItemId());
+		        newItem.setItemName(form.getItemName());
+		        newItem.setItemPrice(form.getItemPrice());
+		        newItem.setItemQuantity(form.getItemQuantity());
+		        cart.add(newItem);
+		    }
+
+		    session.setAttribute(session_cart, cart);
+		}
+		
+		//カートの商品を削除するメソッド
+		public void removeCart(HttpSession session, String itemId) {
+			List<ItemForm> cart = getCart(session);
+			List<ItemForm> newCart = new ArrayList<>();
+			for (ItemForm item : cart) {
+				if(!item.getItemId().equals(String.valueOf(itemId))) {
+					newCart.add(item);
 				}
-				session.setAttribute(session_cart, newCart);
 			}
-				
-			//カートを全削除(セッション破棄)をするメソッド
-			public void clearCart(HttpSession session) {
-				session.removeAttribute(session_cart);
-			}
+			session.setAttribute(session_cart, newCart);
+		}
 			
-			//カートの数量を変更するメソッド
-			public void updateQuantity(HttpSession session, String itemId, String quantity) {
-			    List<ItemForm> cart = getCart(session);
-			    for(ItemForm item : cart) {
-			        if(item.getItemId().equals(itemId)) {
-			          item.setItemQuantity(quantity);
-			            break;
-			        }
-			    }
-			    session.setAttribute(session_cart, cart);
-			}
+		//カートを全削除(セッション破棄)をするメソッド
+		public void clearCart(HttpSession session) {
+			session.removeAttribute(session_cart);
+		}
+		
+		//カートの数量を変更するメソッド
+		public void updateQuantity(HttpSession session, String itemId, int itemQuantity) {
+		    List<ItemForm> cart = getCart(session);
+		    for(ItemForm item : cart) {
+		        if(item.getItemId().equals(itemId)) {
+		          item.setItemQuantity(itemQuantity);
+		            break;
+		        }
+		    }
+		    session.setAttribute(session_cart, cart);
+		}
 
 }
