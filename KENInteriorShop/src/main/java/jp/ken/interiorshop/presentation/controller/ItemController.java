@@ -22,6 +22,7 @@ public class ItemController {
 		this.itemService = itemService;
 	}
 	
+	//トップページを表示
 	@GetMapping(value = "/item")
 	public String showItem(Model model) throws Exception {
 		List<ItemForm> formItemList = itemService.getItemList();
@@ -32,6 +33,21 @@ public class ItemController {
 		
 		
 		return "item";
+		
+		
+	}
+	
+	//カートに追加ボタン押下
+	@PostMapping(value = "/cart/add")
+	public String addToCart(@RequestParam String itemId, @RequestParam String itemname, @RequestParam String itemprice, HttpSession session) {
+		ItemForm item = new ItemForm();
+		item.setItemid(itemId);
+		item.setItemname(itemname);
+		item.setItemprice(itemprice);
+		itemService.addToCart(session, item);
+	
+		
+        return "redirect:" ;  // 直前のページにリダイレクト
 	}
 	
 	@GetMapping(value = "/cart")
