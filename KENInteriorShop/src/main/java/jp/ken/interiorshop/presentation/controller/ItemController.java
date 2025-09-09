@@ -23,14 +23,20 @@ public class ItemController {
 	}
 	
 	@GetMapping(value = "/item")
-	public String showItem(Model model) throws Exception {
+	public String showItem(Model model, HttpSession session) throws Exception {
 		List<ItemForm> formItemList = itemService.getItemList();
 		List<CategoryForm> forCategorymList = itemService.getCategoryList();
 		model.addAttribute("itemForm", formItemList);
 		model.addAttribute("categoryForm", forCategorymList);
 		model.addAttribute("itemNewForm", new ItemForm());
 		
-		
+		 // ログイン判定
+	    Boolean loggedIn = (session.getAttribute("user") != null);
+	    model.addAttribute("userLoggedIn", loggedIn);
+
+	    // 現在のURL（簡易的）
+	    model.addAttribute("currentUrl", "/item");
+
 		return "item";
 	}
 	
