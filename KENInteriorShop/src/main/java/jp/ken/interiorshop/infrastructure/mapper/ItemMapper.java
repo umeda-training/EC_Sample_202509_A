@@ -14,11 +14,11 @@ public class ItemMapper implements RowMapper<ItemEntity> {
 	public ItemEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ItemEntity itemEntity = new ItemEntity();
 		
-		itemEntity.setItemid(rs.getInt("item_id"));
-		itemEntity.setItemname(rs.getString("item_name"));
-		itemEntity.setCategoryid(rs.getInt("category_id"));
-		itemEntity.setItemprice(rs.getInt("item_price"));
-		itemEntity.setRsdate(rs.getDate("rs_date"));
+		itemEntity.setItemId(rs.getInt("item_id"));
+		itemEntity.setItemName(rs.getString("item_name"));
+		itemEntity.setCategoryId(rs.getInt("category_id"));
+		itemEntity.setItemPrice(rs.getInt("item_price"));
+		itemEntity.setRsDate(rs.getDate("rs_date"));
 		itemEntity.setImage(rs.getString("image"));
 		itemEntity.setExplanation(rs.getString("explanation"));
 		itemEntity.setStock(rs.getInt("stock"));

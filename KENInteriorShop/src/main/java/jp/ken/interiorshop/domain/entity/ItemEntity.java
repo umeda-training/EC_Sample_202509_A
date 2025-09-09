@@ -8,19 +8,19 @@ import lombok.Data;
 public class ItemEntity {
 
 	//商品ID
-	private int itemid;
+	private int itemId;
 	
 	//商品名
-	private String itemname;
+	private String itemName;
 	
 	//カテゴリーID
-	private int categoryid;
+	private int categoryId;
 	
 	//価格
-	private int itemprice;
+	private int itemPrice;
 	
 	//発売開始日
-	private Date rsdate;
+	private Date rsDate;
 	
 	//画像データ
 	private String image;
@@ -30,4 +30,6 @@ public class ItemEntity {
 	
 	//在庫数
 	private int stock;
+	
+	private CategoryEntity category;
 }
