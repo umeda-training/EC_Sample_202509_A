@@ -33,9 +33,9 @@ public class ItemController {
 	@PostMapping(value = "/cart/add")
 	public String addToCart(@RequestParam String itemId, @RequestParam String itemname, @RequestParam String itemprice, @RequestParam String redirectUrl, HttpSession session) {
 		ItemForm item = new ItemForm();
-		item.setItemid(itemId);
-		item.setItemname(itemname);
-		item.setItemprice(itemprice);
+		item.setItemId(itemId);
+		item.setItemName(itemname);
+		item.setItemPrice(itemprice);
 		itemService.addToCart(session, item);
 	
 		//元のページに戻る

@@ -8,19 +8,19 @@ import lombok.Data;
 public class ItemForm implements Serializable {
 	
 	//商品ID
-	private String itemid;
+	private String itemId;
 	
 	//商品名
-	private String itemname;
+	private String itemName;
 	
 	//カテゴリーID
-	private String categoryid;
+	private String categoryId;
 	
 	//価格
-	private String itemprice;
+	private String itemPrice;
 	
 	//発売開始日
-	private String rsdate;
+	private String rsDate;
 	
 	//画像データ
 	private String image;
