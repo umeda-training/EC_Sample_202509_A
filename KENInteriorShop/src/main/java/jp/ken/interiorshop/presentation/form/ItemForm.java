@@ -14,7 +14,7 @@ public class ItemForm implements Serializable {
 	private String itemName;
 	
 	//商品数
-	private String itemQuantity;
+	private int itemQuantity = 1; // デフォルト 1
 	
 	//カテゴリーID
 	private String categoryId;
