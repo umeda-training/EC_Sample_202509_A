@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.domain.entity.CategoryEntity;
@@ -146,5 +147,31 @@ public class ItemService {
 		    }
 		    session.setAttribute(session_cart, cart);
 		}
+		
+		//検索結果を表示するメソッド
+		 public List<ItemEntity> searchItem(@RequestParam(value = "keyword", required = false) String keyword,
+				 @RequestParam(value = "categoryId", required = false) Integer categoryId) throws Exception {
+		        boolean hasKeyword = keyword != null && !keyword.isEmpty();
+		        boolean hasCategory = categoryId != null;
+
+		        if (hasKeyword && hasCategory) {
+		            return itemSearchRepository.getItemByKeywordAndCategoryList(keyword, categoryId);
+		        } else if (hasKeyword) {
+		            return itemSearchRepository.getItemByKeywordList(keyword);
+		        } else if (hasCategory) {
+		            return itemSearchRepository.getItemByCategoryList(categoryId);
+		        } else {
+		            return itemSearchRepository.getItemAllList();
+		        }
+		 }
+
+			//商品IDから商品詳細を取得するメソッド
+			public ItemForm getItemById(int itemId) throws Exception {
+				// RepositoryからEntityを取得
+				ItemEntity entity = itemSearchRepository.getItemById(itemId);
+				// Entity → Form へ変換
+				ItemForm form = modelMapper.map(entity, ItemForm.class);
+				return form;
+			}
 
 }

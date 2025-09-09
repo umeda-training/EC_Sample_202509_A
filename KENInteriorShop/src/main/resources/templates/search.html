@@ -68,7 +68,7 @@
     <header th:insert="~{header :: header_area}"></header>
 		<main>
 			<body>
-			    <h1>商品一覧</h1>
+			    <h1>商品検索結果</h1>
 			    
 			    <div class="item-row">
 					<form th:action="@{/search}" th:object="${itemForm}" method="post">
@@ -84,7 +84,7 @@
 				</div>
 			    
 			    <div class="item-list">
-			        <!-- 商品を繰り返し -->
+			        <!-- 検索結果に該当する商品を繰り返し -->
 			        <div class="item-card" th:each="items : ${itemForm}">
 							<h3 th:text="${items.itemName}"></h3>
 				            <a th:href="@{/item/detail/{id}(id=${items.itemId})}">

@@ -5,29 +5,23 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.application.service.ItemService;
+import jp.ken.interiorshop.domain.entity.ItemEntity;
 import jp.ken.interiorshop.presentation.form.CategoryForm;
 import jp.ken.interiorshop.presentation.form.ItemForm;
 
 @Controller
-@SessionAttributes("currentUrl")
 public class ItemController {
 
 	private ItemService itemService;
 	
 	public ItemController(ItemService itemService) {
 		this.itemService = itemService;
-	}
-	
-	@ModelAttribute("currentUrl")
-	public String currentUrl() {
-		return null;
 	}
 	
 	@GetMapping(value = "/item")
@@ -39,7 +33,7 @@ public class ItemController {
 		model.addAttribute("itemNewForm", new ItemForm());
 		
 		 // ログイン判定
-	    Boolean loggedIn = (session.getAttribute("login") != null);
+	    Boolean loggedIn = (session.getAttribute("user") != null);
 	    model.addAttribute("userLoggedIn", loggedIn);
 
 	    // 現在のURL（簡易的）
@@ -54,9 +48,11 @@ public class ItemController {
         model.addAttribute("cartItems", cartItems);
 
         // 合計金額を計算（仮）
-        int totalExclTax = cartItems.stream()
-                .mapToInt(item -> Integer.parseInt(item.getItemPrice()))
-                .sum();
+        int totalExclTax = 0;
+
+        for (ItemForm item : cartItems) {
+            totalExclTax += Integer.parseInt(item.getItemPrice());
+        }
         int totalTax = (int)(totalExclTax * 0.1);
         int totalInclTax = totalExclTax + totalTax;
 
@@ -101,4 +97,54 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	    itemService.updateQuantity(session, itemId, itemQuantity);
 	    return "redirect:/cart";
 	}
+	
+	//検索結果表示メソッドの呼び出し
+	@PostMapping("/search")
+	public String showSearchResult(@RequestParam(value = "keyword", required = false) String keyword,
+	                               @RequestParam(value = "categoryId", required = false) Integer categoryId,
+	                               Model model) throws Exception {
+	    List<ItemEntity> itemList = itemService.searchItem(keyword, categoryId);
+	    model.addAttribute("itemList", itemList); // ← ここで検索結果を渡す
+	    return "search";
+	}
+	
+    // 商品詳細画面表示
+    @GetMapping("/item/detail/{itemId}")
+    public String showItemDetail(
+            @PathVariable("itemId") String itemId,
+            @RequestParam(name = "from", required = false, defaultValue = "item") String from,
+            Model model) throws Exception {
+
+        // String → int 変換して既存の getItemById を呼び出す
+        int id = Integer.parseInt(itemId);
+        ItemForm item = itemService.getItemById(id);
+
+        // モデルにセット
+        model.addAttribute("item", item);
+        model.addAttribute("from", from);
+
+        return "itemDetails";
+    }
+
+    // 商品詳細ページからカート追加
+    @PostMapping("/item/detail/{itemId}/add-to-cart")
+    public String addToCartOnDetail(
+            @PathVariable("itemId") String itemId,
+            HttpSession session,
+            Model model) throws Exception {
+
+        // String → int 変換して既存の getItemById を呼び出す
+        int id = Integer.parseInt(itemId);
+        ItemForm item = itemService.getItemById(id);
+
+        // セッションに追加
+        itemService.addToCart(session, item);
+
+        // モデルに再セットして同じページに戻す
+        model.addAttribute("item", item);
+        model.addAttribute("from", "item");
+
+        return "itemDetails";
+    }
+
 }
