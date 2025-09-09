@@ -73,7 +73,7 @@ public class ItemService {
 			}
 			
 			//カートの商品を削除するメソッド
-			public void removeCart(HttpSession session, int itemId) {
+			public void removeCart(HttpSession session, String itemId) {
 				List<ItemForm> cart = getCart(session);
 				List<ItemForm> newCart = new ArrayList<>();
 				for (ItemForm item : cart) {
@@ -88,4 +88,17 @@ public class ItemService {
 			public void clearCart(HttpSession session) {
 				session.removeAttribute(session_cart);
 			}
+			
+			//カートの数量を変更するメソッド
+			public void updateQuantity(HttpSession session, String itemId, String quantity) {
+			    List<ItemForm> cart = getCart(session);
+			    for(ItemForm item : cart) {
+			        if(item.getItemId().equals(itemId)) {
+			          item.setItemQuantity(quantity);
+			            break;
+			        }
+			    }
+			    session.setAttribute(session_cart, cart);
+			}
+
 }
