@@ -149,7 +149,8 @@ public class ItemService {
 		}
 		
 		//検索結果を表示するメソッド
-		 public List<ItemEntity> searchItem(@RequestParam("keyword") String keyword, @RequestParam("categoryId") Integer categoryId) throws Exception {
+		 public List<ItemEntity> searchItem(@RequestParam(value = "keyword", required = false) String keyword,
+				 @RequestParam(value = "categoryId", required = false) Integer categoryId) throws Exception {
 		        boolean hasKeyword = keyword != null && !keyword.isEmpty();
 		        boolean hasCategory = categoryId != null;
 

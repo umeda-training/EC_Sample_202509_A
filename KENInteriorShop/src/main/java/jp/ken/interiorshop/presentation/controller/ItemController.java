@@ -98,8 +98,8 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	
 	//検索結果表示メソッドの呼び出し
 	@PostMapping("/search")
-	public String showSearchResult(@RequestParam("keyword") String keyword,
-	                               @RequestParam("categoryId") Integer categoryId,
+	public String showSearchResult(@RequestParam(value = "keyword", required = false) String keyword,
+	                               @RequestParam(value = "categoryId", required = false) Integer categoryId,
 	                               Model model) throws Exception {
 	    List<ItemEntity> itemList = itemService.searchItem(keyword, categoryId);
 	    model.addAttribute("itemList", itemList); // ← ここで検索結果を渡す
