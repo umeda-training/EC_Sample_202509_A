@@ -60,16 +60,23 @@
 			<body>
 			    <h1>商品一覧</h1>
 			    
+			    <div class="item-row">
+					<input th:field="*{itemname}">
+				</div>
+			    
 			    <div class="item-list">
 			        <!-- 商品を繰り返し -->
 			        <div class="item-card" th:each="items : ${itemForm}">
 							<h3 th:text="${items.itemname}"></h3>
 				            <img th:src="@{/images/{img}(img=${items.image})}" th:alt="${items.itemname}">
 				            <p th:text="'¥' + ${items.itemprice}"></p>
-					            <form th:action="@{/cart/add}" method="post">
-					                <input type="hidden" th:name="itemId" th:value="${items.itemid}">
-					                <button type="submit">カートに追加</button>
-					            </form>
+								<form th:action="@{/cart/add}" method="post">
+    								<input type="hidden" name="itemId" th:value="${items.itemid}">
+    								<input type="hidden" name="itemname" th:value="${items.itemname}">
+   									<input type="hidden" name="itemprice" th:value="${items.itemprice}">
+   									<input type="hidden" name="redirectUrl" value="/item"> 
+    								<button type="submit">カートに追加</button>
+								</form>
 			        </div>
 			    </div>
 			</body>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品詳細ページ</title>
+</head>
+<body>
+
+<div id="wrapper" style="width: 80%; margin: 0 auto;">
+
+    <!-- 共通ヘッダーを挿入 -->
+    <header th:insert="~{header :: header_area}"></header>
+
+    <!-- ページ固有のタイトル部分 -->
+    <header style="text-align: center; margin: 20px 0;">
+        <!-- タイトルを商品名サイズに -->
+        <h1 style="font-size: 4em;">商品詳細ページ</h1>
+    </header>
+
+    <main>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <!-- 左：商品情報 -->
+                <td style="vertical-align: top; width: 50%; padding-right: 20px; font-size: 2em;">
+                    <h2 style="font-size: 2em;" th:text="${item.itemName}">商品名</h2>
+                    <p th:text="${item.explanation}">商品説明</p>
+                    <p>
+                        価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円
+                        &nbsp;&nbsp;
+                        <!-- 税込価格 10% を計算して表示 -->
+                        (税込: <span th:text="${#numbers.formatDecimal(item.itemPrice * 1.1, 0, 'COMMA')}">0</span> 円)
+                    </p>
+                    <p>発売開始日: <span th:text="${item.rsDate}">2023/10/01</span></p>
+                </td>
+
+                <!-- 右：商品画像 -->
+                <td style="vertical-align: top; width: 50%; text-align: center;">
+                    <img th:src="@{/${item.image}}" th:alt="${item.itemName}" width="450">
+                </td>
+            </tr>
+        </table>
+
+        <!-- 動的版：from によって戻る先を切り替え -->
+        <div style="text-align: center; margin-top: 30px;">
+            <!-- from が 'item' の場合：商品一覧画面に戻る -->
+            <form th:if="${from == 'item'}" th:action="@{/items/list}" method="get" style="display:inline;">
+                <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">戻る</button>
+            </form>
+
+            <!-- from が 'search' の場合：商品検索画面に戻る -->
+            <form th:if="${from == 'search'}" th:action="@{/items/search}" method="get" style="display:inline;">
+                <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">戻る</button>
+            </form>
+
+            <!-- カート追加ボタン：現在の商品のカートに追加 -->
+            <form th:action="@{|/items/${item.itemId}/add-to-cart|}" method="post" style="display:inline;">
+                <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">カートに追加</button>
+            </form>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
