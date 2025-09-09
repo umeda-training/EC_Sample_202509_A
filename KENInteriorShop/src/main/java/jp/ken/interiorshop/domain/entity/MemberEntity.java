@@ -5,19 +5,19 @@ import lombok.Data;
 @Data
 public class MemberEntity {
 	
-	private int member_id;
+	private int memberId;
 	
-	private String member_name;
+	private String memberName;
 	
-	private String member_kana;
+	private String memberKana;
 	
 	private String mail;
 	
 	private String password;
 	
-	private String phone_number;
+	private String phoneNumber;
 	
-	private String postal_code;
+	private String postalCode;
 	
 	private String address1;
 	
@@ -25,7 +25,7 @@ public class MemberEntity {
 	
 	private String address3;
 	
-	private int credit_no;
+	private int creditNo;
 	
 	private int cancel;
 
