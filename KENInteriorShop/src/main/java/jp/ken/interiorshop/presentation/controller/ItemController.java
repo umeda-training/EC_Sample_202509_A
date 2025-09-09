@@ -41,4 +41,20 @@ public class ItemController {
 		//元のページに戻る
         return "redirect:" + redirectUrl;
 	}
+	
+	//カート削除ボタン押下
+	@PostMapping("/cart/remove")
+	public String removeCart(@RequestParam("removeitemId") String itemId, HttpSession session) {
+	    itemService.removeCart(session, itemId);
+	    return "redirect:/cart"; 
+	}
+	
+	//全削除ボタン押下
+	@PostMapping("/cart/clear")
+	public String clearCart(HttpSession session) {
+	    itemService.clearCart(session); 
+	    return "redirect:/cart";        
+	}
+
+
 }
