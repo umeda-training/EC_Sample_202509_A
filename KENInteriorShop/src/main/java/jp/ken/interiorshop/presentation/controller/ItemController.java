@@ -98,6 +98,6 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	@PostMapping("/search")
 	public String showSearchResult(@RequestParam("keyword") String keyword, @RequestParam("categoryId") int categoryId) throws Exception {
 		itemService.searchItem(keyword, categoryId);
-		return "redirect:/item";
+		return "search";
 	}
 }
