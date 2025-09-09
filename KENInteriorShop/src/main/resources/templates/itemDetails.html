@@ -31,7 +31,7 @@
                         価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円
                         &nbsp;&nbsp;
                         <!-- 税込価格 10% を計算して表示 -->
-                        (税込: <span th:text="${#numbers.formatDecimal(item.itemPrice * 1.1, 0, 'COMMA')}">0</span> 円)
+                       <!-- (税込: <span th:text="${#numbers.formatDecimal(item.itemPrice * 1.1, 0, 'COMMA')}">0</span> 円)-->
                     </p>
                     <!-- 発売日 -->
                     <p>発売開始日: <span th:text="${item.rsDate}">2023/10/01</span></p>
