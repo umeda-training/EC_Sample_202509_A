@@ -15,16 +15,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.LoginService;
+import jp.ken.interiorshop.application.service.RegistService;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
+import jp.ken.interiorshop.presentation.form.MemberRegistForm;
 
 @Controller
 @SessionAttributes("loginUser")
 public class MemberController {
 	
 	private LoginService loginService;
+	private RegistService registService;
 	
-	public MemberController(LoginService loginService) {
+	public MemberController(LoginService loginService, RegistService registService) {
 		this.loginService = loginService;
+		this.registService = registService;
 	}
 	
     @ModelAttribute("userLoggedIn")
@@ -84,12 +88,6 @@ public class MemberController {
 					
 	}
 	
-	//新規登録画面へ遷移
-	@GetMapping(value = "/registration")
-	public String regist() {
-		return "/regist";
-	}
-	
 	//「戻る」を押したら元の画面へ
 	@GetMapping(value="/back")
 	public String back(HttpSession session) {
@@ -107,6 +105,38 @@ public class MemberController {
 		Object backUrl = session.getAttribute("currentUrl");
 		return "redirect:" + backUrl;
 	}
+	
+    //個人情報登録
+	//個人情報登録画面へ遷移
+    @GetMapping("/registration")
+  public String toRegist(Model model) throws Exception{
+ 	model.addAttribute("memberRegistForm", new MemberRegistForm());
+ 	
+ 	return "regist";
+  }
+  
+    @PostMapping("/registration")
+    public String showRegist(@Valid @ModelAttribute MemberRegistForm memberRegistForm, BindingResult rs, Model model)throws Exception{
+ 	model.addAttribute("memberRegistForm", memberRegistForm);
+ 	
+  	if(rs.hasErrors()) {
+ 		return "regist";
+  	}
+ 	
+  	return "registConfirm";
+  }
+  
+  
+  @PostMapping("/registDB")
+  public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm, Model model) throws Exception{
+  	int numberOfRow = registService.registMembers(memberRegistForm);
+  	if(numberOfRow == 0) {
+  		model.addAttribute("error", "このメールアドレスはすでに登録されています");
+  		return "redirect:/error";
+  	}
+  	
+  	return "registComplete";
+  }
 	
 }
 

@@ -17,7 +17,6 @@ import jp.ken.interiorshop.application.service.RegistService;
 import jp.ken.interiorshop.domain.entity.ItemEntity;
 import jp.ken.interiorshop.presentation.form.CategoryForm;
 import jp.ken.interiorshop.presentation.form.ItemForm;
-import jp.ken.interiorshop.presentation.form.MemberRegistForm;
 
 @Controller
 @SessionAttributes("loginUser")
@@ -160,36 +159,5 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     }
     
     
-    //個人情報登録
-//    @GetMapping("/registration")
-//    public String toRegist(Model model) throws Exception{
-//    	model.addAttribute("memberRegistForm", new MemberRegistForm());
-//    	
-//    	return "regist";
-//    }
-//    
-//    @PostMapping("/registration")
-//    public String showRegist(@Valid @ModelAttribute MemberRegistForm memberRegistForm, BindingResult rs, Model model)throws Exception{
-//    	model.addAttribute("memberRegistForm", memberRegistForm);
-//    	
-//    	if(rs.hasErrors()) {
-//    		return "regist";
-//    	}
-//    	
-//    	return "registConfirm";
-//    }
-    
-    
-    @PostMapping("/registDB")
-    public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm, Model model) throws Exception{
-    	int numberOfRow = registService.registMembers(memberRegistForm);
-    	if(numberOfRow == 0) {
-    		model.addAttribute("error", "このメールアドレスはすでに登録されています");
-    		return "regist";
-    	}
-    	
-    	return "registComplete";
-    }
- 
 
 }
