@@ -36,8 +36,8 @@ public class ItemController {
 		model.addAttribute("itemNewForm", new ItemForm());
 		
 		 // ログイン判定
-	    Boolean loggedIn = (session.getAttribute("user") != null);
-	    model.addAttribute("userLoggedIn", loggedIn);
+	    //Boolean loggedIn = (session.getAttribute("user") != null);
+	    //model.addAttribute("userLoggedIn", loggedIn);
 
 	    // 現在のURL（簡易的）
 	    model.addAttribute("currentUrl", "/item");
