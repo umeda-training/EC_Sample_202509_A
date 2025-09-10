@@ -8,7 +8,7 @@ import lombok.Data;
 public class OrderForm implements Serializable {
 
 	//登録住所or別住所
-	private String addressOption;
+	private String addressOption = "member";
 	
 	//注文ID
 	private String orderId;

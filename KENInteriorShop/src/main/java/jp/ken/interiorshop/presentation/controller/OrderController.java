@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.presentation.form.ItemForm;
+import jp.ken.interiorshop.presentation.form.OrderForm;
 
 @Controller
 public class OrderController {
 
 	
 	
-	@GetMapping(value="/order/checkout")
+	@GetMapping(value="/order/confirm")
 	public String confirmOrder(HttpSession session, Model model) {
 	    Integer total = (Integer) session.getAttribute("cartTotal");
 	    List<ItemForm> itemNames = (List<ItemForm>) session.getAttribute("cart");
@@ -25,10 +26,13 @@ public class OrderController {
 	            totalQuantity += item.getItemQuantity(); // Itemに数量フィールドがある想定
 	        }
 	    }
-
+	    
+	    OrderForm orderForm = new OrderForm(); 
+	    
 	    model.addAttribute("totalQuantity", totalQuantity);
 	    model.addAttribute("cartTotal", total);
 	    model.addAttribute("cartItemNames", itemNames);
+	    model.addAttribute("orderForm", orderForm);
 
 	    return "ordercheck"; //ordercheck.html
 	}

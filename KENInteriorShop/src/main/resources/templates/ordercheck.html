@@ -40,29 +40,53 @@
 	<form th:action="@{/ordercomp}" th:object="${OrderForm}" method="post">
 		<div style="display: flex; gap: 5px;">
 			<label>
-				お届け先<input type="radio" th:field="*{addressOption}" value="登録住所" />
+				お届け先<input type="radio" th:field="*{addressOption}" value="member" />
 				<p>ご登録いただいてる住所に配達</p>
 			</label>
-			
+		</div>
+		
 			<label>
-				お届け先<input type="radio" th:field="*{addressOption}" value="別住所" />
+				お届け先<input type="radio" th:field="*{addressOption}" value="other" />
 				<p>それ以外の方は、下記に住所を入力してください</p>
 			</label>
 			
-			<p>名前: <input type="text" th:field="*{name}"></p>
-		    <p>フリガナ: <input type="text" th:field="*{nameKana}"></p>
-		    <p>電話番号: <input type="text" th:field="*{phone}"></p>
-		    <p>郵便番号: <input type="text" th:field="*{zipCode}"></p>
-		    <p>都道府県: <input type="text" th:field="*{prefecture}"></p>
-		    <p>市区町村: <input type="text" th:field="*{city}"></p>
-		    <p>番地: <input type="text" th:field="*{street}"></p>
-		</div>
-		<button type="submit" style="padding:12px 24px; font-size:18px;">注文する</button>
+			<p>名前: <input type="text" th:field="*{shippingForm.name}"></p>
+		    <p>フリガナ: <input type="text" th:field="*{shippingForm.shippingKana}"></p>
+		    <p>電話番号: <input type="text" th:field="*{shippingForm.shippingphone}"></p>
+		    <p>郵便番号: <input type="text" th:field="*{shippingForm.shippingPostalCode}"></p>
+		    <p>都道府県: <input type="text" th:field="*{shippingForm.shippingAddress1}"></p>
+		    <p>市区町村: <input type="text" th:field="*{shippingForm.shippingAddress2}"></p>
+		    <p>番地: <input type="text" th:field="*{shippingForm.shippingAddress3}"></p>
+		    
+		    <div style="display: flex; gap: 5px;">
+				<label>
+					お支払い方法<input type="radio" th:field="*{addressOption}" value="COD"代引き />
+				</label>
+				
+				<label>
+					<input type="radio" th:field="*{addressOption}" value="Card"クレジットカード />
+				</label>
+			</div>
+			
+			<div style="display: flex; gap: 5px;">
+				<label>
+					発送指定<input type="radio" th:field="*{addressOption}" value="Standard"通常配送 checked />
+				</label>
+				
+				<label>
+					<input type="radio" th:field="*{addressOption}" value="Specify"日時指定 />
+				</label>
+				
+				<input type="text"/>/
+				<input type="text"/>/
+				<input type="text"/>
+			</div>
+		
+			<button type="submit" style="padding:12px 24px; font-size:18px;">確定</button>
 	</form>
 	
 </div>
 
-<!-- 注文ボタンと買い物を続けるリンク -->
 <div style="text-align:center; margin-top:20px;">
     <a href="cart.html">戻る</a>
 </div>
