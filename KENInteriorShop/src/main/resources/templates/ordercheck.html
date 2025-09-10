@@ -37,7 +37,7 @@
 <!-- 住所・支払方法・発送の選択 -->
 <div style="text-align:center;">
 	<p style="margin: 5px 0 5px 0;">お間違いなければ、下記フォームを入力の上、注文ボタンを押下してください</p>
-	<form th:action="@{/ordercomp}" th:object="${OrderForm}" method="post">
+	<form th:action="@{/ordercomp}" th:object="${orderForm}" method="post">
 		<div style="display: flex; gap: 5px;">
 			<label>
 				お届け先<input type="radio" th:field="*{addressOption}" value="member" />
@@ -50,7 +50,7 @@
 				<p>それ以外の方は、下記に住所を入力してください</p>
 			</label>
 			
-			<p>名前: <input type="text" th:field="*{shippingForm.name}"></p>
+			<p>名前: <input type="text" th:field="*{shippingForm.shippingName}"></p>
 		    <p>フリガナ: <input type="text" th:field="*{shippingForm.shippingKana}"></p>
 		    <p>電話番号: <input type="text" th:field="*{shippingForm.shippingphone}"></p>
 		    <p>郵便番号: <input type="text" th:field="*{shippingForm.shippingPostalCode}"></p>

@@ -32,6 +32,9 @@ public class OrderForm implements Serializable {
 	private String shippingFrag;
 	
 	//注文詳細のネストForm
-	private OrderDetailsForm orderDetailsForm;
+	private OrderDetailsForm orderDetailsForm = new OrderDetailsForm();
+	
+	//発送のネストForm
+	private ShippingForm shippingForm = new ShippingForm();
 	
 }
