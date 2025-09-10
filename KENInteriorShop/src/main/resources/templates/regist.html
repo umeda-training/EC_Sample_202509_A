@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>個人情報登録</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    form div, fieldset {
+      margin-bottom: 1em;
+      text-align: left;
+    }
+    fieldset {
+      border: 1px solid #ccc;
+      padding: 1em;
+    }
+    legend {
+      font-weight: bold;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>個人情報登録</h1>
+    <form th:action="@{/register}" th:object="${userForm}" method="post">
+      <fieldset>
+        <legend>個人情報</legend>
+        <div>
+          <label for="fullName">氏名 (必須)</label>
+          <input id="fullName" type="text" th:field="*{fullName}" required>
+        </div>
+        <div>
+          <label for="kana">フリガナ (必須)</label>
+          <input id="kana" type="text" th:field="*{kana}" required>
+        </div>
+        <div>
+          <label for="email">メールアドレス (必須)</label>
+          <input id="email" type="email" th:field="*{email}" required>
+        </div>
+        <div>
+          <label for="password">パスワード (必須)</label>
+          <input id="password" type="password" th:field="*{password}" required>
+        </div>
+        <div>
+          <label for="phone">電話番号 (必須)</label>
+          <input id="phone" type="tel" th:field="*{phone}" required>
+        </div>
+        <div>
+          <label for="postal">郵便番号 (任意)</label>
+          <input id="postal" type="text" th:field="*{postal}">
+        </div>
+        <div>
+          <label for="prefecture">住所（都道府県） (必須)</label>
+          <input id="prefecture" type="text" th:field="*{prefecture}" required>
+        </div>
+        <div>
+          <label for="city">住所（市区町村） (必須)</label>
+          <input id="city" type="text" th:field="*{city}" required>
+        </div>
+        <div>
+          <label for="street">住所（番地） (必須)</label>
+          <input id="street" type="text" th:field="*{street}" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>クレジットカード (任意)</legend>
+        <div>
+          <label for="cardNumber">カード番号</label>
+          <input id="cardNumber" type="text" th:field="*{cardNumber}">
+        </div>
+        <div>
+          <label for="expMonth">有効期限（月）</label>
+          <input id="expMonth" type="text" th:field="*{expMonth}">
+        </div>
+        <div>
+          <label for="expYear">有効期限（年）</label>
+          <input id="expYear" type="text" th:field="*{expYear}">
+        </div>
+        <div>
+          <label for="cardName">カード名義</label>
+          <input id="cardName" type="text" th:field="*{cardName}">
+        </div>
+        <div>
+          <label for="cvc">セキュリティコード</label>
+          <input id="cvc" type="password" th:field="*{cvc}">
+        </div>
+      </fieldset>
+
+      <div class="buttons">
+        <button type="submit">登録</button>
+        <button type="button" onclick="history.back()">戻る</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
