@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.ItemService;
 import jp.ken.interiorshop.application.service.RegistService;
 import jp.ken.interiorshop.domain.entity.ItemEntity;
@@ -163,23 +161,23 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     
     
     //個人情報登録
-    @GetMapping("/registration")
-    public String toRegist(Model model) throws Exception{
-    	model.addAttribute("memberRegistForm", new MemberRegistForm());
-    	
-    	return "regist";
-    }
-    
-    @PostMapping("/registration")
-    public String showRegist(@Valid @ModelAttribute MemberRegistForm memberRegistForm, BindingResult rs, Model model)throws Exception{
-    	model.addAttribute("memberRegistForm", memberRegistForm);
-    	
-    	if(rs.hasErrors()) {
-    		return "regist";
-    	}
-    	
-    	return "registConfirm";
-    }
+//    @GetMapping("/registration")
+//    public String toRegist(Model model) throws Exception{
+//    	model.addAttribute("memberRegistForm", new MemberRegistForm());
+//    	
+//    	return "regist";
+//    }
+//    
+//    @PostMapping("/registration")
+//    public String showRegist(@Valid @ModelAttribute MemberRegistForm memberRegistForm, BindingResult rs, Model model)throws Exception{
+//    	model.addAttribute("memberRegistForm", memberRegistForm);
+//    	
+//    	if(rs.hasErrors()) {
+//    		return "regist";
+//    	}
+//    	
+//    	return "registConfirm";
+//    }
     
     
     @PostMapping("/registDB")
