@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.domain.entity.CategoryEntity;
@@ -52,7 +51,7 @@ public class ItemService {
 	}
 	
 	//EntityからFormへ値を変換(アイテム)
-	private List<ItemForm> convertItemForm(List<ItemEntity> entityList) {
+	public List<ItemForm> convertItemForm(List<ItemEntity> entityList) {
 		
 		List<ItemForm> formList = new ArrayList<ItemForm>();
 		
@@ -65,7 +64,7 @@ public class ItemService {
 	}
 	
 	//EntityからFormへ値を変換(カテゴリー)
-	private List<CategoryForm> convertCategoryForm(List<CategoryEntity> entityList) {
+	public List<CategoryForm> convertCategoryForm(List<CategoryEntity> entityList) {
 		
 		List<CategoryForm> formList = new ArrayList<CategoryForm>();
 		
@@ -149,8 +148,7 @@ public class ItemService {
 		}
 		
 		//検索結果を表示するメソッド
-		 public List<ItemEntity> searchItem(@RequestParam(value = "keyword", required = false) String keyword,
-				 @RequestParam(value = "categoryId", required = false) Integer categoryId) throws Exception {
+		 public List<ItemEntity> searchItem(String keyword, Integer categoryId) throws Exception {
 		        boolean hasKeyword = keyword != null && !keyword.isEmpty();
 		        boolean hasCategory = categoryId != null;
 
