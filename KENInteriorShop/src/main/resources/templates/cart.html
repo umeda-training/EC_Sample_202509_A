@@ -63,10 +63,10 @@
     <p>税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
 </div>
 
-<!-- 注文ボタンと買い物を続けるリンク -->
+<!-- 注文確認ボタンと買い物を続けるリンク -->
 <div style="text-align:center; margin-top:20px;">
-    <form th:action="@{/order/checkout}" method="get">
-        <button type="submit" style="padding:12px 24px; font-size:18px;">注文する</button>
+    <form th:action="@{/order/confirm}" method="get">
+        <button type="submit" style="padding:12px 24px; font-size:18px;">注文確認画面へ</button>
     </form>
     <br>
 	<a th:href="@{/item}">買い物を続ける</a>
