@@ -105,6 +105,10 @@
     				</div>
 				</div>
 				
+				<p th:if="${#lists.isEmpty(itemForm)}" style="color: red; font-weight: bold;">
+    				条件に一致する商品はありませんでした。キーワードやカテゴリを変えて再検索してください。
+				</p>
+				
 			</body>
 		</main>
 		<footer></footer>
