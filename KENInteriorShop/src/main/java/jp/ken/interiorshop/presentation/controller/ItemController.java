@@ -123,13 +123,12 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     // 商品詳細画面表示
     @GetMapping("/item/detail/{itemId}")
     public String showItemDetail(
-            @PathVariable("itemId") String itemId,
+            @PathVariable("itemId") int itemId,
             @RequestParam(name = "from", required = false, defaultValue = "item") String from,
             Model model) throws Exception {
 
-        // String → int 変換して既存の getItemById を呼び出す
-        int id = Integer.parseInt(itemId);
-        ItemForm item = itemService.getItemById(id);
+    	// DBから商品取得
+        ItemForm item = itemService.getItemById(itemId);
 
         // モデルにセット
         model.addAttribute("item", item);
