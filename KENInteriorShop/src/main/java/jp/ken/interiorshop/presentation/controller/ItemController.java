@@ -40,7 +40,7 @@ public class ItemController {
 		model.addAttribute("itemNewForm", new ItemForm());
 
 	    // 現在のURL（簡易的）
-	    model.addAttribute("currentUrl", "/item");
+	    session.setAttribute("currentUrl", "/item");
 
 		return "item";
 	}
@@ -54,7 +54,9 @@ public class ItemController {
         int totalExclTax = 0;
 
         for (ItemForm item : cartItems) {
-            totalExclTax += Integer.parseInt(item.getItemPrice());
+            int price = Integer.parseInt(item.getItemPrice());
+            int quantity = item.getItemQuantity();
+            totalExclTax += price * quantity;
         }
         int totalTax = (int)(totalExclTax * 0.1);
         int totalInclTax = totalExclTax + totalTax;
