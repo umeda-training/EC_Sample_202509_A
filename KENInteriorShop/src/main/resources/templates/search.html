@@ -60,6 +60,14 @@
 			width: 850px;
 			margin: 0px auto;
 		}
+		
+		.flash-message {
+   			color: green;
+    		font-weight: bold;
+   			text-align: right;   /* 右寄せ */
+    		margin: 10px 20px;   /* 任意で余白調整 */
+		}
+    
     </style>
 	</head>
 <body>
@@ -68,6 +76,11 @@
     <header th:insert="~{header :: header_area}"></header>
 		<main>
 			    <h1>商品検索結果</h1>
+			    
+			     <!-- フラッシュメッセージ表示 -->
+    			<div th:if="${message}" class="flash-message">
+    				<p th:text="${message}"></p>
+				</div>
 			    
 			    <div class="item-row">
 					<form th:action="@{/search}" method="post">
