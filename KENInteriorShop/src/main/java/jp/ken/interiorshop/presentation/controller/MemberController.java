@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -129,20 +128,14 @@ public class MemberController {
   
   
   @PostMapping("/registDB")
-  public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm, RedirectAttributes redirectAttributes, Model model) throws Exception{
+  public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm,  Model model) throws Exception{
   	int numberOfRow = registService.registMembers(memberRegistForm);
   	if(numberOfRow == 0) {
-  		 redirectAttributes.addFlashAttribute("error", "このメールアドレスはすでに登録されています");
-  		return "redirect:/error";
+  		 model.addAttribute("error", "このメールアドレスはすでに登録されています");
+  		return "/error";
   	}
   	
   	return "registComplete";
-  }
-  
-  //エラー用
-  @GetMapping("/error")
-  public String errorPage() {
-      return "error";
   }
 	
 }
