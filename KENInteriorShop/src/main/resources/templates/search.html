@@ -67,7 +67,6 @@
 		    <!-- 共通ヘッダーを挿入 -->
     <header th:insert="~{header :: header_area}"></header>
 		<main>
-			<body>
 			    <h1>商品検索結果</h1>
 			    
 			    <div class="item-row">
@@ -86,8 +85,8 @@
 					<label>商品画像をクリックすると詳細ページに遷移します</label>
 				</div>
 
-			    <!-- 検索結果に該当する商品を繰り返し -->			    
-				<div class="item-list">
+			    <!-- 検索結果がある場合に該当する商品を繰り返し -->			    
+				<div class="item-list" th:if="${not #lists.isEmpty(itemForm)}">
     				<div class="item-card" th:each="items : ${itemForm}">
        					<h3 th:text="${items.itemName}"></h3>
         					<a th:href="@{/item/detail/{id}(id=${items.itemId})}">
@@ -104,12 +103,12 @@
         				</form>
     				</div>
 				</div>
-				
+
+				<!-- 検索結果がない場合のメッセージ表示 -->
 				<p th:if="${#lists.isEmpty(itemForm)}" style="color: red; font-weight: bold;">
     				条件に一致する商品はありませんでした。キーワードやカテゴリを変えて再検索してください。
 				</p>
 				
-			</body>
 		</main>
 		<footer></footer>
 	</div>
