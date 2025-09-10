@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.LoginService;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
@@ -26,10 +27,10 @@ public class MemberController {
 		this.loginService = loginService;
 	}
 	
-	@ModelAttribute("currentUrl")
-	public String currentUrl() {
-		return null;
-	}
+    @ModelAttribute("userLoggedIn")
+    public boolean userLoggedIn() {
+    	return false;
+    }
 	
 	//ログイン画面表示
 	@GetMapping("/login")
@@ -40,7 +41,7 @@ public class MemberController {
 	//ログイン処理
 	@PostMapping(value = "/login", params = "doLogin")
 	 public String doLogin(@Valid @ModelAttribute("loginUser")MemberLoginForm form,
-			 BindingResult result,Model model, HttpServletRequest request) {
+			 BindingResult result,Model model, HttpServletRequest request, HttpSession session) {
 		
 		//エラー時にログイン画面に戻る
 		if(result.hasErrors()) {
@@ -67,6 +68,7 @@ public class MemberController {
 			if(match) {
 				//メールアドレスとパスワードが一致していれば、ログイン情報をsessionに保存
 				model.addAttribute("loginUser", login);
+				session.setAttribute("userLoggedIn", true);
 				return "redirect:/item";
 			}else {
 				model.addAttribute("loginError", "メールアドレスまたはパスワードが正しくありません");
@@ -88,16 +90,19 @@ public class MemberController {
 	}
 	
 	//「戻る」を押したら元の画面へ
-	@GetMapping(value="/login", params = "back")
-	public String back(HttpServletRequest request, Model model) {
-		return "redirect:/item";
+	@GetMapping(value="/back")
+	public String back(HttpSession session) {
+		Object backUrl = session.getAttribute("currentUrl");
+		return "redirect:" + backUrl;
 	}
 	
 	//ログアウト処理
 	@GetMapping(value = "/logout")
-	public String doLogout(@ModelAttribute("loginUser") MemberLoginForm form, SessionStatus status, Model model) {
+	public String doLogout(@ModelAttribute("loginUser") MemberLoginForm form, SessionStatus status, Model model,
+			HttpSession session) {
 		status.setComplete();
 		model.addAttribute("loginUser", null);
+		session.setAttribute("userLoggedIn", false);
 		return "redirect:/item";
 	}
 	

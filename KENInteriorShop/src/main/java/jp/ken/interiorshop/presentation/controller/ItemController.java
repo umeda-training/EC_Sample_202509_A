@@ -40,7 +40,7 @@ public class ItemController {
 		model.addAttribute("itemNewForm", new ItemForm());
 
 	    // 現在のURL（簡易的）
-	    model.addAttribute("currentUrl", "/item");
+	    session.setAttribute("currentUrl", "/item");
 
 		return "item";
 	}
