@@ -23,6 +23,11 @@
     </table>
 </div>
 
+<!-- 商品合計数 -->
+<div style="text-align:center;">
+    <p>商品合計数: <span th:text="${totalQuantity}"></span></p>
+</div>
+
 <!-- 合計金額 -->
 <div style="width:300px; padding:5px; margin:50px 0 0 760px; text-align:left;">
     <p>税別合計: <span th:text="${totalExclTax}">0</span> 円</p>
@@ -36,7 +41,7 @@
         <button type="submit" style="padding:12px 24px; font-size:18px;">注文する</button>
     </form>
     <br>
-    <a href="/">買い物を続ける</a>
+    <a href="cart.html">戻る</a>
 </div>
 
 </body>
