@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カート一覧</title>
+</head>
+<body>
+<h2 style="text-align:center;">カート</h2>
+
+<div style="text-align:center;">
+    <table border="1" style="margin:0 auto;" id="cart-table">
+        <tr>
+            <th>商品名</th>
+            <th>税別価格</th>
+            <th>数量</th>
+        </tr>
+        <tr th:each="item : ${cartItemNames}">
+            <!-- 商品情報 -->
+            <td th:text="${item.itemName}">商品名</td>
+            <td th:text="${item.itemPrice}">1000</td>
+            <td th:text="${item.itemQuantity}">1</td>
+        </tr>
+    </table>
+</div>
+
+<!-- 合計金額 -->
+<div style="width:300px; padding:5px; margin:50px 0 0 760px; text-align:left;">
+    <p>税別合計: <span th:text="${totalExclTax}">0</span> 円</p>
+    <p>消費税合計: <span th:text="${totalTax}">0</span> 円</p>
+    <p>税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
+</div>
+
+<!-- 注文ボタンと買い物を続けるリンク -->
+<div style="text-align:center; margin-top:20px;">
+    <form th:action="@{/order/checkout}" method="get">
+        <button type="submit" style="padding:12px 24px; font-size:18px;">注文する</button>
+    </form>
+    <br>
+    <a href="/">買い物を続ける</a>
+</div>
+
+</body>
+</html>

@@ -20,6 +20,11 @@ public class RegistService {
 	public int registMembers(MemberRegistForm form) throws Exception{
 		MemberEntity entity = null;
 		
+		//メールアドレス重複チェック
+		if(memberRepository.existsByMail(form.getMail())) {
+			return 0;
+		}
+		
 		entity = convert(form);
 		
 		int resultRow = memberRepository.regist(entity);

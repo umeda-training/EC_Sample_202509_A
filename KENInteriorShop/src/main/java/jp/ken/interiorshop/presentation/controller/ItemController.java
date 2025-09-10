@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.ItemService;
 import jp.ken.interiorshop.application.service.RegistService;
 import jp.ken.interiorshop.domain.entity.ItemEntity;
@@ -169,8 +171,13 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     }
     
     @PostMapping("/registration")
-    public String showRegist(@ModelAttribute MemberRegistForm memberRegistForm, Model model)throws Exception{
+    public String showRegist(@Valid @ModelAttribute MemberRegistForm memberRegistForm, BindingResult rs, Model model)throws Exception{
     	model.addAttribute("memberRegistForm", memberRegistForm);
+    	
+    	if(rs.hasErrors()) {
+    		return "regist";
+    	}
+    	
     	return "registConfirm";
     }
     
@@ -179,7 +186,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm, Model model) throws Exception{
     	int numberOfRow = registService.registMembers(memberRegistForm);
     	if(numberOfRow == 0) {
-    		model.addAttribute("error", "登録に失敗しました");
+    		model.addAttribute("error", "このメールアドレスはすでに登録されています");
     		return "regist";
     	}
     	
