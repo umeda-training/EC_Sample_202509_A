@@ -17,7 +17,7 @@ public class OrderController {
 	@GetMapping(value="/order/checkout")
 	public String confirmOrder(HttpSession session, Model model) {
 	    Integer total = (Integer) session.getAttribute("cartTotal");
-	    List<ItemForm> itemNames = (List<ItemForm>) session.getAttribute("session_cart");
+	    List<ItemForm> itemNames = (List<ItemForm>) session.getAttribute("cart");
 	    
 	    int totalQuantity = 0;
 	    if (itemNames != null) {

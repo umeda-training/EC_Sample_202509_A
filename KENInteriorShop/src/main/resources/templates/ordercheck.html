@@ -23,16 +23,20 @@
     </table>
 </div>
 
-<!-- 商品合計数 -->
-<div style="text-align:center;">
-    <p>商品合計数: <span th:text="${totalQuantity}"></span></p>
+<!-- 合計金額・合計数量 -->
+<div style="width:300px; padding:5px; margin:50px 0 0 760px; display: flex; flex-direction: column; align-items: flex-end;">
+	<p style="margin: 5px 0 5px 0;">税別合計: <span th:text="${totalExclTax}">0</span> 円</p>
+	<p style="margin: 5px 0 5px 0;">消費税合計: <span th:text="${totalTax}">0</span> 円</p>
+
+    <div style="display: flex; gap: 5px;">
+		<p style="margin: 5px 0 5px 0;">商品合計数: <span th:text="${totalQuantity}">0</span>個</p>
+		<p style="margin: 5px 0 5px 0;">税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
+	</div>
 </div>
 
 <!-- 合計金額 -->
-<div style="width:300px; padding:5px; margin:50px 0 0 760px; text-align:left;">
-    <p>税別合計: <span th:text="${totalExclTax}">0</span> 円</p>
-    <p>消費税合計: <span th:text="${totalTax}">0</span> 円</p>
-    <p>税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
+<div style="width:300px; padding:5px; margin:50px 0 0 760px; display: flex; flex-direction: column; align-items: flex-end;">
+	
 </div>
 
 <!-- 注文ボタンと買い物を続けるリンク -->
