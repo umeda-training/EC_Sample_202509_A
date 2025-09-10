@@ -40,15 +40,16 @@
 	<form th:action="@{/ordercomp}" th:object="${orderForm}" method="post">
 		<div style="display: flex; gap: 5px;">
 			<label>
-				お届け先<input type="radio" th:field="*{addressOption}" value="member" />
-				<p>ご登録いただいてる住所に配達</p>
+				
+				<p>お届け先<input type="radio" th:field="*{addressOption}" value="member" />ご登録いただいてる住所に配達</p>
 			</label>
 		</div>
 		
+		<div style="display: flex; gap: 5px;">
 			<label>
-				お届け先<input type="radio" th:field="*{addressOption}" value="other" />
-				<p>それ以外の方は、下記に住所を入力してください</p>
+				<p>お届け先<input type="radio" th:field="*{addressOption}" value="other" />それ以外の方は、下記に住所を入力してください</p>
 			</label>
+		</div>
 			
 			<p>名前: <input type="text" th:field="*{shippingForm.shippingName}"></p>
 		    <p>フリガナ: <input type="text" th:field="*{shippingForm.shippingKana}"></p>
@@ -60,26 +61,30 @@
 		    
 		    <div style="display: flex; gap: 5px;">
 				<label>
-					お支払い方法<input type="radio" th:field="*{addressOption}" value="COD"代引き />
-				</label>
-				
-				<label>
-					<input type="radio" th:field="*{addressOption}" value="Card"クレジットカード />
+					<p>お支払い方法<input type="radio" th:field="*{payment}" value="COD"/>代引き</p>
 				</label>
 			</div>
 			
 			<div style="display: flex; gap: 5px;">
 				<label>
-					発送指定<input type="radio" th:field="*{addressOption}" value="Standard"通常配送 checked />
+					<p><input type="radio" th:field="*{payment}" value="Card"/>クレジットカード</p>
 				</label>
-				
+			</div>
+			
+			<div style="display: flex; gap: 5px;">
 				<label>
-					<input type="radio" th:field="*{addressOption}" value="Specify"日時指定 />
+					<p>発送指定<input type="radio" th:field="*{shipping}" value="Standard"/>通常配送</p>
+				</label>
+			</div>
+				
+			<div style="display: flex; gap: 5px;">
+				<label>
+					<p><input type="radio" th:field="*{shipping}" value="Specify"/>日時指定</p>
 				</label>
 				
-				<input type="text"/>/
-				<input type="text"/>/
-				<input type="text"/>
+				<input type="text" placeholder="1～12"/>月
+				<input type="text" placeholder="1～31"/>日
+				<input type="text" placeholder="00：00"/>
 			</div>
 		
 			<button type="submit" style="padding:12px 24px; font-size:18px;">確定</button>

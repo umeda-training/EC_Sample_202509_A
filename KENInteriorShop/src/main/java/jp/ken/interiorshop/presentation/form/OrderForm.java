@@ -25,6 +25,9 @@ public class OrderForm implements Serializable {
 	//支払方法
 	private String payment;
 	
+	//配送指定
+	private String shipping;
+	
 	//発送先ID
 	private String shippingId;
 	
