@@ -128,11 +128,11 @@ public class MemberController {
   
   
   @PostMapping("/registDB")
-  public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm, Model model) throws Exception{
+  public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm,  Model model) throws Exception{
   	int numberOfRow = registService.registMembers(memberRegistForm);
   	if(numberOfRow == 0) {
-  		model.addAttribute("error", "このメールアドレスはすでに登録されています");
-  		return "redirect:/error";
+  		 model.addAttribute("error", "このメールアドレスはすでに登録されています");
+  		return "/error";
   	}
   	
   	return "registComplete";
