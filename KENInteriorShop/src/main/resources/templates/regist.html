@@ -43,23 +43,28 @@
         <legend>個人情報</legend>
         <div>
           <label for="fullName">氏名 (必須)</label>
-          <input id="fullName" type="text" th:field="*{memberName}" required>
+          <input id="fullName" type="text" th:field="*{memberName}">
+          <span th:if="${#fields.hasErrors('memberName')}" th:errors="*{memberName}" style="color:red"></span>
         </div>
         <div>
           <label for="kana">フリガナ (必須)</label>
-          <input id="kana" type="text" th:field="*{memberKana}" required>
+          <input id="kana" type="text" th:field="*{memberKana}">
+          <span th:if="${#fields.hasErrors('memberKana')}" th:errors="*{memberKana}" style="color:red"></span>
         </div>
         <div>
           <label for="email">メールアドレス (必須)</label>
-          <input id="email" type="email" th:field="*{mail}" required>
+          <input id="email" type="email" th:field="*{mail}">
+          <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" style="color:red"></span>
         </div>
         <div>
           <label for="password">パスワード (必須)</label>
-          <input id="password" type="password" th:field="*{password}" required>
+          <input id="password" type="password" th:field="*{password}">
+          <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></span>
         </div>
         <div>
           <label for="phone">電話番号 (必須)</label>
-          <input id="phone" type="tel" th:field="*{phoneNumber}" required>
+          <input id="phone" type="tel" th:field="*{phoneNumber}">
+          <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color:red"></span>
         </div>
         <div>
           <label for="postal">郵便番号 (任意)</label>
@@ -67,15 +72,18 @@
         </div>
         <div>
           <label for="prefecture">住所（都道府県） (必須)</label>
-          <input id="prefecture" type="text" th:field="*{address1}" required>
+          <input id="prefecture" type="text" th:field="*{address1}">
+          <span th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}" style="color:red"></span>
         </div>
         <div>
           <label for="city">住所（市区町村） (必須)</label>
-          <input id="city" type="text" th:field="*{address2}" required>
+          <input id="city" type="text" th:field="*{address2}">
+          <span th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}" style="color:red"></span>
         </div>
         <div>
           <label for="street">住所（番地） (必須)</label>
-          <input id="street" type="text" th:field="*{address3}" required>
+          <input id="street" type="text" th:field="*{address3}">
+          <span th:if="${#fields.hasErrors('address3')}" th:errors="*{address3}" style="color:red"></span>
         </div>
       </fieldset>
 

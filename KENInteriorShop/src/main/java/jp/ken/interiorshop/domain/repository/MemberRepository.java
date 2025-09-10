@@ -93,5 +93,12 @@ public class MemberRepository {
 		int numberOfRow = jdbcTemplate.update(sql, parameters);
 		return numberOfRow;
 			}
+	
+	//メールアドレス重複チェック
+	public boolean existsByMail(String mail) {
+		String sql = "SELECT COUNT(*) FROM members WHERE mail = ?";
+		Integer count = jdbcTemplate.queryForObject(sql, Integer.class, mail);
+		return count != null && count > 0;
+	}
 }
 
