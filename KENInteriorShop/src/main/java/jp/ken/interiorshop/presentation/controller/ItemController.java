@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.application.service.ItemService;
@@ -17,6 +18,7 @@ import jp.ken.interiorshop.presentation.form.CategoryForm;
 import jp.ken.interiorshop.presentation.form.ItemForm;
 
 @Controller
+@SessionAttributes("loginUser")
 public class ItemController {
 
 	private ItemService itemService;
