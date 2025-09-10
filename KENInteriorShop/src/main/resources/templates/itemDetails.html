@@ -11,10 +11,10 @@
     <!-- 共通ヘッダーを挿入 -->
     <header th:insert="~{header :: header_area}"></header>
 
-    <!-- ページ固有のタイトル部分 -->
+    <!-- ページタイトル -->
     <header style="text-align: center; margin: 20px 0;">
         <!-- タイトルを商品名サイズに -->
-        <h1 style="font-size: 4em;">商品詳細ページ</h1>
+        <h1 style="font-size: 4em;" th:text="${item.itemName}">商品詳細ページ</h1>
     </header>
 
     <main>
@@ -22,39 +22,67 @@
             <tr>
                 <!-- 左：商品情報 -->
                 <td style="vertical-align: top; width: 50%; padding-right: 20px; font-size: 2em;">
+                    <!-- 商品名 -->
                     <h2 style="font-size: 2em;" th:text="${item.itemName}">商品名</h2>
+                    <!-- 商品説明 -->
                     <p th:text="${item.explanation}">商品説明</p>
+                    <!-- 価格表示 -->
                     <p>
                         価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円
                         &nbsp;&nbsp;
                         <!-- 税込価格 10% を計算して表示 -->
-                        (税込: <span th:text="${#numbers.formatDecimal(item.itemPrice * 1.1, 0, 'COMMA')}">0</span> 円)
+                       <!-- (税込: <span th:text="${#numbers.formatDecimal(item.itemPrice * 1.1, 0, 'COMMA')}">0</span> 円)-->
                     </p>
+                    <!-- 発売日 -->
                     <p>発売開始日: <span th:text="${item.rsDate}">2023/10/01</span></p>
                 </td>
 
                 <!-- 右：商品画像 -->
                 <td style="vertical-align: top; width: 50%; text-align: center;">
-                    <img th:src="@{/${item.image}}" th:alt="${item.itemName}" width="450">
+                    <img th:src="@{/images/{img}(img=${item.image})}" th:alt="${item.itemName}" width="450">
                 </td>
             </tr>
         </table>
 
-        <!-- 動的版：from によって戻る先を切り替え -->
+        <!-- 戻るボタン / カート追加 -->
         <div style="text-align: center; margin-top: 30px;">
-            <!-- from が 'item' の場合：商品一覧画面に戻る -->
-            <form th:if="${from == 'item'}" th:action="@{/items/list}" method="get" style="display:inline;">
+
+		<!-- from が 'item' の場合：商品一覧画面に戻る -->
+            <form th:if="${from == 'item'}" th:action="@{/item}" method="get" style="display:inline;">
                 <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">戻る</button>
             </form>
 
             <!-- from が 'search' の場合：商品検索画面に戻る -->
-            <form th:if="${from == 'search'}" th:action="@{/items/search}" method="get" style="display:inline;">
+            <form th:if="${from == 'search'}" th:action="@{/search}" method="get" style="display:inline;">
                 <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">戻る</button>
             </form>
 
-            <!-- カート追加ボタン：現在の商品のカートに追加 -->
-            <form th:action="@{|/items/${item.itemId}/add-to-cart|}" method="post" style="display:inline;">
-                <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">カートに追加</button>
+
+            <!-- ========================= -->
+            <!--      カート追加ボタン       -->
+            <!-- ========================= -->
+            <form th:action="@{/cart/add}" method="post" style="display:inline;">
+                
+                <!-- ★サーバーに送信する商品情報を hidden で保持 -->
+                <!-- 商品ID（DBで特定するために必須） -->
+                <input type="hidden" name="itemId" th:value="${item.itemId}">
+                <!-- 商品名（カート画面表示用） -->
+                <input type="hidden" name="itemName" th:value="${item.itemName}">
+                <!-- 商品価格（カート画面表示用 / 計算用） -->
+                <input type="hidden" name="itemPrice" th:value="${item.itemPrice}">
+                <!-- 数量指定 -->
+                <input type="hidden" name="itemQuantity" value="1">
+
+                <!-- ★カート追加後に戻るページを指定するためのURL -->
+                <!-- 「商品詳細ページ」にリダイレクトできるように仕込む -->
+				<input type="hidden" name="redirectUrl" 
+       				th:value="@{/item/detail/{itemId}(itemId=${item.itemId},from=${from},keyword=${keyword},categoryId=${categoryId})}">
+
+
+                <!-- ユーザーが押す実際のボタン -->
+                <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">
+                    カートに追加
+                </button>
             </form>
         </div>
     </main>
