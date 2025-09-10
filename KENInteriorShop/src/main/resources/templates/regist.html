@@ -38,20 +38,20 @@
 <body>
   <div class="container">
     <h1>個人情報登録</h1>
-    <form th:action="@{/register}" th:object="${userForm}" method="post">
+    <form th:action="@{/registration}" th:object="${memberRegistForm}" method="post">
       <fieldset>
         <legend>個人情報</legend>
         <div>
           <label for="fullName">氏名 (必須)</label>
-          <input id="fullName" type="text" th:field="*{fullName}" required>
+          <input id="fullName" type="text" th:field="*{memberName}" required>
         </div>
         <div>
           <label for="kana">フリガナ (必須)</label>
-          <input id="kana" type="text" th:field="*{kana}" required>
+          <input id="kana" type="text" th:field="*{memberKana}" required>
         </div>
         <div>
           <label for="email">メールアドレス (必須)</label>
-          <input id="email" type="email" th:field="*{email}" required>
+          <input id="email" type="email" th:field="*{mail}" required>
         </div>
         <div>
           <label for="password">パスワード (必須)</label>
@@ -59,23 +59,23 @@
         </div>
         <div>
           <label for="phone">電話番号 (必須)</label>
-          <input id="phone" type="tel" th:field="*{phone}" required>
+          <input id="phone" type="tel" th:field="*{phoneNumber}" required>
         </div>
         <div>
           <label for="postal">郵便番号 (任意)</label>
-          <input id="postal" type="text" th:field="*{postal}">
+          <input id="postal" type="text" th:field="*{postalCode}">
         </div>
         <div>
           <label for="prefecture">住所（都道府県） (必須)</label>
-          <input id="prefecture" type="text" th:field="*{prefecture}" required>
+          <input id="prefecture" type="text" th:field="*{address1}" required>
         </div>
         <div>
           <label for="city">住所（市区町村） (必須)</label>
-          <input id="city" type="text" th:field="*{city}" required>
+          <input id="city" type="text" th:field="*{address2}" required>
         </div>
         <div>
           <label for="street">住所（番地） (必須)</label>
-          <input id="street" type="text" th:field="*{street}" required>
+          <input id="street" type="text" th:field="*{address3}" required>
         </div>
       </fieldset>
 
@@ -83,23 +83,23 @@
         <legend>クレジットカード (任意)</legend>
         <div>
           <label for="cardNumber">カード番号</label>
-          <input id="cardNumber" type="text" th:field="*{cardNumber}">
+          <input id="cardNumber" type="text" th:field="*{creditNo}">
         </div>
         <div>
           <label for="expMonth">有効期限（月）</label>
-          <input id="expMonth" type="text" th:field="*{expMonth}">
+          <input id="expMonth" type="text" th:field="*{creditMonth}">
         </div>
         <div>
           <label for="expYear">有効期限（年）</label>
-          <input id="expYear" type="text" th:field="*{expYear}">
+          <input id="expYear" type="text" th:field="*{creditYear}">
         </div>
         <div>
           <label for="cardName">カード名義</label>
-          <input id="cardName" type="text" th:field="*{cardName}">
+          <input id="cardName" type="text" th:field="*{creditName}">
         </div>
         <div>
           <label for="cvc">セキュリティコード</label>
-          <input id="cvc" type="password" th:field="*{cvc}">
+          <input id="cvc" type="password" th:field="*{securityCode}">
         </div>
       </fieldset>
 
