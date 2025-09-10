@@ -23,7 +23,7 @@
 						<input th:field="*{password}" value="${password}">
 						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
 					</div>
-					
+		
 					<div class="form-row">
 						<span class="errors" th:text="${loginError}"></span>
 					</div>
@@ -32,23 +32,16 @@
 						<input type="submit" name="doLogin" value="ログイン" class="btn">
 					</div>
 				</form>
-<<<<<<< HEAD
 				<form th:action="@{/registration}" method="get">
-=======
->>>>>>> refs/remotes/origin/test
 					<div class="form-row">
-						<input type="submit" name="regist" value="新規登録" class="btn">
+					<input type="submit" name="regist" value="新規登録" class="btn">
 					</div>
 				</form>
 				<form th:action="@{/}" method="get">
 					<div class="form-row">
-						<input type="submit" name="back" value="戻る" class="btn">
+					<input type="submit" name="back" value="戻る" class="btn">
 					</div>
-<<<<<<< HEAD
 				</form>
-				
-=======
->>>>>>> refs/remotes/origin/test
 			</div>
 		</main>
 		<footer></footer>
