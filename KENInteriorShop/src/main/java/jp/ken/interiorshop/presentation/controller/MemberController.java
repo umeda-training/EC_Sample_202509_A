@@ -72,7 +72,7 @@ public class MemberController {
 			
 			if(match) {
 				//メールアドレスとパスワードが一致していれば、ログイン情報をsessionに保存
-				model.addAttribute("loginUser", login);
+				model.addAttribute("loginUser", form);
 				//session.setAttribute("userLoggedIn", true);
 				Object backUrl = session.getAttribute("currentUrl");
 				return "redirect:" + backUrl;
