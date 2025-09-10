@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,12 +66,7 @@ public class ItemController {
 	
 	//カートに追加ボタン押下
 	@PostMapping(value = "/cart/add")
-	public String addToCart(@RequestParam String itemId, @RequestParam String itemName, @RequestParam String itemPrice, @RequestParam int itemQuantity, @RequestParam String redirectUrl, HttpSession session) {
-		ItemForm item = new ItemForm();
-		item.setItemId(itemId);
-		item.setItemName(itemName);
-		item.setItemPrice(itemPrice);
-		item.setItemQuantity(itemQuantity);
+	public String addToCart(@ModelAttribute ItemForm item, @RequestParam String redirectUrl, HttpSession session) {
 		itemService.addToCart(session, item);
 	
 		//元のページに戻る
