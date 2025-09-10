@@ -84,7 +84,7 @@ public class MemberController {
 	}
 	
 	//新規登録画面へ遷移
-	@GetMapping(value = "/login", params = "regist")
+	@GetMapping(value = "/registration")
 	public String regist() {
 		return "/regist";
 	}
