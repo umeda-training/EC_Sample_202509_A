@@ -57,8 +57,7 @@ public class MemberRepository {
 	public int regist(MemberEntity memberEntity) throws Exception{
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO");
-		sb.append(" members");
+		sb.append("INSERT INTO members");
 		sb.append(" (");
 		sb.append("member_name");
 		sb.append(", member_kana");
@@ -73,7 +72,7 @@ public class MemberRepository {
 		sb.append(", cancel");
 		sb.append(")");
 		sb.append(" VALUES");
-		sb.append(" (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		sb.append(" (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		String sql = sb.toString();
 		
 		Object[] parameters = {
@@ -86,9 +85,10 @@ public class MemberRepository {
 			        memberEntity.getAddress1(),
 			        memberEntity.getAddress2(),
 			        memberEntity.getAddress3(),
-			        memberEntity.getCreditNo()
+			        memberEntity.getCreditNo(),
+			        0
 			    };
-
+		
 		int numberOfRow = jdbcTemplate.update(sql, parameters);
 		return numberOfRow;
 			}

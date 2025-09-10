@@ -25,7 +25,7 @@ public class MemberEntity {
 	
 	private String address3;
 	
-	private int creditNo;
+	private Integer creditNo;
 	
 	//退会フラグ。初期値は0で固定
 	private int cancel = 0;
