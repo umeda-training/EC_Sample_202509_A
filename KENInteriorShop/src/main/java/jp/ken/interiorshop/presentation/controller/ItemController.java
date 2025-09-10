@@ -13,18 +13,22 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.application.service.ItemService;
+import jp.ken.interiorshop.application.service.RegistService;
 import jp.ken.interiorshop.domain.entity.ItemEntity;
 import jp.ken.interiorshop.presentation.form.CategoryForm;
 import jp.ken.interiorshop.presentation.form.ItemForm;
+import jp.ken.interiorshop.presentation.form.MemberRegistForm;
 
 @Controller
 @SessionAttributes("loginUser")
 public class ItemController {
 
 	private ItemService itemService;
+	private RegistService registService;
 	
-	public ItemController(ItemService itemService) {
+	public ItemController(ItemService itemService, RegistService registService) {
 		this.itemService = itemService;
+		this.registService = registService;
 	}
 	
 	@GetMapping(value = "/item")
@@ -34,10 +38,6 @@ public class ItemController {
 		model.addAttribute("itemForm", formItemList);
 		model.addAttribute("categoryForm", forCategorymList);
 		model.addAttribute("itemNewForm", new ItemForm());
-		
-		 // ログイン判定
-	    Boolean loggedIn = (session.getAttribute("user") != null);
-	    model.addAttribute("userLoggedIn", loggedIn);
 
 	    // 現在のURL（簡易的）
 	    model.addAttribute("currentUrl", "/item");
@@ -141,13 +141,12 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     // 商品詳細ページからカート追加
     @PostMapping("/item/detail/{itemId}/add-to-cart")
     public String addToCartOnDetail(
-            @PathVariable("itemId") String itemId,
+            @PathVariable("itemId") int itemId,
             HttpSession session,
             Model model) throws Exception {
 
-        // String → int 変換して既存の getItemById を呼び出す
-        int id = Integer.parseInt(itemId);
-        ItemForm item = itemService.getItemById(id);
+    	 // DBから商品取得
+        ItemForm item = itemService.getItemById(itemId);
 
         // セッションに追加
         itemService.addToCart(session, item);
@@ -157,6 +156,25 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
         model.addAttribute("from", "item");
 
         return "itemDetails";
+    }
+    
+    //個人情報登録
+    @GetMapping("/registration")
+    public String toRegist(Model model) throws Exception{
+    	model.addAttribute("memberRegistForm", new MemberRegistForm());
+    	
+    	return "regist";
+    }
+    
+    @PostMapping("/registration")
+    public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm, Model model) throws Exception{
+    	int numberOfRow = registService.registMembers(memberRegistForm);
+    	if(numberOfRow == 0) {
+    		model.addAttribute("error", "登録に失敗しました");
+    		return "regist";
+    	}
+    	
+    	return "redirect:/complete";
     }
 
 }
