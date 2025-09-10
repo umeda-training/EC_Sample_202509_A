@@ -19,7 +19,7 @@ import jp.ken.interiorshop.presentation.form.CategoryForm;
 import jp.ken.interiorshop.presentation.form.ItemForm;
 
 @Controller
-//@SessionAttributes("loginUser")
+@SessionAttributes("loginUser")
 public class ItemController {
 
 	private ItemService itemService;
