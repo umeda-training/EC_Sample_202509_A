@@ -158,6 +158,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
         return "itemDetails";
     }
     
+    
     //個人情報登録
     @GetMapping("/registration")
     public String toRegist(Model model) throws Exception{
@@ -167,6 +168,13 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     }
     
     @PostMapping("/registration")
+    public String showRegist(@ModelAttribute MemberRegistForm memberRegistForm, Model model)throws Exception{
+    	model.addAttribute("memberRegistForm", memberRegistForm);
+    	return "registConfirm";
+    }
+    
+    
+    @PostMapping("/registDB")
     public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm, Model model) throws Exception{
     	int numberOfRow = registService.registMembers(memberRegistForm);
     	if(numberOfRow == 0) {
@@ -174,7 +182,8 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     		return "regist";
     	}
     	
-    	return "redirect:/complete";
+    	return "registComplete";
     }
+ 
 
 }
