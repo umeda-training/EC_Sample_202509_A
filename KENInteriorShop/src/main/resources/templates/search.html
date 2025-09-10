@@ -105,8 +105,8 @@
 				</div>
 
 				<!-- 検索結果がない場合のメッセージ表示 -->
-				<p th:if="${#lists.isEmpty(itemForm)}" style="color: red; font-weight: bold;">
-    				条件に一致する商品はありませんでした。キーワードやカテゴリを変えて再検索してください。
+				<p th:if="${itemForm.size() == 0}" style="color: red; font-weight: bold;">
+   				 条件に一致する商品はありませんでした。キーワードやカテゴリを変えて再検索してください。
 				</p>
 				
 		</main>
