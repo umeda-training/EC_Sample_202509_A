@@ -18,7 +18,7 @@ import jp.ken.interiorshop.application.service.LoginService;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
 
 @Controller
-@SessionAttributes("login")
+@SessionAttributes("loginUser")
 public class MemberController {
 	
 	private LoginService loginService;
@@ -27,10 +27,11 @@ public class MemberController {
 		this.loginService = loginService;
 	}
 	
-	@ModelAttribute("login")
-	public MemberLoginForm memberLoginForm() {
-		return new MemberLoginForm();
-	}
+	//ControllerAdviceで実装
+//	@ModelAttribute("loginUser")
+//	public MemberLoginForm memberLoginForm() {
+//		return new MemberLoginForm();
+//	}
 	
 	@ModelAttribute("currentUrl")
 	public String currentUrl() {
@@ -47,9 +48,6 @@ public class MemberController {
 	@PostMapping(value = "/login", params = "doLogin")
 	 public String doLogin(@Valid @ModelAttribute("login")MemberLoginForm form,
 			 BindingResult result,Model model, HttpServletRequest request) {
-		
-		//直前のURLを取得
-		//String url = request.getRequestURI();
 		
 		//エラー時にログイン画面に戻る
 		if(result.hasErrors()) {
@@ -80,8 +78,8 @@ public class MemberController {
 			
 			if(match) {
 				//メールアドレスとパスワードが一致していれば、ログイン情報をsessionに保存
-				model.addAttribute(login);
-				return "redirect:/item"; 
+				model.addAttribute("loginUser", login);
+				return "redirect:/item";
 			}else {
 				model.addAttribute("loginError", "従業員IDまたは氏名が正しくありません");
 				return "memberLogin";
@@ -104,19 +102,13 @@ public class MemberController {
 	//「戻る」を押したら元の画面へ
 	@GetMapping(value="/login", params = "back")
 	public String back(HttpServletRequest request, Model model) {
-		Object currentUrl = model.getAttribute("currentUrl");
-		String url = String.valueOf(currentUrl);
-		return url;
+		return "redirect:/item";
 	}
 	
 	//ログアウト処理
 	@GetMapping(value = "/logout")
 	public String doLogout(SessionStatus status, HttpServletRequest request, HttpSession session) {
-		
-		status.setComplete();
-		String url = String.valueOf(session.getAttribute("currentUrl"));
-		
-		return url;
+		return "redirect:/item";
 	}
 	
 }
