@@ -34,6 +34,4 @@ public class OrderForm implements Serializable {
 	//注文詳細のネストForm
 	private OrderDetailsForm orderDetailsForm;
 	
-	//発送のネストForm
-	private ShippingForm shippingForm;
 }

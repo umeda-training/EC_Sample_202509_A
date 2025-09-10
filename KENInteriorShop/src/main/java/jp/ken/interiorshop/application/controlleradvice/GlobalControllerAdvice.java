@@ -11,16 +11,17 @@ public class GlobalControllerAdvice {
 
 	 // ログインしているユーザー名
     @ModelAttribute("loginUser")
-//    public String addLoginUser(HttpSession session) {
-//        return (String) session.getAttribute("loginUser");
-//    }
 	public MemberLoginForm memberLoginForm(HttpSession session) {
     	return new MemberLoginForm();
     	}
 
     // ログインしているかどうか (true/false)
-    @ModelAttribute("userLoggedIn")
-    public boolean addUserLoggedIn(HttpSession session) {
-        return session.getAttribute("loginUser") != null;
+   @ModelAttribute("userLoggedIn")
+   public boolean addUserLoggedIn(@ModelAttribute("loginUser")MemberLoginForm form) {
+	    if(form.getMail() != null && form.getPassword() != null) {
+	    	return true;
+	    } else {
+	    	return false;
+	    }
     }
 }
