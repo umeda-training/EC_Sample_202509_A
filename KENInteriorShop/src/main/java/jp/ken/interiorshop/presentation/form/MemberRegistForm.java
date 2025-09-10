@@ -43,19 +43,19 @@ public class MemberRegistForm implements Serializable {
 	private String address3;
 	
 	//クレジットカード番号
-	private int creditNo;
+	private Integer creditNo;
 	
 	//有効期限(月)
-	private int creditMonth;
+	private Integer creditMonth;
 	
 	//有効期限(年)
-	private int creditYear;
+	private Integer creditYear;
 	
 	//カード名義
 	private String creditName;
 	
 	//セキュリティコード
-	private int securityCode;
+	private Integer securityCode;
 	
 	//退会フラグ 初期値は0
 	private Integer cancel = 0; 
