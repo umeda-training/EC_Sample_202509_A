@@ -136,6 +136,11 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 		//DBから商品取得
 	    ItemForm item = itemService.getItemById(itemId);
 	    
+	    // ---------- 追加: 税込価格を計算 ----------
+	    int price = Integer.parseInt(item.getItemPrice()); // itemPriceはString型なのでintに変換
+	    int taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%
+	    model.addAttribute("taxIncludedPrice", taxIncludedPrice);
+	    
 	    //モデルにセット
 	    model.addAttribute("item", item);
 	    model.addAttribute("from", from);
