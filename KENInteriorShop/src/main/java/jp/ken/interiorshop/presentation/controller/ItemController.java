@@ -161,6 +161,27 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
         return "itemDetails";
     }
     
-    
+    //検索結果画面から商品詳細ページに遷移するときに呼び出すメソッド
+    @GetMapping("/search")
+    public String showSearchResults(
+            @RequestParam(name = "keyword", required = false) String keyword,
+            @RequestParam(name = "categoryId", required = false) Integer categoryId,
+            Model model) throws Exception {
+
+        // 商品検索（Entity → Form に変換）
+        List<ItemEntity> itemEntity = itemService.searchItem(keyword, categoryId);
+        List<ItemForm> itemForm = itemService.convertItemForm(itemEntity);
+
+        // カテゴリ一覧取得
+        List<CategoryForm> categoryForm = itemService.getCategoryList();
+
+        // Modelに渡す
+        model.addAttribute("itemForm", itemForm);
+        model.addAttribute("categoryForm", categoryForm);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("categoryId", categoryId);
+
+        return "search"; // 検索結果を表示するビュー名
+    }
 
 }
