@@ -187,7 +187,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     	int numberOfRow = registService.registMembers(memberRegistForm);
     	if(numberOfRow == 0) {
     		model.addAttribute("error", "このメールアドレスはすでに登録されています");
-    		return "regist";
+    		return "redirect:/error";
     	}
     	
     	return "registComplete";
