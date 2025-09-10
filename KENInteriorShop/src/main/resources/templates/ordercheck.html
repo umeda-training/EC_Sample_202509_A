@@ -34,17 +34,36 @@
 	</div>
 </div>
 
-<!-- 合計金額 -->
-<div style="width:300px; padding:5px; margin:50px 0 0 760px; display: flex; flex-direction: column; align-items: flex-end;">
+<!-- 住所・支払方法・発送の選択 -->
+<div style="text-align:center;">
+	<p style="margin: 5px 0 5px 0;">お間違いなければ、下記フォームを入力の上、注文ボタンを押下してください</p>
+	<form th:action="@{/ordercomp}" th:object="${OrderForm}" method="post">
+		<div style="display: flex; gap: 5px;">
+			<label>
+				お届け先<input type="radio" th:field="*{addressOption}" value="登録住所" />
+				<p>ご登録いただいてる住所に配達</p>
+			</label>
+			
+			<label>
+				お届け先<input type="radio" th:field="*{addressOption}" value="別住所" />
+				<p>それ以外の方は、下記に住所を入力してください</p>
+			</label>
+			
+			<p>名前: <input type="text" th:field="*{name}"></p>
+		    <p>フリガナ: <input type="text" th:field="*{nameKana}"></p>
+		    <p>電話番号: <input type="text" th:field="*{phone}"></p>
+		    <p>郵便番号: <input type="text" th:field="*{zipCode}"></p>
+		    <p>都道府県: <input type="text" th:field="*{prefecture}"></p>
+		    <p>市区町村: <input type="text" th:field="*{city}"></p>
+		    <p>番地: <input type="text" th:field="*{street}"></p>
+		</div>
+		<button type="submit" style="padding:12px 24px; font-size:18px;">注文する</button>
+	</form>
 	
 </div>
 
 <!-- 注文ボタンと買い物を続けるリンク -->
 <div style="text-align:center; margin-top:20px;">
-    <form th:action="@{/order/checkout}" method="get">
-        <button type="submit" style="padding:12px 24px; font-size:18px;">注文する</button>
-    </form>
-    <br>
     <a href="cart.html">戻る</a>
 </div>
 
