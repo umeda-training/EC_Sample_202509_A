@@ -16,7 +16,7 @@ public class GlobalControllerAdvice {
 //    }
 	public MemberLoginForm memberLoginForm(HttpSession session) {
     	return new MemberLoginForm();
-    }
+    	}
 
     // ログインしているかどうか (true/false)
     @ModelAttribute("userLoggedIn")
