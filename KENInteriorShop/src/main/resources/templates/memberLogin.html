@@ -31,13 +31,18 @@
 					<div class="form-row">
 						<input type="submit" name="doLogin" value="ログイン" class="btn">
 					</div>
+				</form>
+				<form th:action="@{/registration}" method="get">
 					<div class="form-row">
 						<input type="submit" name="regist" value="新規登録" class="btn">
 					</div>
+				</form>
+				<form th:action="@{/}" method="get">
 					<div class="form-row">
 						<input type="submit" name="back" value="戻る" class="btn">
 					</div>
 				</form>
+				
 			</div>
 		</main>
 		<footer></footer>
