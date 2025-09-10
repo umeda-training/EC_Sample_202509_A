@@ -18,6 +18,9 @@
     </header>
 
     <main>
+		<div th:if="${message}" style="color: green; font-weight: bold; text-align: right; margin: 10px 20px;">
+   			 <p th:text="${message}"></p>
+		</div>
         <table style="width: 100%; border-collapse: collapse;">
             <tr>
                 <!-- 左：商品情報 -->
