@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.LoginService;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
@@ -50,11 +49,6 @@ public class MemberController {
 		
 		
 		try {
-			//入力されたメールアドレスとパスワードを取得
-			//MemberLoginForm searchForm = new MemberLoginForm();
-			//searchForm.setMail(form.getMail());
-			//searchForm.setPassword(form.getPassword());
-			
 			//全メンバー情報を取得し、リストに保存
 			List<MemberLoginForm> login = loginService.getMemberList(form);
 			
@@ -101,7 +95,9 @@ public class MemberController {
 	
 	//ログアウト処理
 	@GetMapping(value = "/logout")
-	public String doLogout(SessionStatus status, HttpServletRequest request, HttpSession session) {
+	public String doLogout(@ModelAttribute("loginUser") MemberLoginForm form, SessionStatus status, Model model) {
+		status.setComplete();
+		model.addAttribute("loginUser", null);
 		return "redirect:/item";
 	}
 	

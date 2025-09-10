@@ -141,13 +141,12 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     // 商品詳細ページからカート追加
     @PostMapping("/item/detail/{itemId}/add-to-cart")
     public String addToCartOnDetail(
-            @PathVariable("itemId") String itemId,
+            @PathVariable("itemId") int itemId,
             HttpSession session,
             Model model) throws Exception {
 
-        // String → int 変換して既存の getItemById を呼び出す
-        int id = Integer.parseInt(itemId);
-        ItemForm item = itemService.getItemById(id);
+    	 // DBから商品取得
+        ItemForm item = itemService.getItemById(itemId);
 
         // セッションに追加
         itemService.addToCart(session, item);
