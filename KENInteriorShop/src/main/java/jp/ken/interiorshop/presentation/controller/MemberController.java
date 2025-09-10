@@ -68,7 +68,7 @@ public class MemberController {
 			if(match) {
 				//メールアドレスとパスワードが一致していれば、ログイン情報をsessionに保存
 				model.addAttribute("loginUser", login);
-				session.setAttribute("userLoggedIn", true);
+				//session.setAttribute("userLoggedIn", true);
 				return "redirect:/item";
 			}else {
 				model.addAttribute("loginError", "メールアドレスまたはパスワードが正しくありません");
@@ -102,7 +102,7 @@ public class MemberController {
 			HttpSession session) {
 		status.setComplete();
 		model.addAttribute("loginUser", null);
-		session.setAttribute("userLoggedIn", false);
+		//session.setAttribute("userLoggedIn", false);
 		return "redirect:/item";
 	}
 	

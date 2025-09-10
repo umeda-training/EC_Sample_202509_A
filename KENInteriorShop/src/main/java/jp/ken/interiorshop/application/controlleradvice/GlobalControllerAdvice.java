@@ -19,8 +19,8 @@ public class GlobalControllerAdvice {
     	}
 
     // ログインしているかどうか (true/false)
-//   @ModelAttribute("userLoggedIn")
-//    public boolean addUserLoggedIn(HttpSession session) {
-//        return session.getAttribute("loginUser") != null;
-//    }
+    @ModelAttribute("userLoggedIn")
+    public boolean addUserLoggedIn(HttpSession session) {
+        return session.getAttribute("loginUser") != null;
+    }
 }
