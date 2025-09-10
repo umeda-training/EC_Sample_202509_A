@@ -27,12 +27,6 @@ public class MemberController {
 		this.loginService = loginService;
 	}
 	
-	//ControllerAdviceで実装
-//	@ModelAttribute("loginUser")
-//	public MemberLoginForm memberLoginForm() {
-//		return new MemberLoginForm();
-//	}
-	
 	@ModelAttribute("currentUrl")
 	public String currentUrl() {
 		return null;
@@ -40,13 +34,13 @@ public class MemberController {
 	
 	//ログイン画面表示
 	@GetMapping("/login")
-	public String memberLoginForm(@ModelAttribute MemberLoginForm form) {
+	public String getLoginForm(@ModelAttribute MemberLoginForm form) {
 		return "memberLogin";
 	}
 	
 	//ログイン処理
 	@PostMapping(value = "/login", params = "doLogin")
-	 public String doLogin(@Valid @ModelAttribute("login")MemberLoginForm form,
+	 public String doLogin(@Valid @ModelAttribute("loginUser")MemberLoginForm form,
 			 BindingResult result,Model model, HttpServletRequest request) {
 		
 		//エラー時にログイン画面に戻る
@@ -57,12 +51,12 @@ public class MemberController {
 		
 		try {
 			//入力されたメールアドレスとパスワードを取得
-			MemberLoginForm searchForm = new MemberLoginForm();
-			searchForm.setMail(form.getMail());
-			searchForm.setPassword(form.getPassword());
+			//MemberLoginForm searchForm = new MemberLoginForm();
+			//searchForm.setMail(form.getMail());
+			//searchForm.setPassword(form.getPassword());
 			
 			//全メンバー情報を取得し、リストに保存
-			List<MemberLoginForm> login = loginService.getMemberList(searchForm);
+			List<MemberLoginForm> login = loginService.getMemberList(form);
 			
 			boolean match = false;
 			
@@ -81,7 +75,7 @@ public class MemberController {
 				model.addAttribute("loginUser", login);
 				return "redirect:/item";
 			}else {
-				model.addAttribute("loginError", "従業員IDまたは氏名が正しくありません");
+				model.addAttribute("loginError", "メールアドレスまたはパスワードが正しくありません");
 				return "memberLogin";
 			}
 			
