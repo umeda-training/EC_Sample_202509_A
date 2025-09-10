@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.application.service.ItemService;
@@ -73,9 +74,11 @@ public class ItemController {
 	
 	//カートに追加ボタン押下
 	@PostMapping(value = "/cart/add")
-	public String addToCart(@ModelAttribute ItemForm item, @RequestParam String redirectUrl, HttpSession session) {
+	public String addToCart(@ModelAttribute ItemForm item, @RequestParam String redirectUrl, HttpSession session, RedirectAttributes redirectAttributes) {
 		itemService.addToCart(session, item);
-	
+		
+		// フラッシュ属性でメッセージを設定
+		redirectAttributes.addFlashAttribute("message", item.getItemName() + " をカートに追加しました");
 		//元のページに戻る
         return "redirect:" + redirectUrl;
 	}
