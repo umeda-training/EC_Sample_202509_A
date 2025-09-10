@@ -69,7 +69,8 @@ public class MemberController {
 				//メールアドレスとパスワードが一致していれば、ログイン情報をsessionに保存
 				model.addAttribute("loginUser", login);
 				//session.setAttribute("userLoggedIn", true);
-				return "redirect:/item";
+				Object backUrl = session.getAttribute("currentUrl");
+				return "redirect:" + backUrl;
 			}else {
 				model.addAttribute("loginError", "メールアドレスまたはパスワードが正しくありません");
 				return "memberLogin";
@@ -103,7 +104,8 @@ public class MemberController {
 		status.setComplete();
 		model.addAttribute("loginUser", null);
 		//session.setAttribute("userLoggedIn", false);
-		return "redirect:/item";
+		Object backUrl = session.getAttribute("currentUrl");
+		return "redirect:" + backUrl;
 	}
 	
 }
