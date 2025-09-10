@@ -37,5 +37,12 @@ public class OrderController {
 	    return "ordercheck"; //ordercheck.html
 	}
 	
+	/*@PostMapping(value="/ordercomp")
+	public String completeOrder(@ModelAttribute OrderForm orderForm,
+	        @SessionAttribute("loginUser") MemberForm form) {
+		
+		
+	}*/
+	
 	
 }

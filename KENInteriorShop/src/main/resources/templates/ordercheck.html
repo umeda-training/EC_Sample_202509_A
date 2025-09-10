@@ -47,7 +47,7 @@
 		
 		<div style="display: flex; gap: 5px;">
 			<label>
-				<p>お届け先<input type="radio" th:field="*{addressOption}" value="other" />それ以外の方は、下記に住所を入力してください</p>
+				<p><input type="radio" th:field="*{addressOption}" value="other" />それ以外の方は、下記に住所を入力してください</p>
 			</label>
 		</div>
 			
@@ -63,21 +63,17 @@
 				<label>
 					<p>お支払い方法<input type="radio" th:field="*{payment}" value="COD"/>代引き</p>
 				</label>
-			</div>
-			
-			<div style="display: flex; gap: 5px;">
+				
 				<label>
 					<p><input type="radio" th:field="*{payment}" value="Card"/>クレジットカード</p>
 				</label>
 			</div>
-			
+
 			<div style="display: flex; gap: 5px;">
 				<label>
 					<p>発送指定<input type="radio" th:field="*{shipping}" value="Standard"/>通常配送</p>
 				</label>
-			</div>
-				
-			<div style="display: flex; gap: 5px;">
+
 				<label>
 					<p><input type="radio" th:field="*{shipping}" value="Specify"/>日時指定</p>
 				</label>
