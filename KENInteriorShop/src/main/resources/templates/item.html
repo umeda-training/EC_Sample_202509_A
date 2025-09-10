@@ -71,15 +71,18 @@
 			    <h1>商品一覧</h1>
 			    
 			    <div class="item-row">
-					<form th:action="@{/search}" th:object="${itemNewForm}" method="post">
-						<input name="keyword" th:field="*{itemName}" th:value="${itemName}" placeholder="キーワード入力">
-						<select name="categoryId" th:field="*{categoryId}">
-					        <option value="">-- 選択してください --</option>
-					        <option th:each="cat : ${categoryForm}" th:value="${cat.categoryId}" th:text="${cat.categoryName}">
-					        </option>
-					    </select>
-					    <input type="submit" value="検索" name="search" class="btn">
-					</form>
+					<form th:action="@{/search}" method="post">
+    					<input type="text" name="keyword" th:value="${keyword}" placeholder="キーワード入力">
+    						<select name="categoryId">
+        						<option value="">-- 選択してください --</option>
+        						<option th:each="cat : ${categoryForm}"
+               					th:value="${cat.categoryId}"
+                				th:text="${cat.categoryName}"
+                				th:selected="${cat.categoryId == categoryId}">
+        						</option>
+    					</select>
+    				<input type="submit" value="検索" class="btn">
+				</form>
 					<label>商品画像をクリックすると詳細ページに遷移します</label>
 				</div>
 			    
