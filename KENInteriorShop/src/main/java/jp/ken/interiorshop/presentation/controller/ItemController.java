@@ -125,21 +125,25 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 
 	
     // 商品詳細画面表示
-    @GetMapping("/item/detail/{itemId}")
-    public String showItemDetail(
-            @PathVariable("itemId") int itemId,
-            @RequestParam(name = "from", required = false, defaultValue = "item") String from,
-            Model model) throws Exception {
+	@GetMapping("/item/detail/{itemId}")
+	public String showItemDetail(
+	    @PathVariable("itemId") int itemId,
+	    @RequestParam(name = "from", required = false, defaultValue = "item") String from,
+	    @RequestParam(name = "keyword", required = false) String keyword,
+	    @RequestParam(name = "categoryId", required = false) Integer categoryId,
+	    Model model) throws Exception {
+		
+		//DBから商品取得
+	    ItemForm item = itemService.getItemById(itemId);
+	    
+	    //モデルにセット
+	    model.addAttribute("item", item);
+	    model.addAttribute("from", from);
+	    model.addAttribute("keyword", keyword);
+	    model.addAttribute("categoryId", categoryId);
 
-    	// DBから商品取得
-        ItemForm item = itemService.getItemById(itemId);
-
-        // モデルにセット
-        model.addAttribute("item", item);
-        model.addAttribute("from", from);
-
-        return "itemDetails";
-    }
+	    return "itemDetails";
+	}
 
     // 商品詳細ページからカート追加
     @PostMapping("/item/detail/{itemId}/add-to-cart")
@@ -160,28 +164,6 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 
         return "itemDetails";
     }
-    
-    //検索結果画面から商品詳細ページに遷移するときに呼び出すメソッド
-    @GetMapping("/search")
-    public String showSearchResults(
-            @RequestParam(name = "keyword", required = false) String keyword,
-            @RequestParam(name = "categoryId", required = false) Integer categoryId,
-            Model model) throws Exception {
 
-        // 商品検索（Entity → Form に変換）
-        List<ItemEntity> itemEntity = itemService.searchItem(keyword, categoryId);
-        List<ItemForm> itemForm = itemService.convertItemForm(itemEntity);
-
-        // カテゴリ一覧取得
-        List<CategoryForm> categoryForm = itemService.getCategoryList();
-
-        // Modelに渡す
-        model.addAttribute("itemForm", itemForm);
-        model.addAttribute("categoryForm", categoryForm);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("categoryId", categoryId);
-
-        return "search"; // 検索結果を表示するビュー名
-    }
 
 }
