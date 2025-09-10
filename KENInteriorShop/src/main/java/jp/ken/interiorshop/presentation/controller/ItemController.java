@@ -105,12 +105,8 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	public String searchItems(
 	        @RequestParam(name = "keyword", required = false) String keyword,
 	        @RequestParam(name = "categoryId", required = false) Integer categoryId,
-	        Model model, HttpSession session) throws Exception {
+	        Model model) throws Exception {
 
-	    // ====== 追記：sessionに検索条件を保存 ======
-	    session.setAttribute("searchKeyword", keyword);
-	    session.setAttribute("searchCategoryId", categoryId);
-		
 	        // 商品検索（Entity → Form に変換）
 	        List<ItemEntity> itemEntity = itemService.searchItem(keyword, categoryId);
 	        List<ItemForm> itemForm = itemService.convertItemForm(itemEntity); // 既存の変換メソッドを活用
@@ -126,28 +122,6 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 
 	        return "item";
 	}
-	
-	// from が search の場合
-	@GetMapping("/search")
-	public String searchFromDetail(Model model, HttpSession session) throws Exception {
-	    // ====== 追記：sessionから検索条件を取得 ======
-	    String keyword = (String) session.getAttribute("searchKeyword");
-	    Integer categoryId = (Integer) session.getAttribute("searchCategoryId");
-
-	    // 再検索
-	    List<ItemEntity> itemEntity = itemService.searchItem(keyword, categoryId);
-	    List<ItemForm> itemForm = itemService.convertItemForm(itemEntity);
-	    List<CategoryForm> categoryForm = itemService.getCategoryList();
-
-	    // Modelに渡す
-	    model.addAttribute("itemForm", itemForm);
-	    model.addAttribute("categoryForm", categoryForm);
-	    model.addAttribute("keyword", keyword);
-	    model.addAttribute("categoryId", categoryId);
-
-	    return "item"; // 検索結果ページを表示
-	}
-
 
 	
     // 商品詳細画面表示
