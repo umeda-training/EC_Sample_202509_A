@@ -181,7 +181,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
         model.addAttribute("keyword", keyword);
         model.addAttribute("categoryId", categoryId);
 
-        return "item"; // 検索結果を表示するビュー名
+        return "search"; // 検索結果を表示するビュー名
     }
 
 }
