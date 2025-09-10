@@ -30,4 +30,5 @@ public class ShippingForm implements Serializable {
 	
 	//発送先番地
 	private String shippingAddress3;
+	
 }
