@@ -101,7 +101,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	}
 	
 	//検索結果表示メソッドの呼び出し
-	@PostMapping("/search")
+	@GetMapping("/search")
 	public String searchItems(
 	        @RequestParam(name = "keyword", required = false) String keyword,
 	        @RequestParam(name = "categoryId", required = false) Integer categoryId,
@@ -120,7 +120,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	        model.addAttribute("keyword", keyword);
 	        model.addAttribute("categoryId", categoryId);
 
-	        return "item";
+	        return "search";
 	}
 
 	

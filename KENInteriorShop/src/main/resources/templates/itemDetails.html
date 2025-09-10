@@ -56,7 +56,7 @@
             </form>
 
             <!-- from が 'search' の場合：商品検索画面に戻る -->
-            <form th:if="${from == 'search'}" th:action="@{/search}" method="get" style="display:inline;">
+            <form th:if="${from == 'search'}" th:action="@{/search}" method="post" style="display:inline;">
                 <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">戻る</button>
             </form>
 
