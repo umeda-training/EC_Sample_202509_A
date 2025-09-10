@@ -104,7 +104,9 @@
       </fieldset>
 
       <div class="buttons">
-        <button type="submit">登録</button>
+        <form th:action="@{/registration}" th:object="${memberRegistForm}" method="post">
+        	<button type="submit">登録</button>
+        </form>
         <button type="button" onclick="history.back()">戻る</button>
       </div>
     </form>

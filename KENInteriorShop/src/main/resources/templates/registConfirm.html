@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>会員登録確認</title>
+  <style>
+    body { text-align: center; font-family: sans-serif; }
+    table { margin: 0 auto; border-collapse: collapse; }
+    td { padding: 0.5em 1em; border: 1px solid #ccc; }
+    .buttons { margin-top: 1em; }
+    .buttons button { margin: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>会員登録内容確認</h1>
+  
+  <table>
+    <tr><td>氏名</td><td th:text="${memberRegistForm.memberName}"></td></tr>
+    <tr><td>フリガナ</td><td th:text="${memberRegistForm.memberKana}"></td></tr>
+    <tr><td>メールアドレス</td><td th:text="${memberRegistForm.mail}"></td></tr>
+    <tr><td>電話番号</td><td th:text="${memberRegistForm.phoneNumber}"></td></tr>
+    <tr><td>郵便番号</td><td th:text="${memberRegistForm.postalCode}"></td></tr>
+    <tr><td>住所（都道府県）</td><td th:text="${memberRegistForm.address1}"></td></tr>
+    <tr><td>住所（市区町村）</td><td th:text="${memberRegistForm.address2}"></td></tr>
+    <tr><td>住所（番地）</td><td th:text="${memberRegistForm.address3}"></td></tr>
+  </table>
+
+  <div class="buttons">
+    <form th:action="@{/registDB}" method="post" th:object="${memberRegistForm}">
+		<!-- Hidden fields で全てのデータを送信 -->
+    	<input type="hidden" th:field="*{memberName}">
+    	<input type="hidden" th:field="*{memberKana}">
+    	<input type="hidden" th:field="*{mail}">
+    	<input type="hidden" th:field="*{password}">
+    	<input type="hidden" th:field="*{phoneNumber}">
+    	<input type="hidden" th:field="*{postalCode}">
+    	<input type="hidden" th:field="*{address1}">
+    	<input type="hidden" th:field="*{address2}">
+    	<input type="hidden" th:field="*{address3}">
+    	<input type="hidden" th:field="*{creditNo}">
+    	<input type="hidden" th:field="*{cancel}">
+      	<button type="submit">登録する</button>
+    </form>
+    
+    <form th:action="@{/registration}" method="get">
+      <button type="submit">戻って修正</button>
+    </form>
+
+    
+  </div>
+</body>
+</html>

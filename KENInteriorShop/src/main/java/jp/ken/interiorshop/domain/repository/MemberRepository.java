@@ -86,7 +86,8 @@ public class MemberRepository {
 			        memberEntity.getAddress2(),
 			        memberEntity.getAddress3(),
 			        memberEntity.getCreditNo(),
-			        0
+			        memberEntity.getCancel()
+			        
 			    };
 		
 		int numberOfRow = jdbcTemplate.update(sql, parameters);
