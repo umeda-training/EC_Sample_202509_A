@@ -85,9 +85,9 @@
 					<label>商品画像をクリックすると詳細ページに遷移します</label>
 				</div>
 
-			    <!-- 検索結果がある場合に該当する商品を繰り返し -->			    
-				<div class="item-list" th:if="${not #lists.isEmpty(itemForm)}">
-    				<div class="item-card" th:each="items : ${itemForm}">
+				<!-- 商品がある場合のみ表示 -->
+				<div class="item-list" th:if="${itemForm.size() > 0}">
+   					 <div class="item-card" th:each="items : ${itemForm}">
        					<h3 th:text="${items.itemName}"></h3>
         					<a th:href="@{/item/detail/{id}(id=${items.itemId})}">
             					<img th:src="@{/images/{img}(img=${items.image})}" th:alt="${items.itemName}">
@@ -101,12 +101,12 @@
             					<input type="hidden" name="redirectUrl" value="/item">
             				<button type="submit">カートに追加</button>
         				</form>
-    				</div>
+   					 </div>
 				</div>
 
-				<!-- 検索結果がない場合のメッセージ表示 -->
+				<!-- 商品がない場合 -->
 				<p th:if="${itemForm.size() == 0}" style="color: red; font-weight: bold;">
-   				 条件に一致する商品はありませんでした。キーワードやカテゴリを変えて再検索してください。
+    			条件に一致する商品はありませんでした。
 				</p>
 				
 		</main>
