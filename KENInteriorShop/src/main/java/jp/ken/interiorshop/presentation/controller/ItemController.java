@@ -125,21 +125,30 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 
 	
     // 商品詳細画面表示
-    @GetMapping("/item/detail/{itemId}")
-    public String showItemDetail(
-            @PathVariable("itemId") int itemId,
-            @RequestParam(name = "from", required = false, defaultValue = "item") String from,
-            Model model) throws Exception {
+	@GetMapping("/item/detail/{itemId}")
+	public String showItemDetail(
+	    @PathVariable("itemId") int itemId,
+	    @RequestParam(name = "from", required = false, defaultValue = "item") String from,
+	    @RequestParam(name = "keyword", required = false) String keyword,
+	    @RequestParam(name = "categoryId", required = false) Integer categoryId,
+	    Model model) throws Exception {
+		
+		//DBから商品取得
+	    ItemForm item = itemService.getItemById(itemId);
+	    
+	    // ---------- 追加: 税込価格を計算 ----------
+	    int price = Integer.parseInt(item.getItemPrice()); // itemPriceはString型なのでintに変換
+	    int taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%
+	    model.addAttribute("taxIncludedPrice", taxIncludedPrice);
+	    
+	    //モデルにセット
+	    model.addAttribute("item", item);
+	    model.addAttribute("from", from);
+	    model.addAttribute("keyword", keyword);
+	    model.addAttribute("categoryId", categoryId);
 
-    	// DBから商品取得
-        ItemForm item = itemService.getItemById(itemId);
-
-        // モデルにセット
-        model.addAttribute("item", item);
-        model.addAttribute("from", from);
-
-        return "itemDetails";
-    }
+	    return "itemDetails";
+	}
 
     // 商品詳細ページからカート追加
     @PostMapping("/item/detail/{itemId}/add-to-cart")
@@ -160,7 +169,6 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 
         return "itemDetails";
     }
-    
-    
+
 
 }
