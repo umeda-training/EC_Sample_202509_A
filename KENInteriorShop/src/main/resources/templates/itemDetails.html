@@ -48,14 +48,16 @@
         <div style="text-align: center; margin-top: 30px;">
 
             <!-- from が 'item' の場合：商品一覧画面に戻る -->
-            <form th:if="${from == 'item'}" th:action="@{/items}" method="get" style="display:inline;">
+            <form th:if="${from == 'item'}" th:action="@{/item}" method="get" style="display:inline;">
                 <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">戻る</button>
             </form>
 
-            <!-- from が 'search' の場合：商品検索画面に戻る -->
-            <form th:if="${from == 'search'}" th:action="@{/items/search}" method="get" style="display:inline;">
-                <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">戻る</button>
-            </form>
+		<!-- from が 'search' の場合：商品検索画面に戻る -->
+			<form th:if="${from == 'search'}" th:action="@{/search}" method="post" style="display:inline;">
+    			<input type="hidden" name="keyword" th:value="${keyword}">
+    			<input type="hidden" name="categoryId" th:value="${categoryId}">
+    			<button type="submit" style="padding: 15px 30px; font-size: 1.5em;">戻る</button>
+			</form>
 
             <!-- ========================= -->
             <!--      カート追加ボタン       -->
@@ -66,16 +68,17 @@
                 <!-- 商品ID（DBで特定するために必須） -->
                 <input type="hidden" name="itemId" th:value="${item.itemId}">
                 <!-- 商品名（カート画面表示用） -->
-                <input type="hidden" name="itemname" th:value="${item.itemName}">
+                <input type="hidden" name="itemName" th:value="${item.itemName}">
                 <!-- 商品価格（カート画面表示用 / 計算用） -->
-                <input type="hidden" name="itemprice" th:value="${item.itemPrice}">
+                <input type="hidden" name="itemPrice" th:value="${item.itemPrice}">
                 <!-- 数量指定 -->
                 <input type="hidden" name="itemQuantity" value="1">
 
                 <!-- ★カート追加後に戻るページを指定するためのURL -->
                 <!-- 「商品詳細ページ」にリダイレクトできるように仕込む -->
-                <input type="hidden" name="redirectUrl" 
-                       th:value="@{/items/{itemId}(itemId=${item.itemId},from=${from})}">
+				<input type="hidden" name="redirectUrl" 
+       				th:value="@{/item/detail/{itemId}(itemId=${item.itemId},from=${from},keyword=${keyword},categoryId=${categoryId})}">
+
 
                 <!-- ユーザーが押す実際のボタン -->
                 <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">

@@ -123,13 +123,12 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     // 商品詳細画面表示
     @GetMapping("/item/detail/{itemId}")
     public String showItemDetail(
-            @PathVariable("itemId") String itemId,
+            @PathVariable("itemId") int itemId,
             @RequestParam(name = "from", required = false, defaultValue = "item") String from,
             Model model) throws Exception {
 
-        // String → int 変換して既存の getItemById を呼び出す
-        int id = Integer.parseInt(itemId);
-        ItemForm item = itemService.getItemById(id);
+    	// DBから商品取得
+        ItemForm item = itemService.getItemById(itemId);
 
         // モデルにセット
         model.addAttribute("item", item);
@@ -158,6 +157,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
         return "itemDetails";
     }
     
+    
     //個人情報登録
     @GetMapping("/registration")
     public String toRegist(Model model) throws Exception{
@@ -167,6 +167,13 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     }
     
     @PostMapping("/registration")
+    public String showRegist(@ModelAttribute MemberRegistForm memberRegistForm, Model model)throws Exception{
+    	model.addAttribute("memberRegistForm", memberRegistForm);
+    	return "registConfirm";
+    }
+    
+    
+    @PostMapping("/registDB")
     public String registMembers(@ModelAttribute MemberRegistForm memberRegistForm, Model model) throws Exception{
     	int numberOfRow = registService.registMembers(memberRegistForm);
     	if(numberOfRow == 0) {
@@ -174,7 +181,8 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
     		return "regist";
     	}
     	
-    	return "redirect:/complete";
+    	return "registComplete";
     }
+ 
 
 }
