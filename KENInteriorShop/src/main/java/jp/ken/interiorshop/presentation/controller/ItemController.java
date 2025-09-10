@@ -96,13 +96,27 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	
 	//検索結果表示メソッドの呼び出し
 	@PostMapping("/search")
-	public String showSearchResult(@RequestParam(value = "keyword", required = false) String keyword,
-	                               @RequestParam(value = "categoryId", required = false) Integer categoryId,
-	                               Model model) throws Exception {
-	    List<ItemEntity> itemList = itemService.searchItem(keyword, categoryId);
-	    model.addAttribute("itemList", itemList); // ← ここで検索結果を渡す
-	    return "search";
+	public String searchItems(
+	        @RequestParam(name = "keyword", required = false) String keyword,
+	        @RequestParam(name = "categoryId", required = false) Integer categoryId,
+	        Model model) throws Exception {
+
+	        // 商品検索（Entity → Form に変換）
+	        List<ItemEntity> itemEntity = itemService.searchItem(keyword, categoryId);
+	        List<ItemForm> itemForm = itemService.convertItemForm(itemEntity); // 既存の変換メソッドを活用
+
+	        // カテゴリ一覧取得（CategoryFormのリスト）
+	        List<CategoryForm> categoryForm = itemService.getCategoryList();
+
+	        // Modelに渡す
+	        model.addAttribute("itemForm", itemForm);
+	        model.addAttribute("categoryForm", categoryForm);
+	        model.addAttribute("keyword", keyword);
+	        model.addAttribute("categoryId", categoryId);
+
+	        return "item";
 	}
+
 	
     // 商品詳細画面表示
     @GetMapping("/item/detail/{itemId}")
