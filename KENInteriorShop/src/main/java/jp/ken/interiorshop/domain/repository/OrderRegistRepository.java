@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
 import jp.ken.interiorshop.domain.entity.OrderEntity;
 import jp.ken.interiorshop.domain.entity.ShippingEntity;
-import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 
 @Repository
 public class OrderRegistRepository {
@@ -54,11 +54,11 @@ public class OrderRegistRepository {
 	}
 	
 	//注文詳細情報をDBに保存する	
-	public void orderDetailsRegist(int orderId, List<OrderDetailsForm> form) {
+	public void orderDetailsRegist(int orderId, List<OrderDetailsEntity> form) {
 		String sql = "INSERT INTO order_details (order_id, item_id, item_quantity, " +
 	             "subtotal" +
 	             "VALUES (?, ?, ?, ?)";
-		for(OrderDetailsForm regist : form) {
+		for(OrderDetailsEntity regist : form) {
 		jdbcTemplate.update(sql, orderId,
                 orderId,
                 regist.getItemId(),

@@ -6,16 +6,16 @@ import lombok.Data;
 public class OrderDetailsEntity {
 	
 	//商品詳細ID
-	private int detail_id;
+	private int detailId;
 	
 	//注文ID
-	private int order_id;
+	private int orderId;
 	
 	//商品ID
-	private int item_id;
+	private int itemId;
 	
 	//注文数
-	private int item_quantity;
+	private int itemQuantity;
 	
 	//小計
 	private int subtotal;

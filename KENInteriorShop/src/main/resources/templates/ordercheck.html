@@ -14,12 +14,25 @@
             <th>税別価格</th>
             <th>数量</th>
         </tr>
-        <tr th:each="item : ${cartItemNames}">
+        <tr th:each="detail, iterStat : ${orderForm.orderDetailsForm}">
             <!-- 商品情報 -->
-            <td th:text="${item.itemName}">商品名</td>
-            <td th:text="${item.itemPrice}">1000</td>
-            <td th:text="${item.itemQuantity}">1</td>
+            
+            <td>
+				<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemId}" />
+				<span th:text="${detail.itemName}">商品名</span>
+			</td>
+				
+			<td>
+				<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemQuantity}" />
+            	<span th:text="${detail.itemPrice}">1000</span>
+			</td>
+            
+            <td>
+				<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].subtotal}" />
+            	<span th:text="${detail.itemQuantity}">1</span>
+			</td>
         </tr>
+
     </table>
 </div>
 
@@ -83,11 +96,7 @@
 				<input type="text" placeholder="00：00"/>
 			</div>
 			
-			<div th:each="detail, iterStat : ${orderForm.orderDetailsForm}">
-    			<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemId}" />
-    			<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemQuantity}" />
-    			<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].subtotal}" />
-			</div>
+			
 
 			<button type="submit" style="padding:12px 24px; font-size:18px;">確定</button>
 	</form>

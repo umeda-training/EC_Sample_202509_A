@@ -16,6 +16,8 @@ public class OrderDetailsForm implements Serializable {
 	//商品ID
 	private String itemId;
 	
+	private String itemName;
+	
 	//注文数
 	private String itemQuantity;
 	

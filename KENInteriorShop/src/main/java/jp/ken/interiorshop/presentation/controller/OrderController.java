@@ -39,14 +39,14 @@ public class OrderController {
 
         // セッションのカート情報を OrderDetailsForm リストに変換してセット
         List<ItemForm> cartItems = (List<ItemForm>) session.getAttribute("cart");
+        List<OrderDetailsForm> detailsList = new ArrayList<>();
+        
         if (cartItems != null) {
-            List<OrderDetailsForm> detailsList = new ArrayList<>();
-
             for (ItemForm item : cartItems) {
                 OrderDetailsForm details = new OrderDetailsForm();
                 details.setItemId(item.getItemId());
                 details.setItemQuantity(String.valueOf(item.getItemQuantity()));
-                details.setSubtotal(String.valueOf(item.getItemPrice()));
+                details.setSubtotal(String.valueOf(Integer.parseInt(item.getItemPrice()) * item.getItemQuantity()));
                 detailsList.add(details);
             }
 
@@ -71,7 +71,7 @@ public class OrderController {
 	
 	@PostMapping(value="/ordercomp")
 	public String completeOrder(@ModelAttribute OrderForm orderForm,
-	        @SessionAttribute("loginUser") MemberLoginForm form) {
+	        @SessionAttribute("loginUser") MemberLoginForm form)  {
 		
 		orderRegistService.orderRegist(form, orderForm);
 		

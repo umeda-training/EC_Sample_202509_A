@@ -1,5 +1,6 @@
 package jp.ken.interiorshop.application.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -29,10 +30,12 @@ public class OrderRegistService {
 	
 	public void orderRegist(MemberLoginForm memberLoginForm, OrderForm orderForm){
 		
+		List<OrderDetailsForm> detailsList = orderForm.getOrderDetailsForm();
 		
 		ShippingEntity shippingEntity = convert(orderForm.getShippingForm());
 		MemberEntity memberEntity = convert(memberLoginForm);
 		OrderEntity orderEntity = convert(orderForm);
+		List<OrderDetailsEntity> orderDetailsEntities = convert(detailsList);
 
 		
 		//発送情報登録して発送IDを取得
@@ -40,8 +43,7 @@ public class OrderRegistService {
 		//注文内容登録
 		int orderId = orderRegistRepository.orderRegist(shippingId, memberEntity.getMemberId(), orderEntity);
 		//注文詳細内容登録
-		List<OrderDetailsForm> detailsList = orderForm.getOrderDetailsForm();
-		orderRegistRepository.orderDetailsRegist(orderId, detailsList);
+		orderRegistRepository.orderDetailsRegist(orderId, orderDetailsEntities);
 		
 	}
 	
@@ -70,12 +72,14 @@ public class OrderRegistService {
 	}
 	
 	//注文詳細変換
-		private OrderDetailsEntity convert(List<OrderDetailsForm> form) {
-			
-			OrderDetailsEntity entity = modelMapper.map(form, OrderDetailsEntity.class);
-			
-			return entity;
-		}
+	private List<OrderDetailsEntity> convert(List<OrderDetailsForm> formList) {
+	    List<OrderDetailsEntity> entityList = new ArrayList<>();
+	    for (OrderDetailsForm form : formList) {
+	        OrderDetailsEntity entity = modelMapper.map(form, OrderDetailsEntity.class);
+	        entityList.add(entity);
+	    }
+	    return entityList;
+	}
 	
 	/* public void completeOrder(OrderForm orderForm, MemberLoginForm loginUser) {
 		 
