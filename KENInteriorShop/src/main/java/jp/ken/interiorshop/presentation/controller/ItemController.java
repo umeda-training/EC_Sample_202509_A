@@ -60,6 +60,10 @@ public class ItemController {
         }
         int totalTax = (int)(totalExclTax * 0.1);
         int totalInclTax = totalExclTax + totalTax;
+        
+        session.setAttribute("totalExclTax", totalExclTax);
+        session.setAttribute("totalTax", totalTax);
+        session.setAttribute("totalInclTax", totalInclTax);
 
         model.addAttribute("totalExclTax", totalExclTax);
         model.addAttribute("totalTax", totalTax);
