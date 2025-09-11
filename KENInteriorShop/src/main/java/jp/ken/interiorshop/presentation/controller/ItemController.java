@@ -124,7 +124,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	        model.addAttribute("keyword", keyword);
 	        model.addAttribute("categoryId", categoryId);
 
-	        return "item";
+	        return "search";
 	}
 
 	
