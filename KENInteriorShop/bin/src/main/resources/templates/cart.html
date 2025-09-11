@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <title>カート一覧</title>
 </head>
+<style>
+	.btn {
+    padding:12px 24px;
+    font-size:18px;
+    background:#eee;
+    border:1px solid #ccc;
+    border-radius:5px;
+    text-decoration:none;
+    display:inline-block;
+	}
+	
+	.btn:hover {
+	    background:#ddd;
+	}
+</style>
 <body>
 <h2 style="text-align:center;">カート</h2>
 
@@ -63,13 +78,11 @@
     <p>税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
 </div>
 
-<!-- 注文ボタンと買い物を続けるリンク -->
+<!-- 注文確認ボタンと買い物を続けるリンク -->
 <div style="text-align:center; margin-top:20px;">
-    <form th:action="@{/order/checkout}" method="get">
-        <button type="submit" style="padding:12px 24px; font-size:18px;">注文する</button>
-    </form>
+    <a th:href="@{/order/confirm}" class="btn">注文確認画面へ</a>
     <br>
-    <a href="/">買い物を続ける</a>
+    <a th:href="@{/item}" class="btn">買い物を続ける</a>
 </div>
 
 </body>

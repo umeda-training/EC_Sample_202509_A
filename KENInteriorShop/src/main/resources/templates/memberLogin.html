@@ -11,7 +11,7 @@
 		<main>
 			<div id="form-area">
 				<h1>会員ログイン</h1>
-				<form th:action="@{/login}" th:object="${memberLoginForm}" method="post">
+				<form th:action="@{/login}" th:object="${loginUser}" method="post">
 					<div class="form-row">
 						<label>メールアドレス</label>
 						<input th:field="*{mail}" value="${mail}">

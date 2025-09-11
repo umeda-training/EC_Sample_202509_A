@@ -38,7 +38,9 @@ public class MemberController {
 	
 	//ログイン画面表示
 	@GetMapping("/login")
-	public String getLoginForm(@ModelAttribute MemberLoginForm form) {
+	public String getLoginForm(@ModelAttribute MemberLoginForm form, Model model) {
+		MemberLoginForm memberLoginForm = new MemberLoginForm();
+		model.addAttribute("loginUser", memberLoginForm);
 		return "memberLogin";
 	}
 	
