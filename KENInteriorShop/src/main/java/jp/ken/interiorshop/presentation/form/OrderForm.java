@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -24,9 +26,11 @@ public class OrderForm implements Serializable {
 	//注文日
 	private String orderDate;
 	
+	 @NotBlank(message = "支払い方法を選択してください")
 	//支払方法
 	private String payment;
 	
+	 @NotBlank(message = "配送方法を選択してください")
 	//配送指定
 	private String shipping;
 	
@@ -37,9 +41,11 @@ public class OrderForm implements Serializable {
 	private String shippingFrag;
 	
 	// 複数商品を保持するリストに変更
+	 @Valid 
     private List<OrderDetailsForm> orderDetailsForm = new ArrayList<>();
 	
 	//発送のネストForm
+    @Valid 
 	private ShippingForm shippingForm = new ShippingForm();
 	
 }

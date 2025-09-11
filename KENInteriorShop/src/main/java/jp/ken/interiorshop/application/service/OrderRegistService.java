@@ -31,12 +31,30 @@ public class OrderRegistService {
 	public void orderRegist(MemberLoginForm memberLoginForm, OrderForm orderForm){
 		
 		
+		// nullチェック
+	    if (memberLoginForm == null) {
+	        throw new IllegalArgumentException("ログインユーザー情報が空です");
+	    }
+	    if (orderForm == null) {
+	        throw new IllegalArgumentException("注文情報が空です");
+	    }
+	    if (orderForm.getOrderDetailsForm() == null || orderForm.getOrderDetailsForm().isEmpty()) {
+	        throw new IllegalArgumentException("注文詳細が空です");
+	    }
+	    
+	    
 		ShippingEntity shippingEntity;
 		
 		// ★ 住所オプションを判定
         if ("member".equals(orderForm.getAddressOption())) {
             // 会員情報から住所を設定
             MemberEntity memberEntity = convert(memberLoginForm);
+           
+            // nullチェック
+            if (memberEntity.getMemberName() == null || memberEntity.getPhoneNumber() == null) {
+                throw new IllegalArgumentException("会員情報に必要な住所・電話情報が不足しています");
+            }
+            
             shippingEntity = new ShippingEntity();
             shippingEntity.setShippingName(memberEntity.getMemberName());
             shippingEntity.setShippingKana(memberEntity.getMemberKana());
@@ -48,6 +66,11 @@ public class OrderRegistService {
         } else {
             // 入力フォームの住所を使用
             shippingEntity = convert(orderForm.getShippingForm());
+            
+         // 入力フォームの null チェック
+            if (shippingEntity.getShippingName() == null || shippingEntity.getShippingphone() == null) {
+                throw new IllegalArgumentException("入力フォームの発送情報が不足しています");
+            }
         }
 		
         //MemberLoginFormをMemberEntityに変換
@@ -59,6 +82,11 @@ public class OrderRegistService {
 		//OrderDetailsFormをOrderDetailsEntityに変換
 		List<OrderDetailsEntity> detailsList = convert(orderForm.getOrderDetailsForm());
 
+		// nullチェック
+	    if (detailsList.isEmpty()) {
+	        throw new IllegalArgumentException("注文詳細が空です");
+	    }
+		
 		
 		//発送情報登録して発送IDを取得
 		int shippingId = orderRegistRepository.shippingRegist(shippingEntity);
