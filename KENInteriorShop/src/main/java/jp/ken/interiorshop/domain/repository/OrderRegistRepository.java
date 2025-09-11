@@ -15,7 +15,7 @@ public class OrderRegistRepository {
 	private JdbcTemplate jdbcTemplate;
 	
 	//発送情報をDBに保存する
-	public int shippingRegist(ShippingEntity shippingEntity) throws Exception{
+	public int shippingRegist(ShippingEntity shippingEntity){
 		
 		String sql = "INSERT INTO shipping (shipping_name, shipping_kana, shipping_phone, " +
 	             "shipping_postal_code, shipping_address1, shipping_address2, shipping_address3) " +
