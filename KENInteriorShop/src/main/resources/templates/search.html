@@ -83,7 +83,7 @@
 				</div>
 			    
 			    <div class="item-row">
-					<form th:action="@{/search}" method="post">
+					<form th:action="@{/search}" method="get">
     					<input type="text" name="keyword" th:value="${keyword}" placeholder="キーワード入力">
     						<select name="categoryId">
         						<option value="">-- 選択してください --</option>

@@ -113,11 +113,11 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	}
 	
 	//検索結果表示メソッドの呼び出し
-	@PostMapping("/search")
+	@GetMapping("/search")
 	public String searchItems(
 	        @RequestParam(name = "keyword", required = false) String keyword,
 	        @RequestParam(name = "categoryId", required = false) Integer categoryId,
-	        Model model) throws Exception {
+	        Model model, HttpSession session) throws Exception {
 
 	        // 商品検索（Entity → Form に変換）
 	        List<ItemEntity> itemEntity = itemService.searchItem(keyword, categoryId);
@@ -131,6 +131,9 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	        model.addAttribute("categoryForm", categoryForm);
 	        model.addAttribute("keyword", keyword);
 	        model.addAttribute("categoryId", categoryId);
+	        
+	        //現在のURLを取得
+	        session.setAttribute("currentUrl" ,"/search");
 
 	        return "search";
 	}
@@ -151,9 +154,9 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 		//DBから商品取得
 	    ItemForm item = itemService.getItemById(itemId);
 	    
-	    //税込価格を計算
-	    int price = Integer.parseInt(item.getItemPrice());
-	    int taxIncludedPrice = (int) Math.floor(price * 1.1);
+	    // ---------- 追加: 税込価格を計算 ----------
+	    int price = Integer.parseInt(item.getItemPrice()); // itemPriceはString型なのでintに変換
+	    int taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%
 	    model.addAttribute("taxIncludedPrice", taxIncludedPrice);
 	    
 	    //モデルにセット
