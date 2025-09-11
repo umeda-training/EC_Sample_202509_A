@@ -145,14 +145,15 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	    @RequestParam(name = "categoryId", required = false) Integer categoryId,
 	    Model model, HttpSession session) throws Exception {
 		
-		
+		//現在のURLを取得
+		session.setAttribute("currentUrl", "/item/detail/" + itemId);
 		
 		//DBから商品取得
 	    ItemForm item = itemService.getItemById(itemId);
 	    
-	    // ---------- 追加: 税込価格を計算 ----------
-	    int price = Integer.parseInt(item.getItemPrice()); // itemPriceはString型なのでintに変換
-	    int taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%
+	    //税込価格を計算
+	    int price = Integer.parseInt(item.getItemPrice());
+	    int taxIncludedPrice = (int) Math.floor(price * 1.1);
 	    model.addAttribute("taxIncludedPrice", taxIncludedPrice);
 	    
 	    //モデルにセット
