@@ -30,7 +30,25 @@ public class OrderRegistService {
 	public void orderRegist(MemberLoginForm memberLoginForm, OrderForm orderForm){
 		
 		
-		ShippingEntity shippingEntity = convert(orderForm.getShippingForm());
+		ShippingEntity shippingEntity;
+		
+		// ★ 住所オプションを判定
+        if ("member".equals(orderForm.getAddressOption())) {
+            // 会員情報から住所を設定
+            MemberEntity memberEntity = convert(memberLoginForm);
+            shippingEntity = new ShippingEntity();
+            shippingEntity.setShippingName(memberEntity.getMemberName());
+            shippingEntity.setShippingKana(memberEntity.getMemberKana());
+            shippingEntity.setShippingphone(memberEntity.getPhoneNumber());
+            shippingEntity.setShippingPostalCode(memberEntity.getPostalCode());
+            shippingEntity.setShippingAddress1(memberEntity.getAddress1());
+            shippingEntity.setShippingAddress2(memberEntity.getAddress2());
+            shippingEntity.setShippingAddress3(memberEntity.getAddress3());
+        } else {
+            // 入力フォームの住所を使用
+            shippingEntity = convert(orderForm.getShippingForm());
+        }
+		
 		MemberEntity memberEntity = convert(memberLoginForm);
 		OrderEntity orderEntity = convert(orderForm);
 
@@ -77,27 +95,7 @@ public class OrderRegistService {
 			return entity;
 		}
 	
-	/* public void completeOrder(OrderForm orderForm, MemberLoginForm loginUser) {
-		 
-		 ShippingEntity shipping = new ShippingEntity();
-		    if ("member".equals(orderForm.getAddressOption())) {
-		        shipping.setName(loginUser.getName());
-		        shipping.setNameKana(loginUser.getNameKana());
-		        shipping.setPhone(loginUser.getPhone());
-		        shipping.setZipCode(loginUser.getZipCode());
-		        shipping.setPrefecture(loginUser.getPrefecture());
-		        shipping.setCity(loginUser.getCity());
-		        shipping.setStreet(loginUser.getStreet());
-		    } else {
-		        shipping.setName(orderForm.getName());
-		        shipping.setNameKana(orderForm.getNameKana());
-		        shipping.setPhone(orderForm.getPhone());
-		        shipping.setZipCode(orderForm.getZipCode());
-		        shipping.setPrefecture(orderForm.getPrefecture());
-		        shipping.setCity(orderForm.getCity());
-		        shipping.setStreet(orderForm.getStreet());
-		    }
-	 }*/
+	
 	
 	
 }
