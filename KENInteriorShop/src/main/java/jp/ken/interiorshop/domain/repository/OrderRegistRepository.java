@@ -52,7 +52,7 @@ public class OrderRegistRepository {
 	}
 	
 	//注文詳細情報をDBに保存する	
-	public void orderDetailsRegist(int orderId, int itemId, int itemQuantity, int Subtotal) {
+	public void orderDetailsRegist(int orderId, String itemId, String itemQuantity, String Subtotal) {
 		String sql = "INSERT INTO order_details (order_id, item_id, item_quantity, " +
 	             "subtotal" +
 	             "VALUES (?, ?, ?, ?)";
