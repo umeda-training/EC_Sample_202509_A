@@ -80,7 +80,9 @@
 
 <!-- 注文確認ボタンと買い物を続けるリンク -->
 <div style="text-align:center; margin-top:20px;">
-    <a th:href="@{/order/confirm}" class="btn">注文確認画面へ</a>
+    <form th:action="@{/order/confirm}" method="post">
+    	<button type="submit" class="btn">注文確認画面へ</button>
+	</form>
     <br>
     <a th:href="@{/item}" class="btn">買い物を続ける</a>
 </div>
