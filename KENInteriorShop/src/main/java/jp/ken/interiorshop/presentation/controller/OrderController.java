@@ -78,7 +78,7 @@ public class OrderController {
 		
 		
 
-		 return "order/complete";
+		 return "orderComplete";
 	}
 	
 	
