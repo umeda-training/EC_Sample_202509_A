@@ -1,5 +1,7 @@
 package jp.ken.interiorshop.application.service;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +69,7 @@ public class OrderRegistService {
 	}
 	
 	//注文詳細変換
-		private OrderDetailsEntity convert(OrderDetailsForm form) {
+		private OrderDetailsEntity convert(List<OrderDetailsForm> form) {
 			
 			OrderDetailsEntity entity = modelMapper.map(form, OrderDetailsEntity.class);
 			
