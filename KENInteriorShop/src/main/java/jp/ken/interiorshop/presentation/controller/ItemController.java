@@ -69,7 +69,7 @@ public class ItemController {
         model.addAttribute("totalTax", totalTax);
         model.addAttribute("totalInclTax", totalInclTax);
 
-        return "cart"; //
+        return "cart";
     }
 	
 	//カートに追加ボタン押下
@@ -124,7 +124,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	        model.addAttribute("keyword", keyword);
 	        model.addAttribute("categoryId", categoryId);
 
-	        return "item";
+	        return "search";
 	}
 
 	
