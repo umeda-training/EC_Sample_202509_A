@@ -18,12 +18,17 @@
 		        <img src="/images/logo_SS_forStaff.png" alt="サイトロゴ" style="height:50px;">
 		      </a>
 		    </td>
+		    <!-- ログイン中のみログインユーザー名表示 -->
+			<div th:if="${loginUser != null and loginUser.memberName != null}" 
+		     style="margin-top:5px; font-size:1em; text-align:right;">
+				<span th:text="${loginUser.memberName} + 'さんログイン中です'"></span>
+			</div>
 		  </tr>
 		
 		  <tr>
 		    <!-- 画面遷移ボタン横並び -->
 		    <td style="padding:10px 20px;">
-		      <table style="width:100%;">
+		      <table style="width:100%; text-align:center;">
 		        <tr>
 		          	<!-- マイページ（クリック可能だが遷移しない） -->
 					<td style="padding-right:20px; font-size:2em;">
