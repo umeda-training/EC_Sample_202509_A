@@ -72,11 +72,17 @@ public class OrderController {
 	
 	@PostMapping(value="/ordercomp")
 	public String completeOrder(@ModelAttribute OrderForm orderForm,
-	        @SessionAttribute("loginUser") MemberLoginForm form)  {
+	        @SessionAttribute("loginUser") MemberLoginForm form,
+	        HttpSession session)  {
 		
+		// サービスで注文情報を登録（発送、注文、注文詳細の3テーブル）
 		orderRegistService.orderRegist(form, orderForm);
 		
-		
+		// カートのセッションを破棄
+	    session.removeAttribute("cart");
+	    session.removeAttribute("totalExclTax");
+	    session.removeAttribute("totalTax");
+	    session.removeAttribute("totalInclTax");
 
 		 return "orderComplete";
 	}
