@@ -48,7 +48,6 @@ public class OrderController {
                 details.setItemQuantity(String.valueOf(item.getItemQuantity()));
                 details.setSubtotal(String.valueOf(Integer.parseInt(item.getItemPrice()) * item.getItemQuantity()));
                 details.setItemName(item.getItemName());
-                details.setItemPrice(item.getItemPrice());
                 detailsList.add(details);
             }
 
