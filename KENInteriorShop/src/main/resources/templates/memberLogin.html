@@ -13,7 +13,7 @@
 				<h1>会員ログイン</h1>
 				<form th:action="@{/login}" th:object="${memberLoginForm}" method="post">
 					<div class="form-row">
-						<label>ID</label>
+						<label>メールアドレス</label>
 						<input th:field="*{mail}" value="${mail}">
 						<span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="errors"></span>
 					</div>
