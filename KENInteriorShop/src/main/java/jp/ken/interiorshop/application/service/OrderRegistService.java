@@ -40,7 +40,7 @@ public class OrderRegistService {
 		//注文内容登録
 		int orderId = orderRegistRepository.orderRegist(shippingId, memberEntity.getMemberId(), orderEntity);
 		//注文詳細内容登録
-		orderRegistRepository.orderDetailsRegist(orderId, orderForm.getOrderDetailsForm().getItemId(), orderForm.getOrderDetailsForm().getItemQuantity(), orderForm.getOrderDetailsForm().getSubtotal());
+		orderRegistRepository.orderDetailsRegist(orderId, orderForm.getOrderDetailsForm());
 		
 	}
 	
