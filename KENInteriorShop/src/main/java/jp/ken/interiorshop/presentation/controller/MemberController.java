@@ -60,10 +60,13 @@ public class MemberController {
 			boolean match = false;
 			
 			//メールアドレスとパスワードが一致していれば、matchをtrueに
+			MemberLoginForm matchedMember = null;
 			for(MemberLoginForm mem : login) {
 				if(mem.getMail().equals(form.getMail())
 				&& mem.getPassword().equals(form.getPassword())){
 					match = true;
+					
+					matchedMember = mem;
 					break;
 					
 				}
@@ -71,6 +74,17 @@ public class MemberController {
 			
 			if(match) {
 				//メールアドレスとパスワードが一致していれば、ログイン情報をsessionに保存
+				form = new MemberLoginForm();
+				form.setMemberId(matchedMember.getMemberId());
+				form.setMemberName(matchedMember.getMemberName());
+				form.setMemberKana(matchedMember.getMemberKana());
+				form.setMail(matchedMember.getMail());
+				form.setPhoneNumber(matchedMember.getPhoneNumber());
+				form.setPostalCode(matchedMember.getPostalCode());
+				form.setAddress1(matchedMember.getAddress1());
+				form.setAddress2(matchedMember.getAddress2());
+				form.setAddress3(matchedMember.getAddress3());
+				form.setCreditNo(matchedMember.getCreditNo());
 				model.addAttribute("loginUser", form);
 				//session.setAttribute("userLoggedIn", true);
 				Object backUrl = session.getAttribute("currentUrl");

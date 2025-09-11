@@ -17,7 +17,9 @@ public class OrderController {
 	
 	@GetMapping(value="/order/confirm")
 	public String confirmOrder(HttpSession session, Model model) {
-	    Integer total = (Integer) session.getAttribute("cartTotal");
+	    Integer totalExclTax = (Integer) session.getAttribute("totalExclTax");
+	    Integer totalTax = (Integer) session.getAttribute("totalTax");
+	    Integer totalInclTax = (Integer) session.getAttribute("totalInclTax");
 	    List<ItemForm> itemNames = (List<ItemForm>) session.getAttribute("cart");
 	    
 	    int totalQuantity = 0;
@@ -27,15 +29,26 @@ public class OrderController {
 	        }
 	    }
 	    
+	    
+	    
 	    OrderForm orderForm = new OrderForm(); 
 	    
 	    model.addAttribute("totalQuantity", totalQuantity);
-	    model.addAttribute("cartTotal", total);
+	    model.addAttribute("totalExclTax", totalExclTax);
+	    model.addAttribute("totalTax", totalTax);
+	    model.addAttribute("totalInclTax", totalInclTax);
 	    model.addAttribute("cartItemNames", itemNames);
 	    model.addAttribute("orderForm", orderForm);
 
 	    return "ordercheck"; //ordercheck.html
 	}
+	
+	/*@PostMapping(value="/ordercomp")
+	public String completeOrder(@ModelAttribute OrderForm orderForm,
+	        @SessionAttribute("loginUser") MemberForm form) {
+		
+		
+	}*/
 	
 	
 }

@@ -100,5 +100,13 @@ public class MemberRepository {
 		Integer count = jdbcTemplate.queryForObject(sql, Integer.class, mail);
 		return count != null && count > 0;
 	}
+	
+//	public StringBuilder getMemberByMail(String mail) throws Exception {
+//		
+//		StringBuilder sb = createCommonSQL();
+//		sb.append(" WHERE");
+//		sb.append(" mail LIKE ?");
+//		String sql = sb.toString();
+//	}
 }
 

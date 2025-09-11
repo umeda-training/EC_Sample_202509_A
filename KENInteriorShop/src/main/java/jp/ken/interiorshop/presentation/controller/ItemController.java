@@ -47,29 +47,29 @@ public class ItemController {
 	
 	@GetMapping(value = "/cart")
 	public String showCart(Model model, HttpSession session) {
-		if(model.getAttribute("userLoggedIn").equals("true")) {
-	        List<ItemForm> cartItems = itemService.getCart(session);
-	        model.addAttribute("cartItems", cartItems);
-	
-	        // 合計金額を計算（仮）
-	        int totalExclTax = 0;
-	
-	        for (ItemForm item : cartItems) {
-	            int price = Integer.parseInt(item.getItemPrice());
-	            int quantity = item.getItemQuantity();
-	            totalExclTax += price * quantity;
-	        }
-	        int totalTax = (int)(totalExclTax * 0.1);
-	        int totalInclTax = totalExclTax + totalTax;
-	
-	        model.addAttribute("totalExclTax", totalExclTax);
-	        model.addAttribute("totalTax", totalTax);
-	        model.addAttribute("totalInclTax", totalInclTax);
-	
-	        return "cart"; //
-		} else {
-			return "redirect:/login";
-		}
+        List<ItemForm> cartItems = itemService.getCart(session);
+        model.addAttribute("cartItems", cartItems);
+
+        // 合計金額を計算（仮）
+        int totalExclTax = 0;
+
+        for (ItemForm item : cartItems) {
+            int price = Integer.parseInt(item.getItemPrice());
+            int quantity = item.getItemQuantity();
+            totalExclTax += price * quantity;
+        }
+        int totalTax = (int)(totalExclTax * 0.1);
+        int totalInclTax = totalExclTax + totalTax;
+        
+        session.setAttribute("totalExclTax", totalExclTax);
+        session.setAttribute("totalTax", totalTax);
+        session.setAttribute("totalInclTax", totalInclTax);
+
+        model.addAttribute("totalExclTax", totalExclTax);
+        model.addAttribute("totalTax", totalTax);
+        model.addAttribute("totalInclTax", totalInclTax);
+
+        return "cart";
     }
 	
 	//カートに追加ボタン押下
@@ -124,7 +124,7 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	        model.addAttribute("keyword", keyword);
 	        model.addAttribute("categoryId", categoryId);
 
-	        return "item";
+	        return "search";
 	}
 
 	
@@ -139,6 +139,11 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 		
 		//DBから商品取得
 	    ItemForm item = itemService.getItemById(itemId);
+	    
+	    // ---------- 追加: 税込価格を計算 ----------
+	    int price = Integer.parseInt(item.getItemPrice()); // itemPriceはString型なのでintに変換
+	    int taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%
+	    model.addAttribute("taxIncludedPrice", taxIncludedPrice);
 	    
 	    //モデルにセット
 	    model.addAttribute("item", item);
