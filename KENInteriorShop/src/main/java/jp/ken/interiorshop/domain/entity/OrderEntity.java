@@ -26,6 +26,6 @@ public class OrderEntity {
 	private int shippingId;
 	
 	//発送フラグ
-	private String shippingFrag;
+	private Integer shippingFrag = 0;
 
 }
