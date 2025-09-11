@@ -48,6 +48,10 @@ public class ItemController {
 	@GetMapping(value = "/cart")
 	public String showCart(@ModelAttribute("userLoggedIn") boolean addUserLoggedIn, Model model, HttpSession session) {
 		if(addUserLoggedIn) {
+			
+			//現在のURLをcartに(ログイン後の画面遷移に必要)
+		    session.setAttribute("currentUrl", "/cart");
+		    
 	        List<ItemForm> cartItems = itemService.getCart(session);
 	        model.addAttribute("cartItems", cartItems);
 	
@@ -139,7 +143,9 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	    @RequestParam(name = "from", required = false, defaultValue = "item") String from,
 	    @RequestParam(name = "keyword", required = false) String keyword,
 	    @RequestParam(name = "categoryId", required = false) Integer categoryId,
-	    Model model) throws Exception {
+	    Model model, HttpSession session) throws Exception {
+		
+		
 		
 		//DBから商品取得
 	    ItemForm item = itemService.getItemById(itemId);

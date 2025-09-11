@@ -86,7 +86,7 @@ public class MemberController {
 				form.setAddress3(matchedMember.getAddress3());
 				form.setCreditNo(matchedMember.getCreditNo());
 				model.addAttribute("loginUser", form);
-				//session.setAttribute("userLoggedIn", true);
+				session.setAttribute("loginFrag", "true");
 				Object backUrl = session.getAttribute("currentUrl");
 				return "redirect:" + backUrl;
 			}else {
@@ -115,7 +115,7 @@ public class MemberController {
 			HttpSession session) {
 		status.setComplete();
 		model.addAttribute("loginUser", null);
-		//session.setAttribute("userLoggedIn", false);
+		session.setAttribute("loginFrag", false);
 		Object backUrl = session.getAttribute("currentUrl");
 		return "redirect:" + backUrl;
 	}

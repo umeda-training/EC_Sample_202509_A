@@ -17,8 +17,8 @@ public class GlobalControllerAdvice {
 
     // ログインしているかどうか (true/false)
    @ModelAttribute("userLoggedIn")
-   public boolean addUserLoggedIn(@ModelAttribute("loginUser")MemberLoginForm form) {
-	    if(form.getMail() != null) {
+   public boolean addUserLoggedIn(HttpSession session) {
+	    if(session.getAttribute("loginFrag") == "true") {
 	    	return true;
 	    } else {
 	    	return false;
