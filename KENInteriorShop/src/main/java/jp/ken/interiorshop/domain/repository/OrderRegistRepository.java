@@ -1,6 +1,6 @@
 package jp.ken.interiorshop.domain.repository;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,73 +12,54 @@ import jp.ken.interiorshop.domain.entity.ShippingEntity;
 public class OrderRegistRepository {
 	private JdbcTemplate jdbcTemplate;
 	
-	//発送内容をDBに保存する
+	//発送情報をDBに保存する
 	public int shippingRegist(ShippingEntity shippingEntity) throws Exception{
 		
-		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO shipping");
-		sb.append(" (");
-		sb.append("shipping_name");
-		sb.append(", shipping_kana");
-		sb.append(", shipping_phone");
-		sb.append(", shipping_postal_code");
-		sb.append(", shipping_address1");
-		sb.append(", shipping_address2");
-		sb.append(", shipping_address3");
-		sb.append(")");
-		sb.append(" VALUES");
-		sb.append(" (?, ?, ?, ?, ?, ?, ?)");
-		String sql = sb.toString();
+		String sql = "INSERT INTO shipping (shipping_name, shipping_kana, shipping_phone, " +
+	             "shipping_postal_code, shipping_address1, shipping_address2, shipping_address3) " +
+	             "VALUES (?, ?, ?, ?, ?, ?, ?)";
 		
-		Object[] parameters = {
-			        shippingEntity.getShippingName(),
-			        shippingEntity.getShippingKana(),
-			        shippingEntity.getShippingphone(),
-			        shippingEntity.getShippingPostalCode(),
-			        shippingEntity.getShippingAddress1(),
-			        shippingEntity.getShippingAddress2(),
-			        shippingEntity.getShippingAddress3()
-			    };
-		
-		int numberOfRow = jdbcTemplate.update(sql, parameters);
-		return numberOfRow;
-			}
+		jdbcTemplate.update(sql, shippingEntity.getShippingName(),
+                shippingEntity.getShippingKana(),
+                shippingEntity.getShippingphone(),
+                shippingEntity.getShippingPostalCode(),
+                shippingEntity.getShippingAddress1(),
+                shippingEntity.getShippingAddress2(),
+                shippingEntity.getShippingAddress3());
 
-	//注文内容をDBに保存する
-	public int orderRegist(OrderEntity orderEntity) throws Exception{
-		
-		
-		// shipping_id を DB から取得
-	   /* Long shippingId = getDefaultShippingId(loginUser.getId());
-	    orderEntity.setShippingId(shippingId);*/
+		//登録直後の発送IDを取得
+		Integer shippingId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO orders");
-		sb.append(" (");
-		sb.append("member_id");
-		sb.append(", total");
-		sb.append(", order_date");
-		sb.append(", payment");
-		sb.append(", shipping_id");
-		sb.append(", shipping_frag");
-		sb.append(")");
-		sb.append(" VALUES");
-		sb.append(" (?, ?, ?, ?, ?, ?)");
-		String sql = sb.toString();
-		
-		Object[] parameters = {
-					orderEntity.getMemberId(),
-					orderEntity.getTotal(),
-					LocalDateTime.now(), 
-					orderEntity.getPayment(),
-					orderEntity.getShippingId(),
-					orderEntity.getShippingFrag()
-			    };
-		
-		int numberOfRow = jdbcTemplate.update(sql, parameters);
-		return numberOfRow;
+		return shippingId;
 }
-	
+		//注文情報をDBに保存する
+		public int orderRegist(int shippingId, int memberId, OrderEntity orderEntity) {
+		String sql = "INSERT INTO orders (member_id, total, order_date, " +
+	             "payment, shipping_id, shipping_frag" +
+	             "VALUES (?, ?, ?, ?, ?, ?)";
+		
+		jdbcTemplate.update(sql, memberId,
+                orderEntity.getTotal(),
+                LocalDate.now(),
+                orderEntity.getPayment(),
+                shippingId, 
+                orderEntity.getShippingId());
+		
+		//登録直後の注文IDを取得
+		Integer orderId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 
+		return orderId;
+	}
+	
+	//注文詳細情報をDBに保存する	
+	public void orderDetailsRegist(int orderId, String itemId, String itemQuantity, String Subtotal) {
+		String sql = "INSERT INTO order_details (order_id, item_id, item_quantity, " +
+	             "subtotal" +
+	             "VALUES (?, ?, ?, ?)";
+		
+		jdbcTemplate.update(sql, orderId,
+                itemId,
+                itemQuantity,
+                Subtotal);
+	}
 }

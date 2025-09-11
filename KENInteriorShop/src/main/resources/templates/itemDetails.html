@@ -14,7 +14,7 @@
     <!-- ページタイトル -->
     <header style="text-align: center; margin: 20px 0;">
         <!-- タイトルを商品名サイズに -->
-        <h1 style="font-size: 4em;" th:text="${item.itemName}">商品詳細ページ</h1>
+        <h1>商品詳細</h1>
     </header>
 
     <main>
@@ -26,7 +26,7 @@
                 <!-- 左：商品情報 -->
                 <td style="vertical-align: top; width: 50%; padding-right: 20px; font-size: 2em;">
                     <!-- 商品名 -->
-                    <h2 style="font-size: 2em;" th:text="${item.itemName}">商品名</h2>
+                    <h2 style="font-size: 1.5em;" th:text="${item.itemName}">商品名</h2>
                     <!-- 商品説明 -->
                     <p th:text="${item.explanation}">商品説明</p>
                     <!-- 価格表示 -->
@@ -37,12 +37,12 @@
                        (税込: <span th:text="${taxIncludedPrice}">0</span> 円)
                     </p>
                     <!-- 発売日 -->
-                    <p>発売開始日: <span th:text="${item.rsDate}">2023/10/01</span></p>
+                    <p>発売開始日: <span th:text="${item.rsDate} ?: '未定'"></span></p>
                 </td>
 
                 <!-- 右：商品画像 -->
                 <td style="vertical-align: top; width: 50%; text-align: center;">
-                    <img th:src="@{/images/{img}(img=${item.image})}" th:alt="${item.itemName}" width="450">
+                    <img th:src="@{/images/{img}(img=${item.image})}" th:alt="${item.itemName}" width="400">
                 </td>
             </tr>
         </table>
