@@ -38,7 +38,7 @@ public class OrderRegistService {
 		//発送情報登録して発送IDを取得
 		int shippingId = orderRegistRepository.shippingRegist(shippingEntity);
 		//注文内容登録
-		List<OrderDetailsForm> orderId = orderRegistRepository.orderRegist(shippingId, memberEntity.getMemberId(), orderEntity);
+		int orderId = orderRegistRepository.orderRegist(shippingId, memberEntity.getMemberId(), orderEntity);
 		//注文詳細内容登録
 		orderRegistRepository.orderDetailsRegist(orderId, orderForm.getOrderDetailsForm().getItemId(), orderForm.getOrderDetailsForm().getItemQuantity(), orderForm.getOrderDetailsForm().getSubtotal());
 		
