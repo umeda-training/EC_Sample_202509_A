@@ -8,16 +8,16 @@ import lombok.Data;
 public class OrderDetailsForm implements Serializable {
 	
 	//商品詳細ID
-	private String detail_id;
+	private String detailId;
 	
 	//注文ID
-	private String order_id;
+	private String orderId;
 	
 	//商品ID
-	private String item_id;
+	private String itemId;
 	
 	//注文数
-	private String item_quantity;
+	private String itemQuantity;
 	
 	//小計
 	private String subtotal;
