@@ -3,10 +3,7 @@ package jp.ken.interiorshop.application.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import jp.ken.interiorshop.domain.entity.ShippingEntity;
 import jp.ken.interiorshop.domain.repository.OrderRegistRepository;
-import jp.ken.interiorshop.presentation.form.MemberLoginForm;
-import jp.ken.interiorshop.presentation.form.OrderForm;
 
 @Service
 public class OrderRegistService {
@@ -19,7 +16,8 @@ public class OrderRegistService {
 		this.modelMapper = modelMapper;
 	}
 	
-	 public void completeOrder(OrderForm orderForm, MemberLoginForm loginUser) {
+	
+	/* public void completeOrder(OrderForm orderForm, MemberLoginForm loginUser) {
 		 
 		 ShippingEntity shipping = new ShippingEntity();
 		    if ("member".equals(orderForm.getAddressOption())) {
@@ -39,7 +37,7 @@ public class OrderRegistService {
 		        shipping.setCity(orderForm.getCity());
 		        shipping.setStreet(orderForm.getStreet());
 		    }
-	 }
+	 }*/
 	
 	
 }

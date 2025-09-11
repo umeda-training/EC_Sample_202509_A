@@ -49,8 +49,8 @@ public class OrderRegistRepository {
 		
 		
 		// shipping_id を DB から取得
-	    Long shippingId = getDefaultShippingId(loginUser.getId());
-	    orderEntity.setShippingId(shippingId);
+	   /* Long shippingId = getDefaultShippingId(loginUser.getId());
+	    orderEntity.setShippingId(shippingId);*/
 
 		
 		StringBuilder sb = new StringBuilder();
@@ -80,19 +80,5 @@ public class OrderRegistRepository {
 		return numberOfRow;
 }
 	
-	//注文IDを検索する処理
-	public Long getShippingId(Long memberId) {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("SELECT shipping_id");
-		sb.append(" FROM");
-		sb.append(" shipping");
-		sb.append(" WHERE");
-		sb.append(" member_id = ?");
-		sb.append(" ORDER BY shipping_id LIMIT 1");
-		
-		String sql = sb.toString();
-		
-		return jdbcTemplate.queryForObject(sql, Long.class, memberId);
-	}
+
 }
