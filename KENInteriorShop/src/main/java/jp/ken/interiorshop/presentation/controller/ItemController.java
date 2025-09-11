@@ -145,7 +145,8 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	    @RequestParam(name = "categoryId", required = false) Integer categoryId,
 	    Model model, HttpSession session) throws Exception {
 		
-		
+		//現在のURLを取得
+		session.setAttribute("currentUrl", "/item/detail/" + itemId);
 		
 		//DBから商品取得
 	    ItemForm item = itemService.getItemById(itemId);
