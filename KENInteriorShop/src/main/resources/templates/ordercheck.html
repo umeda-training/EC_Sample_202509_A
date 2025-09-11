@@ -24,12 +24,12 @@
 				</td>
 					
 				<td>
-					<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemQuantity}" />
+					<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].subtotal}" />
 	            	<span th:text="${detail.subtotal}">1000</span>
 				</td>
 	            
 	            <td>
-					<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].subtotal}" />
+					<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemQuantity}" />
 	            	<span th:text="${detail.itemQuantity}">1</span>
 				</td>
 	        </tr>
