@@ -1,7 +1,10 @@
 package jp.ken.interiorshop.domain.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 import lombok.Data;
 
 @Data
@@ -27,5 +30,8 @@ public class OrderEntity {
 	
 	//発送フラグ
 	private Integer shippingFrag = 0;
+	
+	// 複数商品を保持するリストに変更
+    private List<OrderDetailsForm> orderDetailsForm = new ArrayList<>();
 
 }
