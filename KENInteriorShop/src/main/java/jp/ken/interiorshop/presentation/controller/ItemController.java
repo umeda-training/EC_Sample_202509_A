@@ -46,30 +46,34 @@ public class ItemController {
 	}
 	
 	@GetMapping(value = "/cart")
-	public String showCart(Model model, HttpSession session) {
-        List<ItemForm> cartItems = itemService.getCart(session);
-        model.addAttribute("cartItems", cartItems);
-
-        // 合計金額を計算（仮）
-        int totalExclTax = 0;
-
-        for (ItemForm item : cartItems) {
-            int price = Integer.parseInt(item.getItemPrice());
-            int quantity = item.getItemQuantity();
-            totalExclTax += price * quantity;
-        }
-        int totalTax = (int)(totalExclTax * 0.1);
-        int totalInclTax = totalExclTax + totalTax;
-        
-        session.setAttribute("totalExclTax", totalExclTax);
-        session.setAttribute("totalTax", totalTax);
-        session.setAttribute("totalInclTax", totalInclTax);
-
-        model.addAttribute("totalExclTax", totalExclTax);
-        model.addAttribute("totalTax", totalTax);
-        model.addAttribute("totalInclTax", totalInclTax);
-
-        return "cart";
+	public String showCart(@ModelAttribute("userLoggedIn") boolean addUserLoggedIn, Model model, HttpSession session) {
+		if(addUserLoggedIn) {
+	        List<ItemForm> cartItems = itemService.getCart(session);
+	        model.addAttribute("cartItems", cartItems);
+	
+	        // 合計金額を計算（仮）
+	        int totalExclTax = 0;
+	
+	        for (ItemForm item : cartItems) {
+	            int price = Integer.parseInt(item.getItemPrice());
+	            int quantity = item.getItemQuantity();
+	            totalExclTax += price * quantity;
+	        }
+	        int totalTax = (int)(totalExclTax * 0.1);
+	        int totalInclTax = totalExclTax + totalTax;
+	        
+	        session.setAttribute("totalExclTax", totalExclTax);
+	        session.setAttribute("totalTax", totalTax);
+	        session.setAttribute("totalInclTax", totalInclTax);
+	
+	        model.addAttribute("totalExclTax", totalExclTax);
+	        model.addAttribute("totalTax", totalTax);
+	        model.addAttribute("totalInclTax", totalInclTax);
+	
+	        return "cart";
+		} else {
+			return "redirect:/login";
+		}
     }
 	
 	//カートに追加ボタン押下

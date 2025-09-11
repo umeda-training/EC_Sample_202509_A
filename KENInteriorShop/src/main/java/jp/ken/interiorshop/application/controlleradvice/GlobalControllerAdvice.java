@@ -18,7 +18,7 @@ public class GlobalControllerAdvice {
     // ログインしているかどうか (true/false)
    @ModelAttribute("userLoggedIn")
    public boolean addUserLoggedIn(@ModelAttribute("loginUser")MemberLoginForm form) {
-	    if(form.getMail() != null && form.getPassword() != null) {
+	    if(form.getMail() != null) {
 	    	return true;
 	    } else {
 	    	return false;
