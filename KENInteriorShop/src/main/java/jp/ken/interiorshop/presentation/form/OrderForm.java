@@ -1,6 +1,8 @@
 package jp.ken.interiorshop.presentation.form;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
 
@@ -34,8 +36,8 @@ public class OrderForm implements Serializable {
 	//発送フラグ
 	private String shippingFrag;
 	
-	//注文詳細のネストForm
-	private OrderDetailsForm orderDetailsForm = new OrderDetailsForm();
+	// 複数商品を保持するリストに変更
+    private List<OrderDetailsForm> orderDetailsForm = new ArrayList<>();
 	
 	//発送のネストForm
 	private ShippingForm shippingForm = new ShippingForm();
