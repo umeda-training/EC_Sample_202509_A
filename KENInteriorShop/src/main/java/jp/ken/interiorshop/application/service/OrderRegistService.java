@@ -27,20 +27,21 @@ public class OrderRegistService {
 	}
 	
 	
-	public void orderRegist(MemberLoginForm memberLoginForm, OrderForm orderForm) throws Exception{
+	public void orderRegist(MemberLoginForm memberLoginForm, OrderForm orderForm){
 		
 		
 		ShippingEntity shippingEntity = convert(orderForm.getShippingForm());
 		MemberEntity memberEntity = convert(memberLoginForm);
 		OrderEntity orderEntity = convert(orderForm);
-		OrderDetailsEntity orderDetailsEntity = convert(orderForm.getOrderDetailsForm());
+
 		
 		//発送情報登録して発送IDを取得
 		int shippingId = orderRegistRepository.shippingRegist(shippingEntity);
 		//注文内容登録
 		int orderId = orderRegistRepository.orderRegist(shippingId, memberEntity.getMemberId(), orderEntity);
 		//注文詳細内容登録
-		orderRegistRepository.orderDetailsRegist(orderId, orderForm.getOrderDetailsForm().getItemId(), orderForm.getOrderDetailsForm().getItemQuantity(), orderForm.getOrderDetailsForm().getSubtotal());
+		List<OrderDetailsForm> detailsList = orderForm.getOrderDetailsForm();
+		orderRegistRepository.orderDetailsRegist(orderId, detailsList);
 		
 	}
 	

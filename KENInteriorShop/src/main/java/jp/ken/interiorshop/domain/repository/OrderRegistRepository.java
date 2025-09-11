@@ -1,19 +1,21 @@
 package jp.ken.interiorshop.domain.repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import jp.ken.interiorshop.domain.entity.OrderEntity;
 import jp.ken.interiorshop.domain.entity.ShippingEntity;
+import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 
 @Repository
 public class OrderRegistRepository {
 	private JdbcTemplate jdbcTemplate;
 	
 	//発送情報をDBに保存する
-	public int shippingRegist(ShippingEntity shippingEntity) throws Exception{
+	public int shippingRegist(ShippingEntity shippingEntity){
 		
 		String sql = "INSERT INTO shipping (shipping_name, shipping_kana, shipping_phone, " +
 	             "shipping_postal_code, shipping_address1, shipping_address2, shipping_address3) " +
@@ -52,14 +54,16 @@ public class OrderRegistRepository {
 	}
 	
 	//注文詳細情報をDBに保存する	
-	public void orderDetailsRegist(int orderId, String itemId, String itemQuantity, String Subtotal) {
+	public void orderDetailsRegist(int orderId, List<OrderDetailsForm> form) {
 		String sql = "INSERT INTO order_details (order_id, item_id, item_quantity, " +
 	             "subtotal" +
 	             "VALUES (?, ?, ?, ?)";
-		
+		for(OrderDetailsForm regist : form) {
 		jdbcTemplate.update(sql, orderId,
-                itemId,
-                itemQuantity,
-                Subtotal);
+                orderId,
+                regist.getItemId(),
+                regist.getItemQuantity(),
+                regist.getSubtotal());
+		}
 	}
 }
