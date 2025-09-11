@@ -82,11 +82,13 @@
 				<input type="text" placeholder="1～31"/>日
 				<input type="text" placeholder="00：00"/>
 			</div>
-			<input type="hidden" name="itemId" th:value="${orderDetailsForm.itemId}">
-			<input type="hidden" name="itemName" th:value="${items.itemName}">
-			<input type="hidden" name="itemPrice" th:value="${items.itemPrice}">
-			<input type="hidden" name="itemQuantity" th:value="1">
-			<input type="hidden" name="redirectUrl" value="/item"> 
+			
+			<div th:each="detail, iterStat : ${orderForm.orderDetailsForm}">
+    			<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemId}" />
+    			<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemQuantity}" />
+    			<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].subtotal}" />
+			</div>
+
 			<button type="submit" style="padding:12px 24px; font-size:18px;">確定</button>
 	</form>
 	
