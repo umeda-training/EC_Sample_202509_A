@@ -24,7 +24,7 @@ public class LoginMapper implements RowMapper<MemberEntity>  {
 		memberEntity.setAddress1(rs.getString("address1"));	
 		memberEntity.setAddress2(rs.getString("address2"));
 		memberEntity.setAddress3(rs.getString("address3"));
-		memberEntity.setCreditNo(rs.getInt("credit_no"));
+		memberEntity.setCreditNo(rs.getString("credit_no"));
 		memberEntity.setCancel(rs.getInt("cancel"));
 		
 		return memberEntity;

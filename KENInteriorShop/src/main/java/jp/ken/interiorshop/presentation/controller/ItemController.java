@@ -69,7 +69,7 @@ public class ItemController {
         model.addAttribute("totalTax", totalTax);
         model.addAttribute("totalInclTax", totalInclTax);
 
-        return "cart"; //
+        return "cart";
     }
 	
 	//カートに追加ボタン押下
