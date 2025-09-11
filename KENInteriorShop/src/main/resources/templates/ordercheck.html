@@ -7,101 +7,103 @@
 <body>
 <h2 style="text-align:center;">カート</h2>
 
-<div style="text-align:center;">
-    <table border="1" style="margin:0 auto;" id="cart-table">
-        <tr>
-            <th>商品名</th>
-            <th>税別価格</th>
-            <th>数量</th>
-        </tr>
-        <tr th:each="detail, iterStat : ${orderForm.orderDetailsForm}">
-            <!-- 商品情報 -->
-            
-            <td>
-				<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemId}" />
-				<span th:text="${detail.itemName}">商品名</span>
-			</td>
-				
-			<td>
-				<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemQuantity}" />
-            	<span th:text="${detail.itemPrice}">1000</span>
-			</td>
-            
-            <td>
-				<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].subtotal}" />
-            	<span th:text="${detail.itemQuantity}">1</span>
-			</td>
-        </tr>
-
-    </table>
-</div>
-
-<!-- 合計金額・合計数量 -->
-<div style="width:300px; padding:5px; margin:50px 0 0 760px; display: flex; flex-direction: column; align-items: flex-end;">
-	<p style="margin: 5px 0 5px 0;">税別合計: <span th:text="${totalExclTax}">0</span> 円</p>
-	<p style="margin: 5px 0 5px 0;">消費税合計: <span th:text="${totalTax}">0</span> 円</p>
-
-    <div style="display: flex; gap: 5px;">
-		<p style="margin: 5px 0 5px 0;">商品合計数: <span th:text="${totalQuantity}">0</span>個</p>
-		<p style="margin: 5px 0 5px 0;">税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
+<form th:action="@{/ordercomp}" th:object="${orderForm}" method="post">
+	<div style="text-align:center;">
+	    <table border="1" style="margin:0 auto;" id="cart-table">
+	        <tr>
+	            <th>商品名</th>
+	            <th>税別価格</th>
+	            <th>数量</th>
+	        </tr>
+	        <tr th:each="detail, iterStat : ${orderForm.orderDetailsForm}">
+	            <!-- 商品情報 -->
+	            
+	            <td>
+					<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemId}" />
+					<span th:text="${detail.itemName}">商品名</span>
+				</td>
+					
+				<td>
+					<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemQuantity}" />
+	            	<span th:text="${detail.subtotal}">1000</span>
+				</td>
+	            
+	            <td>
+					<input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].subtotal}" />
+	            	<span th:text="${detail.itemQuantity}">1</span>
+				</td>
+	        </tr>
+	
+	    </table>
 	</div>
-</div>
 
-<!-- 住所・支払方法・発送の選択 -->
-<div style="text-align:center;">
-	<p style="margin: 5px 0 5px 0;">お間違いなければ、下記フォームを入力の上、注文ボタンを押下してください</p>
-	<form th:action="@{/ordercomp}" th:object="${orderForm}" method="post">
-		<div style="display: flex; gap: 5px;">
-			<label>
-				
-				<p>お届け先<input type="radio" th:field="*{addressOption}" value="member" />ご登録いただいてる住所に配達</p>
-			</label>
+	<!-- 合計金額・合計数量 -->
+	<div style="width:300px; padding:5px; margin:50px 0 0 760px; display: flex; flex-direction: column; align-items: flex-end;">
+		<p style="margin: 5px 0 5px 0;">税別合計: <span th:text="${totalExclTax}">0</span> 円</p>
+		<p style="margin: 5px 0 5px 0;">消費税合計: <span th:text="${totalTax}">0</span> 円</p>
+	
+	    <div style="display: flex; gap: 5px;">
+			<p style="margin: 5px 0 5px 0;">商品合計数: <span th:text="${totalQuantity}">0</span>個</p>
+			<p style="margin: 5px 0 5px 0;">税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
 		</div>
+	</div>
+	
+	<!-- 住所・支払方法・発送の選択 -->
+	<div style="text-align:center;">
+		<p style="margin: 5px 0 5px 0;">お間違いなければ、下記フォームを入力の上、注文ボタンを押下してください</p>
 		
-		<div style="display: flex; gap: 5px;">
-			<label>
-				<p><input type="radio" th:field="*{addressOption}" value="other" />それ以外の方は、下記に住所を入力してください</p>
-			</label>
-		</div>
-			
-			<p>名前: <input type="text" th:field="*{shippingForm.shippingName}"></p>
-		    <p>フリガナ: <input type="text" th:field="*{shippingForm.shippingKana}"></p>
-		    <p>電話番号: <input type="text" th:field="*{shippingForm.shippingphone}"></p>
-		    <p>郵便番号: <input type="text" th:field="*{shippingForm.shippingPostalCode}"></p>
-		    <p>都道府県: <input type="text" th:field="*{shippingForm.shippingAddress1}"></p>
-		    <p>市区町村: <input type="text" th:field="*{shippingForm.shippingAddress2}"></p>
-		    <p>番地: <input type="text" th:field="*{shippingForm.shippingAddress3}"></p>
-		    
-		    <div style="display: flex; gap: 5px;">
-				<label>
-					<p>お支払い方法<input type="radio" th:field="*{payment}" value="COD"/>代引き</p>
-				</label>
-				
-				<label>
-					<p><input type="radio" th:field="*{payment}" value="Card"/>クレジットカード</p>
-				</label>
-			</div>
-
 			<div style="display: flex; gap: 5px;">
 				<label>
-					<p>発送指定<input type="radio" th:field="*{shipping}" value="Standard"/>通常配送</p>
+					
+					<p>お届け先<input type="radio" th:field="*{addressOption}" value="member" />ご登録いただいてる住所に配達</p>
 				</label>
-
-				<label>
-					<p><input type="radio" th:field="*{shipping}" value="Specify"/>日時指定</p>
-				</label>
-				
-				<input type="text" placeholder="1～12"/>月
-				<input type="text" placeholder="1～31"/>日
-				<input type="text" placeholder="00：00"/>
 			</div>
 			
-			
-
-			<button type="submit" style="padding:12px 24px; font-size:18px;">確定</button>
-	</form>
+			<div style="display: flex; gap: 5px;">
+				<label>
+					<p><input type="radio" th:field="*{addressOption}" value="other" />それ以外の方は、下記に住所を入力してください</p>
+				</label>
+			</div>
+				
+				<p>名前: <input type="text" th:field="*{shippingForm.shippingName}"></p>
+			    <p>フリガナ: <input type="text" th:field="*{shippingForm.shippingKana}"></p>
+			    <p>電話番号: <input type="text" th:field="*{shippingForm.shippingphone}"></p>
+			    <p>郵便番号: <input type="text" th:field="*{shippingForm.shippingPostalCode}"></p>
+			    <p>都道府県: <input type="text" th:field="*{shippingForm.shippingAddress1}"></p>
+			    <p>市区町村: <input type="text" th:field="*{shippingForm.shippingAddress2}"></p>
+			    <p>番地: <input type="text" th:field="*{shippingForm.shippingAddress3}"></p>
+			    
+			    <div style="display: flex; gap: 5px;">
+					<label>
+						<p>お支払い方法<input type="radio" th:field="*{payment}" value="現金"/>代引き</p>
+					</label>
+					
+					<label>
+						<p><input type="radio" th:field="*{payment}" value="クレジット"/>クレジットカード</p>
+					</label>
+				</div>
 	
-</div>
+				<div style="display: flex; gap: 5px;">
+					<label>
+						<p>発送指定<input type="radio" th:field="*{shipping}" value="Standard"/>通常配送</p>
+					</label>
+	
+					<label>
+						<p><input type="radio" th:field="*{shipping}" value="Specify"/>日時指定</p>
+					</label>
+					
+					<input type="text" placeholder="1～12"/>月
+					<input type="text" placeholder="1～31"/>日
+					<input type="text" placeholder="00：00"/>
+				</div>
+				
+				
+	
+				<button type="submit" style="padding:12px 24px; font-size:18px;">確定</button>
+	</div>
+</form>
+	
+
 
 <div style="text-align:center; margin-top:20px;">
     <a href="cart.html">戻る</a>

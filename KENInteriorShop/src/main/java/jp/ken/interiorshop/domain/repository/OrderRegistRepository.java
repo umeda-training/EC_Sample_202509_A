@@ -6,13 +6,18 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
 import jp.ken.interiorshop.domain.entity.OrderEntity;
 import jp.ken.interiorshop.domain.entity.ShippingEntity;
+import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 
 @Repository
 public class OrderRegistRepository {
+
 	private JdbcTemplate jdbcTemplate;
+	
+	public OrderRegistRepository(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 	
 	//発送情報をDBに保存する
 	public int shippingRegist(ShippingEntity shippingEntity){
@@ -37,7 +42,7 @@ public class OrderRegistRepository {
 		//注文情報をDBに保存する
 		public int orderRegist(int shippingId, int memberId, OrderEntity orderEntity) {
 		String sql = "INSERT INTO orders (member_id, total, order_date, " +
-	             "payment, shipping_id, shipping_frag" +
+	             "payment, shipping_id, shipping_frag)" +
 	             "VALUES (?, ?, ?, ?, ?, ?)";
 		
 		jdbcTemplate.update(sql, memberId,
@@ -45,7 +50,7 @@ public class OrderRegistRepository {
                 LocalDate.now(),
                 orderEntity.getPayment(),
                 shippingId, 
-                orderEntity.getShippingId());
+                "未発送");
 		
 		//登録直後の注文IDを取得
 		Integer orderId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
@@ -54,13 +59,13 @@ public class OrderRegistRepository {
 	}
 	
 	//注文詳細情報をDBに保存する	
-	public void orderDetailsRegist(int orderId, List<OrderDetailsEntity> form) {
+	public void orderDetailsRegist(int orderId, List<OrderDetailsForm> form) {
 		String sql = "INSERT INTO order_details (order_id, item_id, item_quantity, " +
-	             "subtotal" +
+	             "subtotal)" +
 	             "VALUES (?, ?, ?, ?)";
-		for(OrderDetailsEntity regist : form) {
-		jdbcTemplate.update(sql, orderId,
-                orderId,
+		for(OrderDetailsForm regist : form) {
+		jdbcTemplate.update(sql, 
+				orderId,
                 regist.getItemId(),
                 regist.getItemQuantity(),
                 regist.getSubtotal());
