@@ -12,7 +12,12 @@ import jp.ken.interiorshop.domain.entity.ShippingEntity;
 
 @Repository
 public class OrderRegistRepository {
+	
 	private JdbcTemplate jdbcTemplate;
+	
+	public OrderRegistRepository(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 	
 	//発送情報をDBに保存する
 	public int shippingRegist(ShippingEntity shippingEntity){
