@@ -11,21 +11,41 @@ import jp.ken.interiorshop.presentation.form.MemberLoginForm;
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
-	 // ログインしているユーザー名
-    @ModelAttribute("loginUser")
-	public MemberLoginForm memberLoginForm(HttpSession session) {
-    	return new MemberLoginForm();
-    	}
+	
+	@ModelAttribute
+    public void addUserAttributes(HttpSession session, Model model) {
+        // セッションからログインユーザーを取得
+        MemberLoginForm loginUser = (MemberLoginForm) session.getAttribute("loginUser");
+        model.addAttribute("loginUser", loginUser != null ? loginUser : new MemberLoginForm());
 
-    // ログインしているかどうか (true/false)
-   @ModelAttribute("userLoggedIn")
-   public boolean addUserLoggedIn(HttpSession session) {
+        // ログイン状態を追加
+        model.addAttribute("isLogin", loginUser != null);
+
+        // loginFrag に基づくフラグを追加
+        Object loginFrag = session.getAttribute("loginFrag");
+        model.addAttribute("userLoggedIn", "true".equals(loginFrag));
+    }
+	
+	/* // ログインしているユーザー名
+	@ModelAttribute("loginUser")
+	public MemberLoginForm memberLoginForm(HttpSession session) {
+		return new MemberLoginForm();
+		}
+	
+	// ログインしているかどうか (true/false)
+	@ModelAttribute("userLoggedIn")
+	public boolean addUserLoggedIn(HttpSession session) {
 	    if(session.getAttribute("loginFrag") == "true") {
 	    	return true;
 	    } else {
 	    	return false;
 	    }
-    }
+	}
+	
+	@ModelAttribute("isLogin")
+	public Boolean addIsLogin(HttpSession session) {
+	   return session.getAttribute("loginUser") != null;
+	}*/
    
    // IllegalArgumentException を捕捉
    @ExceptionHandler(IllegalArgumentException.class)

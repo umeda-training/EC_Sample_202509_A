@@ -6,8 +6,8 @@
 		<link th:href="@{/css/style.css}" rel="stylesheet">
 		<script th:src="@{/js/main.js}"></script>
 	</head>
-<body>
-	<div id="wrapper">
+<body >
+	<div id="wrapper" th:classappend="${isLogin} ? 'logged-in' : ''">
 		    <!-- 共通ヘッダーを挿入 -->
     <header th:insert="~{header :: header_area}"></header>
 		<main>
@@ -29,17 +29,18 @@
                 				th:text="${cat.categoryName}"
                 				th:selected="${cat.categoryId == categoryId}">
         						</option>
-    					</select>
-    				<input type="submit" value="検索" class="btn">
-				</form>
-				
-				<!-- エラーメッセージ表示 -->
-				<p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
-
+    						</select>
+    					<input type="submit" value="検索" class="btn">
+					</form>
 				</div>
+				
+			    
 			    
 				<div class="note-wrapper">
-					<span class="item-Note">商品画像をクリックすると詳細ページに遷移します</span>
+					<!-- エラーメッセージ表示 -->
+					<p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+					
+					<span class="item-Note">商品をクリックすると詳細ページに遷移します</span>
 				</div>
 				
 			    

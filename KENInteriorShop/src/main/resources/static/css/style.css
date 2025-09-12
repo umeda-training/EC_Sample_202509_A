@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+/* ログイン時にいろが変わる */
+#wrapper.logged-in{
+	background-color: rgb(173, 240, 254); /* ログイン時の背景色 */
+}
+
 /* ページ全体 */
 .page{
 	width: 1200px;       /* ページの横幅（お好みで） */
@@ -60,21 +65,24 @@ h2{
 .note-wrapper{
 	text-align: center;
 	margin: 10px 10px;
-}
-
-.item-Note{
 	
 }
 
+.note-wrapper p {
+	color:red;
+}
+
+
 /* 商品全体 */
 .item-list {
-	display: grid; /* グリッドレイアウト */
-	grid-template-columns: repeat(5, 1fr); /* 5列 */
-	gap: 20px; /* カード間の余白 */
-	justify-content: center; /* 中央寄せ */
-	margin: 0 auto; /* 左右中央 */
-	max-width: 1000px; /* 幅制限（大きすぎ防止） */
+  display: flex;          /* Flexbox に変更 */
+  flex-wrap: wrap;        /* 折り返し許可 */
+  justify-content: center;/* 行ごとに中央揃え */
+  gap: 20px;              /* アイテム間のスペース */
+  max-width: 1300px;
+  margin: 0 auto;
 }
+
 
 /* 商品カード */
 .item-card {
@@ -86,6 +94,7 @@ h2{
 	display: flex;
 	flex-direction: column; /* 縦に積む */
 	align-items: center; /* 中央揃え */
+	background-color: white;
 }
 
 .item-card img {
@@ -93,6 +102,8 @@ h2{
 	height: auto;
 	margin-bottom: 10px;
 }
+
+
 
 
 
