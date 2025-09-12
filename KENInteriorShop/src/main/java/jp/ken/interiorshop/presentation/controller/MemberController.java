@@ -182,10 +182,29 @@ public String doWithdraw(HttpSession session, SessionStatus status, Model model)
 }
 
 
+//会員情報編集するときの挙動
 @GetMapping("/edit")
-public String showEditPage(Model model) {
-    // 必要に応じて member 情報を model に追加
-    return "edit"; // edit.html を表示
+public String editMemberInfo(@ModelAttribute("loginUser") MemberLoginForm form, Model model) {
+  model.addAttribute("editForm", form); // 編集用フォームに現在の情報を渡す
+  return "edit";
+}
+
+@PostMapping("/edit")
+public String updateMemberInfo(@Valid @ModelAttribute("editForm") MemberLoginForm form,
+                             BindingResult result,
+                             Model model,
+                             HttpSession session) {
+  if (result.hasErrors()) {
+      return "edit";
+  }
+
+  // 更新処理（サービス層でDB更新）
+  //registService.updateMember(form); // updateMemberは仮のメソッド名
+
+  // セッション情報も更新
+  session.setAttribute("loginUser", form);
+  model.addAttribute("member", form);
+  return "redirect:/mypage";
 }
 
 
