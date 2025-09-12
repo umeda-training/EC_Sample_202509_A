@@ -52,4 +52,61 @@ public class MemberRepository {
 		
 		return sb;
 	}
+	
+	//個人情報登録処理
+	public int regist(MemberEntity memberEntity) throws Exception{
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO members");
+		sb.append(" (");
+		sb.append("member_name");
+		sb.append(", member_kana");
+		sb.append(", mail");
+		sb.append(", password");
+		sb.append(", phone_number");
+		sb.append(", postal_code");
+		sb.append(", address1");
+		sb.append(", address2");
+		sb.append(", address3");
+		sb.append(", credit_no");
+		sb.append(", cancel");
+		sb.append(")");
+		sb.append(" VALUES");
+		sb.append(" (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		String sql = sb.toString();
+		
+		Object[] parameters = {
+			        memberEntity.getMemberName(),
+			        memberEntity.getMemberKana(),
+			        memberEntity.getMail(),
+			        memberEntity.getPassword(),
+			        memberEntity.getPhoneNumber(),
+			        memberEntity.getPostalCode(),
+			        memberEntity.getAddress1(),
+			        memberEntity.getAddress2(),
+			        memberEntity.getAddress3(),
+			        memberEntity.getCreditNo(),
+			        memberEntity.getCancel()
+			        
+			    };
+		
+		int numberOfRow = jdbcTemplate.update(sql, parameters);
+		return numberOfRow;
+			}
+	
+	//メールアドレス重複チェック
+	public boolean existsByMail(String mail) {
+		String sql = "SELECT COUNT(*) FROM members WHERE mail = ?";
+		Integer count = jdbcTemplate.queryForObject(sql, Integer.class, mail);
+		return count != null && count > 0;
+	}
+	
+//	public StringBuilder getMemberByMail(String mail) throws Exception {
+//		
+//		StringBuilder sb = createCommonSQL();
+//		sb.append(" WHERE");
+//		sb.append(" mail LIKE ?");
+//		String sql = sb.toString();
+//	}
 }
+
