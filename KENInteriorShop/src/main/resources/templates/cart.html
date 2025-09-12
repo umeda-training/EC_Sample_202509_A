@@ -22,13 +22,19 @@
 <body>
 <h2 style="text-align:center;">カート</h2>
 
-<div style="text-align:center;">
-    <table border="1" style="margin:0 auto;" id="cart-table">
-        <tr>
-            <th>商品名</th>
-            <th>税別価格</th>
-            <th>数量</th>
-            <th>操作</th>
+
+<!-- カートが空の場合の表示 -->
+    <p th:if="${cartItems == null or #lists.isEmpty(cartItems)}" style="color:red; font-weight:bold;">
+		カートは空です
+	</p>
+	
+		<div style="text-align:center;">
+    	<table border="1" style="margin:0 auto;" id="cart-table">
+        	<tr>
+            	<th>商品名</th>
+            	<th>税別価格</th>
+            	<th>数量</th>
+            	<th>操作</th>
         </tr>
         <tr th:each="item : ${cartItems}">
     		<td th:text="${item.itemName}">商品名</td>
@@ -68,7 +74,7 @@
                 </form>
             </td>
         </tr>
-    </table>
+    	</table> 
 </div>
 
 <!-- 合計金額 -->
