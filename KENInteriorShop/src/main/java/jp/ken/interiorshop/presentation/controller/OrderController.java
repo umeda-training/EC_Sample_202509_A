@@ -6,13 +6,14 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.OrderRegistService;
+import jp.ken.interiorshop.common.validatior.groups.ValidGroup1;
 import jp.ken.interiorshop.presentation.form.ItemForm;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
 import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
@@ -72,7 +73,7 @@ public class OrderController {
 	}
 	
 	@PostMapping(value="/ordercomp")
-	public String completeOrder(@Valid @ModelAttribute OrderForm orderForm,
+	public String completeOrder( @Validated(ValidGroup1.class) @ModelAttribute OrderForm orderForm,
 	        BindingResult result, @SessionAttribute("loginUser") MemberLoginForm form,
 	        HttpSession session, Model model) throws Exception  {
 		

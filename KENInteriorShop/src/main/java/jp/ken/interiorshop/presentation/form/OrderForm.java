@@ -6,13 +6,16 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jp.ken.interiorshop.common.annotation.CustomValidation;
+import jp.ken.interiorshop.common.validatior.groups.ValidGroup1;
 import lombok.Data;
 
 @Data
+@CustomValidation(groups = ValidGroup1.class)
 public class OrderForm implements Serializable {
 
 	//登録住所or別住所
-	private String addressOption = "member";
+	private String addressOption = "other";
 	
 	//注文ID
 	private String orderId;
