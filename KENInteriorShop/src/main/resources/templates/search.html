@@ -81,6 +81,8 @@
     			<div th:if="${message}" class="flash-message">
     				<p th:text="${message}"></p>
 				</div>
+				<!-- エラーメッセージ表示 -->
+				<p th:if="${errorMessage}" th:text="${errorMessage}"></p>
 			    
 			    <div class="item-row">
 					<form th:action="@{/search}" method="get">

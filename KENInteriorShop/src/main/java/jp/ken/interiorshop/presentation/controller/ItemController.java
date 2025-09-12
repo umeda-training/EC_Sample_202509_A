@@ -150,10 +150,11 @@ public class ItemController {
 	    	    // 現在のURL（簡易的）
 	    	    session.setAttribute("currentUrl", "/item");
 	    	    
-	    	    if(keyword != null || categoryId != null) {
-		        	return "search";
-		        }
-	    	    return "item";
+	    	    if(keyword != null | categoryId != null) {
+	    	    	return "item";
+	    	    }
+
+	    	    return "search";
 	    	}
 		
 	        // 商品検索（Entity → Form に変換）
