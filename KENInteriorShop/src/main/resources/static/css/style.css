@@ -1,1 +1,98 @@
 @charset "UTF-8";
+
+/* ページ全体 */
+.page{
+	width: 1200px;       /* ページの横幅（お好みで） */
+  	margin: 0 auto;      /* 左右の余白を自動 → 横方向センター */
+}
+
+/* 見出し */
+h2{
+	text-align: center;
+}
+
+/* 検索フォーム */
+.item-row{
+  	
+  	align-items: stretch;   /* 高さを揃える */
+  	max-width: 600px;       /* フォーム全体の最大幅 */
+  	margin: 0 auto;         /* ページ中央に配置 */
+}
+
+.item-row form{
+	text-align: center;        /* ページ中央に配置 */
+}
+
+.item-row input[type="text"],
+.item-row select,
+.item-row input[type="submit"] {
+  height: 40px;           /* 高さを揃える */
+  font-size: 18px;
+  margin-right: 10px;  /* 右にスペース */
+  box-sizing: border-box; /* パディング込みでサイズを計算 */
+}
+
+/* テキストボックスの幅を広くする */
+.item-row input[type="text"] {
+  width: 300px;   /* お好みの幅に調整 */
+  box-sizing: border-box; /* パディング込みで計算 */
+}
+
+/* プルダウンの幅を狭める */
+.item-row select {
+  width: 200px;   /* お好みの幅に調整 */
+  box-sizing: border-box;
+}
+
+/* ボタンも必要に応じて幅を調整 */
+.item-row input[type="submit"] {
+  width: 60px;
+  margin-right: 0px;  /* 右にスペース */
+}
+
+
+/*.item-row input[type="text"] {
+  flex: 1;                 テキストボックスを伸ばして幅調整 
+  margin: 10px 10px;
+}*/
+
+/* 商品一覧の注釈 */
+.note-wrapper{
+	text-align: center;
+	margin: 10px 10px;
+}
+
+.item-Note{
+	
+}
+
+/* 商品全体 */
+.item-list {
+	display: grid; /* グリッドレイアウト */
+	grid-template-columns: repeat(5, 1fr); /* 5列 */
+	gap: 20px; /* カード間の余白 */
+	justify-content: center; /* 中央寄せ */
+	margin: 0 auto; /* 左右中央 */
+	max-width: 1000px; /* 幅制限（大きすぎ防止） */
+}
+
+/* 商品カード */
+.item-card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 10px;
+	width: 250px; /* 横幅固定 */
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column; /* 縦に積む */
+	align-items: center; /* 中央揃え */
+}
+
+.item-card img {
+	max-width: 100%;
+	height: auto;
+	margin-bottom: 10px;
+}
+
+
+
