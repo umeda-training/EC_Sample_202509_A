@@ -184,9 +184,11 @@ public String doWithdraw(HttpSession session, SessionStatus status, Model model)
 
 //会員情報編集するときの挙動
 @GetMapping("/edit")
-public String editMemberInfo(@ModelAttribute("loginUser") MemberLoginForm form, Model model) {
-  model.addAttribute("editForm", form); // 編集用フォームに現在の情報を渡す
-  return "edit";
+public String showEditPage(Model model) {
+    MemberRegistForm form = new MemberRegistForm();
+    // 必要な初期値をセット
+    model.addAttribute("memberRegistForm", form);
+    return "edit";
 }
 
 @PostMapping("/edit")
