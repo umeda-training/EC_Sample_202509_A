@@ -106,7 +106,7 @@
 				  <!-- 支払い方法 -->
 	<div style="display: flex; align-items: center; gap: 10px;">
 	    <label>
-	        <input type="radio" th:field="*{payment}" value="現金"/> 代引き
+	        <input type="radio" th:field="*{payment}" value="現金" checked/> 代引き
 	    </label>
 	    <label>
 	        <input type="radio" th:field="*{payment}" value="クレジット"/> クレジットカード
@@ -118,7 +118,7 @@
 	<!-- 発送方法 -->
 	<div style="display: flex; align-items: center; gap: 10px; margin-top:5px;">
 	    <label>
-	        <input type="radio" th:field="*{shipping}" value="Standard"/> 通常配送
+	        <input type="radio" th:field="*{shipping}" value="Standard" checked/> 通常配送
 	    </label>
 	    <label>
 	        <input type="radio" th:field="*{shipping}" value="Specify"/> 日時指定
