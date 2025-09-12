@@ -11,19 +11,18 @@
 	<div th:fragment="header_area" th:remove="tag" th:classappend="${isLogin} ? 'logged-in' : ''">
 	
 		<!-- ヘッダー全体（背景白、文字黒） -->
-		<table style="width:100%; background-color:#fff; color:#000; padding:10px 0; border-bottom:1px solid #ccc;">
+		<table >
 			<tr>
 				<!-- ロゴ（左上） -->
-  				<td style="padding-left:20px; vertical-align:top;">
+  				<td>
     				<a th:href="@{/item}">
 						<!-- クリックで商品一覧画面へ遷移 -->
       					<img src="/images/logo/logo_SS_forStaff.png" alt="サイトロゴ" style="height:50px;">
    			 		</a>
   				</td>
   				<!-- ログイン中のみログインユーザー名表示 -->
-  				<td style="text-align:right; padding-right:20px;">
-    				<div th:if="${loginUser != null and loginUser.memberName != null}" 
-         				style="margin-top:5px; font-size:1em;">
+  				<td>
+    				<div th:if="${loginUser != null and loginUser.memberName != null}">
       					<span th:text="${loginUser.memberName} + 'さんログイン中です'"></span>
     				</div>
   				</td>
@@ -31,24 +30,23 @@
 		
 		  <tr>
 		    <!-- 画面遷移ボタン横並び -->
-		    <td style="padding:10px 20px;">
-		      <table style="width:100%; text-align:center;">
+		    <td>
+		      <table>
 		        <tr>
 		          	<!-- マイページ -->
-					<td style="padding-right:20px; font-size:2em;">
- 					   <a th:href="@{/mypage}" style="color:#000; text-decoration:none;">マイページ</a>
+					<td>
+ 					   <a th:href="@{/mypage}">マイページ</a>
 					</td>
 
 		
 		          <!-- 商品一覧 -->
-		          <td style="padding-right:20px; font-size:2em;">
-		            <a th:href="@{/item}" style="color:#000; text-decoration:none;">商品一覧</a>
+		          <td>
+		            <a th:href="@{/item}">商品一覧</a>
 		          </td>
 		          
-		          <td style="padding-right:20px; font-size:2em;">
+		          <td>
 		            <!-- userLoggedIn が true(ログイン時) の場合：カート画面に直接遷移できる -->
-		            <a th:href="@{/cart}" 
-		               style="color:#000; text-decoration:none;">
+		            <a th:href="@{/cart}" >
 		              カート
 		            </a>
 		          </td>
@@ -71,17 +69,17 @@
 		          </td>-->
 		
 		          <!-- ログイン/ログアウト -->
-		          <td style="font-size:2em;">
+		          <td>
 		            <!-- 未ログイン時（userLoggedIn が false） -->
 		            <span th:if="${!userLoggedIn}">
 		              <!-- ログイン画面へ遷移（ログイン後は currentUrl にリダイレクト） -->
-		              <a th:href="@{/login(redirect=${currentUrl})}" style="color:#000; text-decoration:none;">ログイン</a>
+		              <a th:href="@{/login(redirect=${currentUrl})}">ログイン</a>
 		            </span>
 
 		            <!-- ログイン済み時（userLoggedIn が true） -->
 		            <span th:if="${userLoggedIn}">
 		              <!-- ログアウト処理後、currentUrl にリダイレクト -->
-		              <a th:href="@{/logout(redirect=${currentUrl})}" style="color:#000; text-decoration:none;">ログアウト</a>
+		              <a th:href="@{/logout(redirect=${currentUrl})}">ログアウト</a>
 		            </span>
 		          </td>
 		        </tr>
