@@ -28,7 +28,7 @@
 		カートは空です
 	</p>
 	
-		<div style="text-align:center;">
+	<div th:if="${cartItems != null and !#lists.isEmpty(cartItems)}" style="text-align:center;">
     	<table border="1" style="margin:0 auto;" id="cart-table">
         	<tr>
             	<th>商品名</th>
@@ -75,20 +75,22 @@
             </td>
         </tr>
     	</table> 
-</div>
-
-<!-- 合計金額 -->
-<div style="width:300px; padding:5px; margin:50px 0 0 760px; text-align:left;">
-    <p>税別合計: <span th:text="${totalExclTax}">0</span> 円</p>
-    <p>消費税合計: <span th:text="${totalTax}">0</span> 円</p>
-    <p>税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
-</div>
+    	
+    	<!-- 合計金額 -->
+		<div style="width:300px; padding:5px; margin:50px 0 0 760px; text-align:left;">
+			    <p>税別合計: <span th:text="${totalExclTax}">0</span> 円</p>
+			    <p>消費税合計: <span th:text="${totalTax}">0</span> 円</p>
+			    <p>税込合計: <span th:text="${totalInclTax}">0</span> 円</p>
+		</div>
+		<div style="text-align:center; margin-top:20px;">
+		<form th:action="@{/order/confirm}" method="post">
+    		<button type="submit" class="btn">注文確認画面へ</button>
+    	</div>
+		</form>
+	</div>
 
 <!-- 注文確認ボタンと買い物を続けるリンク -->
 <div style="text-align:center; margin-top:20px;">
-    <form th:action="@{/order/confirm}" method="post">
-    	<button type="submit" class="btn">注文確認画面へ</button>
-	</form>
     <br>
     <a th:href="@{/item}" class="btn">買い物を続ける</a>
 </div>

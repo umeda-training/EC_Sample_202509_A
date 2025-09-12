@@ -75,8 +75,7 @@
                 <input type="hidden" name="itemName" th:value="${item.itemName}">
                 <!-- 商品価格（カート画面表示用 / 計算用） -->
                 <input type="hidden" name="itemPrice" th:value="${item.itemPrice}">
-                <!-- 数量指定 -->
-                <input type="hidden" name="itemQuantity" value="1">
+         
 
                 <!-- ★カート追加後に戻るページを指定するためのURL -->
                 <!-- 「商品詳細ページ」にリダイレクトできるように仕込む -->
@@ -88,6 +87,15 @@
                 <button type="submit" style="padding: 15px 30px; font-size: 1.5em;">
                     カートに追加
                 </button>
+                
+                 <!-- 数量選択（1～10のプルダウン） -->
+			    <label for="itemQuantity">数量:</label>
+			    <select name="itemQuantity" id="itemQuantity" style="font-size: 1.2em; padding: 5px;">
+			        <option th:each="i : ${#numbers.sequence(1, 10)}"
+			                th:value="${i}"
+			                th:text="${i}">
+			        </option>
+			    </select>
             </form>
         </div>
     </main>
