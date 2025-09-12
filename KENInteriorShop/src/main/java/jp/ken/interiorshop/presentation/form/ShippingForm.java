@@ -17,27 +17,27 @@ public class ShippingForm implements Serializable {
 	private String shippingName;
 	
 	//発送先フリガナ
-	@NotBlank(message = "必須入力です")
+	@NotBlank(message = "必須入力です", groups = ValidGroup1.class)
 	private String shippingKana;
 	
 	//発送先電話番号
-	@NotBlank(message = "必須入力です")
+	@NotBlank(message = "必須入力です", groups = ValidGroup1.class)
 	private String shippingphone;
 	
 	//発送先郵便番号
-	@NotBlank(message = "必須入力です")
+	@NotBlank(message = "必須入力です", groups = ValidGroup1.class)
 	private String shippingPostalCode;
 	
 	//発送先都道府県
-	@NotBlank(message = "必須入力です")
+	@NotBlank(message = "必須入力です", groups = ValidGroup1.class)
 	private String shippingAddress1;
 	
 	//発送先市区町村
-	@NotBlank(message = "必須入力です")
+	@NotBlank(message = "必須入力です", groups = ValidGroup1.class)
 	private String shippingAddress2;
 	
 	//発送先番地
-	@NotBlank(message = "必須入力です")
+	@NotBlank(message = "必須入力です", groups = ValidGroup1.class)
 	private String shippingAddress3;
 	
 }
