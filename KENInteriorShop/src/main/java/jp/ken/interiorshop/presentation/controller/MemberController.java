@@ -31,10 +31,11 @@ public class MemberController {
 		this.registService = registService;
 	}
 	
-    @ModelAttribute("userLoggedIn")
-    public boolean userLoggedIn() {
-    	return false;
-    }
+	@ModelAttribute("userLoggedIn")
+	public boolean userLoggedIn(HttpSession session) {
+	    Object loginFrag = session.getAttribute("loginFrag");
+	    return loginFrag != null && loginFrag.equals("true");
+	}
 	
 	//ログイン画面表示
 	@GetMapping("/login")
@@ -157,11 +158,28 @@ public class MemberController {
   //マイページアクセス時の挙動
   @GetMapping("/mypage")
   public String showMyPage(@ModelAttribute("loginUser") MemberLoginForm form, HttpSession session, Model model) {
-      if (form == null || session.getAttribute("loginFrag") == null) {
+      Object loginFrag = session.getAttribute("loginFrag");
+      if (form == null || loginFrag == null || !"true".equals(loginFrag)) {
           return "redirect:/login";
       }
       model.addAttribute("member", form);
       return "mypage";
   }
+  
+//退会確認画面へ遷移
+@GetMapping("/withdraw")
+public String showWithdraw() {
+   return "withdraw"; // withdraw.html を表示
+}
+
+//退会処理（実行後に完了画面へ遷移）
+@PostMapping("/withdraw")
+public String doWithdraw(HttpSession session, SessionStatus status, Model model) {
+   // セッション破棄（ログアウトと同様の扱い）
+   status.setComplete();
+   session.invalidate();
+   return "cancel"; // cancel.html を表示
+}
+
 }
 

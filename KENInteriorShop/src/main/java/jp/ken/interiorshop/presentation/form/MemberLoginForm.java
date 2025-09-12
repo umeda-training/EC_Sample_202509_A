@@ -32,5 +32,11 @@ public class MemberLoginForm implements Serializable {
 	
 	private String creditNo;
 	
+	private String creditMonth;
+	
+	private String creditYear;
+	
+	private String creditName;
+	
 	private int cancel;
 }
