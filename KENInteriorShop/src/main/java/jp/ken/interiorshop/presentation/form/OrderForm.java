@@ -29,11 +29,11 @@ public class OrderForm implements Serializable {
 	//注文日
 	private String orderDate;
 	
-	 @NotBlank(message = "支払い方法を選択してください")
+	 @NotBlank(message = "支払い方法を選択してください", groups = ValidGroup1.class)
 	//支払方法
 	private String payment;
 	
-	 @NotBlank(message = "配送方法を選択してください")
+	 @NotBlank(message = "配送方法を選択してください", groups = ValidGroup1.class)
 	//配送指定
 	private String shipping;
 	

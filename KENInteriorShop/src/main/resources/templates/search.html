@@ -95,8 +95,11 @@
     					</select>
     				<input type="submit" value="検索" class="btn">
 				</form>
-					<label>商品画像をクリックすると詳細ページに遷移します</label>
 				</div>
+				
+				<!-- 検索結果が0件の場合の情報メッセージ -->
+				<p th:if="${infoMessage}" th:text="${infoMessage}" style="color:red;"></p>
+			
 
 			    <!-- 検索結果がある場合に該当する商品を繰り返し -->			    
 				<div class="item-list" th:if="${not #lists.isEmpty(itemForm)}">

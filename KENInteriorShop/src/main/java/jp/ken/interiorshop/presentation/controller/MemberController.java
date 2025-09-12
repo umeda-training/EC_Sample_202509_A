@@ -156,12 +156,28 @@ public class MemberController {
 
   //マイページアクセス時の挙動
   @GetMapping("/mypage")
-  public String showMyPage(@ModelAttribute("loginUser") MemberLoginForm form, Model model, HttpSession session) {
-    if (form == null || session.getAttribute("loginFrag") == null) {
-        return "redirect:/login"; // 未ログインならログイン画面へ
-    }
-    model.addAttribute("member", form); // HTML側で使用する変数名に合わせる
-    return "mypage"; // Thymeleafのテンプレート名
+  public String showMyPage(@ModelAttribute("loginUser") MemberLoginForm form, HttpSession session, Model model) {
+      if (form == null || session.getAttribute("loginFrag") == null) {
+          return "redirect:/login";
+      }
+      model.addAttribute("member", form);
+      return "mypage";
+  }
+  
+//退会確認画面へ遷移
+@GetMapping("/withdraw")
+public String showWithdraw() {
+   return "withdraw"; // withdraw.html を表示
 }
+
+//退会処理（実行後に完了画面へ遷移）
+@PostMapping("/withdraw")
+public String doWithdraw(HttpSession session, SessionStatus status, Model model) {
+   // セッション破棄（ログアウトと同様の扱い）
+   status.setComplete();
+   session.invalidate();
+   return "cancel"; // cancel.html を表示
+}
+
 }
 
