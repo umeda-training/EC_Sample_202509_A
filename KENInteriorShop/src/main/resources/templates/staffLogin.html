@@ -14,7 +14,7 @@
 				<form th:action="@{/staff/login}" th:object="${loginStaff}" method="post">
 					<div class="form-row">
 						<label>従業員ID</label>
-						<input th:field="*{staffId}" th:value="${staffId}">
+						<input th:field="*{staffId}" th:value="${staffId}" >
 						<span th:if="${#fields.hasErrors('staffId')}" th:errors="*{staffId}" class="errors"></span>
 					</div>
 					
