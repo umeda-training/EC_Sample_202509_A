@@ -11,7 +11,7 @@
 		<main>
 			<div id="form-area">
 				<h1>従業員ログイン</h1>
-				<form th:action="@{/staff/login}" th:object="${loginStaff}" method="post">
+				<form th:action="@{/stafflogin}" th:object="${staffLoginForm}" method="post">
 					<div class="form-row">
 						<label>従業員ID</label>
 						<input th:field="*{staffId}" th:value="${staffId}" >

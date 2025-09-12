@@ -119,11 +119,11 @@ public class ItemService {
 		}
 		
 		//カートの商品を削除するメソッド
-		public void removeCart(HttpSession session, String itemId) {
+		public void removeCart(HttpSession session, List<String> itemId) {
 			List<ItemForm> cart = getCart(session);
 			List<ItemForm> newCart = new ArrayList<>();
 			for (ItemForm item : cart) {
-				if(!item.getItemId().equals(String.valueOf(itemId))) {
+				if(!itemId.contains(item.getItemId())) {
 					newCart.add(item);
 				}
 			}
@@ -136,14 +136,20 @@ public class ItemService {
 		}
 		
 		//カートの数量を変更するメソッド
-		public void updateQuantity(HttpSession session, String itemId, int itemQuantity) {
+		public void updateQuantity(HttpSession session, List<String> itemIds, List<Integer> itemQuantitys) {
 		    List<ItemForm> cart = getCart(session);
-		    for(ItemForm item : cart) {
-		        if(item.getItemId().equals(itemId)) {
-		          item.setItemQuantity(itemQuantity);
-		            break;
-		        }
+		    for(int i = 0; i < itemIds.size(); i++) {
+		    	String targetId = itemIds.get(i);
+		    	int quantity = itemQuantitys.get(i);
+		    	
+		    	for(ItemForm item : cart) {
+			        if(item.getItemId().equals(targetId)) {
+			          item.setItemQuantity(quantity);
+			            break;
+			        }
+			    }
 		    }
+		    
 		    session.setAttribute(session_cart, cart);
 		}
 		

@@ -10,7 +10,7 @@ import lombok.Data;
 public class StaffLoginForm implements Serializable {
 	
 	@NotNull(message="従業員IDを入力して下さい")
-	private int staffId;
+	private Integer staffId;
 	
 	private String staffName;
 
