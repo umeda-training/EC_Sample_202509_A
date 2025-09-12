@@ -92,13 +92,6 @@ public class ItemController {
         return "redirect:" + redirectUrl;
 	}
 	
-	//カート削除ボタン押下
-	@PostMapping("/cart/remove")
-	public String removeCart(@RequestParam("removeitemId") String itemId, HttpSession session) {
-	    itemService.removeCart(session, itemId);
-	    return "redirect:/cart"; 
-	}
-	
 	//全削除ボタン押下
 	@PostMapping("/cart/clear")
 	public String clearCart(HttpSession session) {
@@ -107,9 +100,24 @@ public class ItemController {
 	}
 	
 	//カートの数量変更
-	@PostMapping("/cart/updateQuantity")
-	public String updateQuantity(@RequestParam("itemId") String itemId, @RequestParam("itemQuantity") int itemQuantity, HttpSession session) {
-	    itemService.updateQuantity(session, itemId, itemQuantity);
+	@PostMapping("/cart/updateCart")
+	public String updateCart(@RequestParam(name = "action") String action,
+	        @RequestParam(name = "itemId", required = false) List<String> itemIds,
+	        @RequestParam(name = "itemQuantity", required = false) List<Integer> itemQuantities,
+	        @RequestParam(name = "removeItemId", required = false) List<String> removeItemIds,
+	        HttpSession session) {
+		if ("update".equals(action)) {
+	        // 数量一括変更
+	        if (itemIds != null && itemQuantities != null) {
+	            itemService.updateQuantity(session, itemIds, itemQuantities);
+	        }
+	    } else if ("delete".equals(action)) {
+	        // 選択された商品を削除
+	        if (removeItemIds != null) {
+	            itemService.removeCart(session, removeItemIds);
+	        }
+	    }
+
 	    return "redirect:/cart";
 	}
 	
