@@ -11,22 +11,21 @@ import jp.ken.interiorshop.presentation.form.MemberLoginForm;
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
+	/*@ModelAttribute
+	public void addUserAttributes(HttpSession session, Model model) {
+		// セッションからログインユーザーを取得
+		MemberLoginForm loginUser = (MemberLoginForm) session.getAttribute("loginUser");
+		model.addAttribute("loginUser", loginUser != null ? loginUser : new MemberLoginForm());
 	
-	@ModelAttribute
-    public void addUserAttributes(HttpSession session, Model model) {
-        // セッションからログインユーザーを取得
-        MemberLoginForm loginUser = (MemberLoginForm) session.getAttribute("loginUser");
-        model.addAttribute("loginUser", loginUser != null ? loginUser : new MemberLoginForm());
-
-        // ログイン状態を追加
-        model.addAttribute("isLogin", loginUser != null);
-
-        // loginFrag に基づくフラグを追加
-        Object loginFrag = session.getAttribute("loginFrag");
-        model.addAttribute("userLoggedIn", "true".equals(loginFrag));
-    }
+		// ログイン状態を追加
+		model.addAttribute("isLogin", loginUser != null);
 	
-	/* // ログインしているユーザー名
+		// loginFrag に基づくフラグを追加
+		Object loginFrag = session.getAttribute("loginFrag");
+		model.addAttribute("userLoggedIn", "true".equals(loginFrag));
+	}*/
+
+	// ログインしているユーザー名
 	@ModelAttribute("loginUser")
 	public MemberLoginForm memberLoginForm(HttpSession session) {
 		return new MemberLoginForm();
@@ -45,22 +44,32 @@ public class GlobalControllerAdvice {
 	@ModelAttribute("isLogin")
 	public Boolean addIsLogin(HttpSession session) {
 	   return session.getAttribute("loginUser") != null;
-	}*/
-   
-	//IllegalArgumentException を捕捉
-  @ExceptionHandler(IllegalArgumentException.class)
-  public String handleIllegalArgumentException(IllegalArgumentException ex, Model model) {
-      model.addAttribute("errorMessage", ex.getMessage());
-      return "error"; // error.html に遷移
-   }
+	}
 	
-   // その他の例外を捕捉
-   @ExceptionHandler(Exception.class)
-   public String handleException(Exception ex, Model model) {
-      model.addAttribute("errorMessage", "予期しないエラーが発生しました");
-      // ログ出力もしておくとデバッグに便利
-      ex.printStackTrace();
-     return "error";
-   }   
-	   
+	@ModelAttribute("isLogin")
+    public boolean addLoginFlag(HttpSession session) {
+        return session.getAttribute("loginUser") != null;
+    }
+
+    @ModelAttribute("loginUser")
+    public Object addLoginUser(HttpSession session) {
+        return session.getAttribute("loginUser");
+    }
+
+	//IllegalArgumentException を捕捉
+	@ExceptionHandler(IllegalArgumentException.class)
+	public String handleIllegalArgumentException(IllegalArgumentException ex, Model model) {
+		model.addAttribute("errorMessage", ex.getMessage());
+		return "error"; // error.html に遷移
+	}
+
+	// その他の例外を捕捉
+	@ExceptionHandler(Exception.class)
+	public String handleException(Exception ex, Model model) {
+		model.addAttribute("errorMessage", "予期しないエラーが発生しました");
+		// ログ出力もしておくとデバッグに便利
+		ex.printStackTrace();
+		return "error";
+	}
+
 }
