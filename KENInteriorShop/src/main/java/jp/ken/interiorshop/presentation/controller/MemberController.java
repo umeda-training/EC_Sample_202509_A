@@ -181,5 +181,34 @@ public String doWithdraw(HttpSession session, SessionStatus status, Model model)
    return "withdrawComplete"; // withdrawComplete.html を表示
 }
 
+
+//会員情報編集するときの挙動
+@GetMapping("/edit")
+public String showEditPage(Model model) {
+    MemberRegistForm form = new MemberRegistForm();
+    // 必要な初期値をセット
+    model.addAttribute("memberRegistForm", form);
+    return "edit";
+}
+
+@PostMapping("/edit")
+public String updateMemberInfo(@Valid @ModelAttribute("editForm") MemberLoginForm form,
+                             BindingResult result,
+                             Model model,
+                             HttpSession session) {
+  if (result.hasErrors()) {
+      return "edit";
+  }
+
+  // 更新処理（サービス層でDB更新）
+  //registService.updateMember(form); // updateMemberは仮のメソッド名
+
+  // セッション情報も更新
+  session.setAttribute("loginUser", form);
+  model.addAttribute("member", form);
+  return "redirect:/mypage";
+}
+
+
 }
 
