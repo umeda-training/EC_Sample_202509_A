@@ -150,6 +150,9 @@ public class ItemController {
 	    	    // 現在のURL（簡易的）
 	    	    session.setAttribute("currentUrl", "/item");
 	    	    
+	    	    if(keyword != null || categoryId != null) {
+		        	return "search";
+		        }
 	    	    return "item";
 	    	}
 		
@@ -166,14 +169,15 @@ public class ItemController {
 	        model.addAttribute("keyword", keyword);
 	        model.addAttribute("categoryId", categoryId);
 	        
-	        //現在のURLを取得
+	      //現在のURLを取得
 	        session.setAttribute("currentUrl" ,"/search");
 	        
 	        // 検索結果が0件ならメッセージを追加
 	        if (itemForm.isEmpty()) {
 	            model.addAttribute("infoMessage", "該当商品はありません");
 	        }
-
+	        
+	        
 	        return "search";
 	}
 

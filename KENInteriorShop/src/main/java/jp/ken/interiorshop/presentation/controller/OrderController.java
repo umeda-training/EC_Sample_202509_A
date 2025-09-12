@@ -36,12 +36,14 @@ public class OrderController {
 	@PostMapping("/order/confirm")
     public String confirmOrder(Model model, HttpSession session,
                                   @SessionAttribute("loginUser") MemberLoginForm loginUser) {
-
+		
         OrderForm orderForm = new OrderForm();
+        
 
         // セッションのカート情報を OrderDetailsForm リストに変換してセット
         List<ItemForm> cartItems = (List<ItemForm>) session.getAttribute("cart");
         List<OrderDetailsForm> detailsList = new ArrayList<>();
+        int totalQuantity = 0;
         
         if (cartItems != null) {
             for (ItemForm item : cartItems) {
@@ -51,6 +53,8 @@ public class OrderController {
                 details.setSubtotal(String.valueOf(Integer.parseInt(item.getItemPrice()) * item.getItemQuantity()));
                 details.setItemName(item.getItemName());
                 detailsList.add(details);
+                
+                totalQuantity += item.getItemQuantity();
             }
 
             orderForm.setOrderDetailsForm(detailsList);
@@ -68,6 +72,8 @@ public class OrderController {
 	    model.addAttribute("totalInclTax", totalInclTax);
 	    model.addAttribute("cartItemNames", cartItems);
 	    model.addAttribute("orderForm", orderForm);
+	    model.addAttribute("totalQuantity", totalQuantity);
+	    
 
 	    return "ordercheck"; //ordercheck.html
 	}
