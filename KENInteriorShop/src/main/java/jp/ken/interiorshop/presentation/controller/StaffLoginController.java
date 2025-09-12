@@ -31,7 +31,7 @@ public class StaffLoginController {
     	}
 	
 	//ログイン画面表示
-	@GetMapping("/staff/login")
+	@GetMapping("/stafflogin")
 	public String getLoginForm(@ModelAttribute StaffLoginForm form, Model model) {
 		StaffLoginForm staffLoginForm = new StaffLoginForm();
 		model.addAttribute("loginStaff", staffLoginForm);
@@ -39,7 +39,7 @@ public class StaffLoginController {
 	}
 	
 	//ログイン処理
-	@PostMapping(value = "/staff/login")
+	@PostMapping(value = "/stafflogin")
 	 public String doLogin(@Valid @ModelAttribute("loginStaff")StaffLoginForm loginForm,
 			 BindingResult result,Model model, HttpSession session) {
 		
@@ -77,7 +77,7 @@ public class StaffLoginController {
 				loginForm.setAdministrator(matchedStaff.getAdministrator());
 				model.addAttribute("loginStaff", loginForm);
 				session.setAttribute("staffLoginFrag", "true");
-				return "/staffMenu";
+				return "/staffmenu";
 			}else {
 				model.addAttribute("staffLoginError", "従業員IDまたはパスワードが正しくありません");
 				return "staffLogin";
