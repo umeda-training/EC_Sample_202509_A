@@ -3,6 +3,7 @@ package jp.ken.interiorshop.presentation.form;
 import java.io.Serializable;
 
 import jakarta.validation.constraints.NotBlank;
+import jp.ken.interiorshop.common.validatior.groups.ValidGroup1;
 import lombok.Data;
 
 @Data
@@ -12,7 +13,7 @@ public class ShippingForm implements Serializable {
 	private String shippingId;
 	
 	//発送先氏名
-	@NotBlank(message = "必須入力です")
+	@NotBlank(message = "必須入力です", groups = ValidGroup1.class)
 	private String shippingName;
 	
 	//発送先フリガナ
