@@ -100,6 +100,15 @@ public class MemberRepository {
 		Integer count = jdbcTemplate.queryForObject(sql, Integer.class, mail);
 		return count != null && count > 0;
 	}
+
+	//IDから会員情報抽出
+	public MemberEntity findById(int memberId) throws Exception {
+	    StringBuilder sb = createCommonSQL();
+	    sb.append(" WHERE member_id = ?");
+	    String sql = sb.toString();
+
+	    return jdbcTemplate.queryForObject(sql, loginMapper, memberId);
+	}	
 	
 //	public StringBuilder getMemberByMail(String mail) throws Exception {
 //		
