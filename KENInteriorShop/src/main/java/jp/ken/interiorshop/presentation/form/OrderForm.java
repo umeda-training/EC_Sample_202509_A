@@ -48,7 +48,7 @@ public class OrderForm implements Serializable {
     private List<OrderDetailsForm> orderDetailsForm = new ArrayList<>();
 	
 	//発送のネストForm
-    @Valid 
+  
 	private ShippingForm shippingForm = new ShippingForm();
 	
 }
