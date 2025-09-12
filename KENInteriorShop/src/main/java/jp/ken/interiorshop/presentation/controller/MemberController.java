@@ -178,7 +178,7 @@ public String doWithdraw(HttpSession session, SessionStatus status, Model model)
    // セッション破棄（ログアウトと同様の扱い）
    status.setComplete();
    session.invalidate();
-   return "cancel"; // cancel.html を表示
+   return "withdrawComplete"; // withdrawComplete.html を表示
 }
 
 }

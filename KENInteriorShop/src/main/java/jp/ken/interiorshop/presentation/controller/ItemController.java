@@ -42,6 +42,7 @@ public class ItemController {
 	    // 現在のURL（簡易的）
 	    session.setAttribute("currentUrl", "/item");
 
+
 		return "item";
 	}
 	
@@ -107,7 +108,7 @@ public class ItemController {
 	
 	//カートの数量変更
 	@PostMapping("/cart/updateQuantity")
-public String updateQuantity(@RequestParam("itemId") String itemId, @RequestParam("itemQuantity") int itemQuantity, HttpSession session) {
+	public String updateQuantity(@RequestParam("itemId") String itemId, @RequestParam("itemQuantity") int itemQuantity, HttpSession session) {
 	    itemService.updateQuantity(session, itemId, itemQuantity);
 	    return "redirect:/cart";
 	}

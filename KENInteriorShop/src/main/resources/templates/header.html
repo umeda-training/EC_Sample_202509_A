@@ -3,10 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>共通ヘッダー</title>
+	<link th:href="@{/css/common.css}" rel="stylesheet">
+	<link th:href="@{/css/header.css}" rel="stylesheet">
 </head>
 <body>
 	<!-- フラグメントとして定義 -->
-	<div th:fragment="header_area" th:remove="tag">
+	<div th:fragment="header_area" th:remove="tag" th:classappend="${isLogin} ? 'logged-in' : ''">
 	
 		<!-- ヘッダー全体（背景白、文字黒） -->
 		<table style="width:100%; background-color:#fff; color:#000; padding:10px 0; border-bottom:1px solid #ccc;">

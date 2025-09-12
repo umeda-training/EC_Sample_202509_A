@@ -82,12 +82,10 @@
 
     <div class="buttons">
       <!-- 編集ページへのリンク -->
-      <a th:href="@{/edit}" class="button-link">情報を編集する</a>
+      	<a th:href="@{/edit}" class="button-link">情報を編集する</a>
 
-      <!-- 退会処理のフォーム -->
-      <form th:action="@{/withdraw}" method="post" onsubmit="return confirm('本当に退会しますか？');">
-        <button type="submit" class="button-link danger-button">退会する</button>
-      </form>
+      <!-- 退会確認ページへのリンク -->
+		<a th:href="@{/withdraw}" class="button-link danger-button">退会する</a>
 
       <button type="button" onclick="history.back()">戻る</button>
     </div>
