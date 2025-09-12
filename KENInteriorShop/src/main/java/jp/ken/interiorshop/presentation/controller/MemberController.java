@@ -153,6 +153,15 @@ public class MemberController {
   	
   	return "registComplete";
   }
-	
+
+  //マイページアクセス時の挙動
+  @GetMapping("/mypage")
+  public String showMyPage(@ModelAttribute("loginUser") MemberLoginForm form, Model model, HttpSession session) {
+    if (form == null || session.getAttribute("loginFrag") == null) {
+        return "redirect:/login"; // 未ログインならログイン画面へ
+    }
+    model.addAttribute("member", form); // HTML側で使用する変数名に合わせる
+    return "mypage"; // Thymeleafのテンプレート名
+}
 }
 
