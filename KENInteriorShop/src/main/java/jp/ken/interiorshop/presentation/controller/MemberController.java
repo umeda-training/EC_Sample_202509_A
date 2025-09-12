@@ -163,5 +163,21 @@ public class MemberController {
       model.addAttribute("member", form);
       return "mypage";
   }
+  
+//退会確認画面へ遷移
+@GetMapping("/withdraw")
+public String showWithdraw() {
+   return "withdraw"; // withdraw.html を表示
+}
+
+//退会処理（実行後に完了画面へ遷移）
+@PostMapping("/withdraw")
+public String doWithdraw(HttpSession session, SessionStatus status, Model model) {
+   // セッション破棄（ログアウトと同様の扱い）
+   status.setComplete();
+   session.invalidate();
+   return "cancel"; // cancel.html を表示
+}
+
 }
 
