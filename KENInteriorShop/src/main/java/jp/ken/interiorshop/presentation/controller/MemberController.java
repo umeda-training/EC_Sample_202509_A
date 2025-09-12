@@ -181,5 +181,13 @@ public String doWithdraw(HttpSession session, SessionStatus status, Model model)
    return "withdrawComplete"; // withdrawComplete.html を表示
 }
 
+
+@GetMapping("/edit")
+public String showEditPage(Model model) {
+    // 必要に応じて member 情報を model に追加
+    return "edit"; // edit.html を表示
+}
+
+
 }
 
