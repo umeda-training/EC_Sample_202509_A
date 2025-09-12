@@ -3,8 +3,13 @@
 	<head>
 	    <meta charset="UTF-8">
 	    <title>カート一覧</title>
+	    <link th:href="@{/css/common.css}" rel="stylesheet">
+		<link th:href="@{/css/header.css}" rel="stylesheet">
+		<script th:src="@{/js/main.js}"></script>
 	</head>
 	<body>
+	<div id="wrapper" th:classappend="${isLogin} ? 'logged-in' : ''">
+	
 	<h2 style="text-align:center;">カート</h2>
 	
 	<form th:action="@{/ordercomp}" th:object="${orderForm}" method="post">
@@ -145,6 +150,6 @@
 	<div style="text-align:center; margin-top:20px;">
 	    <a th:href="@{/cart}">戻る</a>
 	</div>
-	
+	</div>
 	</body>
 	</html>

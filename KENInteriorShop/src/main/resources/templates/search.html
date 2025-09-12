@@ -3,7 +3,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>商品一覧</title>
-		<style>
+		<link th:href="@{/css/common.css}" rel="stylesheet">
+		<link th:href="@{/css/header.css}" rel="stylesheet">
+		<link th:href="@{/css/item.css}" rel="stylesheet">
+		<script th:src="@{/js/main.js}"></script>
+		<!--<style>
 		
 		h1 {
 			text-align: center;
@@ -68,13 +72,14 @@
     		margin: 10px 20px;   /* 任意で余白調整 */
 		}
     
-    </style>
+    </style>-->
 	</head>
 <body>
-	<div id="wrapper">
+	
 		    <!-- 共通ヘッダーを挿入 -->
     <header th:insert="~{header :: header_area}"></header>
 		<main>
+			<div id="wrapper" th:classappend="${isLogin} ? 'logged-in' : ''">
 			    <h1>商品検索結果</h1>
 			    
 			     <!-- フラッシュメッセージ表示 -->
@@ -121,9 +126,9 @@
         				</form>
     				</div>
 				</div>
-				
+			</div>
 		</main>
 		<footer></footer>
-	</div>
+	
 </body>
 </html>

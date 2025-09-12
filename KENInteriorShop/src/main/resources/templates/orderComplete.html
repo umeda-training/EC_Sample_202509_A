@@ -3,13 +3,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>注文完了</title>
-		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/common.css}" rel="stylesheet">
+		<link th:href="@{/css/header.css}" rel="stylesheet">
+		<script th:src="@{/js/main.js}"></script>
 	</head>
 <body>
+	<div id="wrapper" th:classappend="${isLogin} ? 'logged-in' : ''">
     <h2 style="text-align:center; margin-top:50px;">注文完了しました</h2>
     <p style="text-align:center; margin-top:20px;">ご注文ありがとうございます！</p>
     <div style="text-align:center; margin-top:30px;">
         <a th:href="@{/item}">トップページへ戻る</a>
+    </div>
     </div>
 </body>
 </html>

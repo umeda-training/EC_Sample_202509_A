@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>カート一覧</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+	<link th:href="@{/css/header.css}" rel="stylesheet">
+	<script th:src="@{/js/main.js}"></script>
 </head>
 <style>
 	.btn {
@@ -20,8 +23,10 @@
 	}
 </style>
 <body>
+	
 <h2 style="text-align:center;">カート</h2>
 
+<div id="wrapper" th:classappend="${isLogin} ? 'logged-in' : ''">
 
 <!-- カートが空の場合の表示 -->
     <p th:if="${cartItems == null or #lists.isEmpty(cartItems)}" style="color:red; font-weight:bold;">
@@ -94,6 +99,6 @@
     <br>
     <a th:href="@{/item}" class="btn">買い物を続ける</a>
 </div>
-
+</div>
 </body>
 </html>
