@@ -14,30 +14,26 @@
 				<!-- ロゴ（左上） -->
   				<td style="padding-left:20px; vertical-align:top;">
     				<a th:href="@{/staffmenu}">
-						<!-- クリックで商品一覧画面へ遷移 -->
+						<!-- クリックでメニュー画面へ遷移 -->
       					<img src="/images/logo/logo_SS_forStaff.png" alt="サイトロゴ" style="height:50px;">
    			 		</a>
   				</td>
   				<!-- ログイン中のみログインユーザー名表示 -->
   				<td style="text-align:right; padding-right:20px;">
-    				<div th:if="${loginStaff != null and loginStaff.staffName != null}" 
-         				style="margin-top:5px; font-size:1em;">
-      					<span th:text="${loginStaff.staffName} + 'さんログイン中です'"></span>
+    				<div style="margin-top:5px; font-size:1em;">
+ 					<span th:text="${loginForm} ?: 'loginForm is null'">loginForm is null</span>
     				</div>
   				</td>
 			</tr>
 		
-		  <tr>
+		  	<tr>
 		          <!-- ログアウト -->
 		       <td style="font-size:2em;">
-		          <a th:href="@{/logout}" style="color:#000; text-decoration:none;">ログアウト</a>
+		          <!--<a th:href="@{/logout}" style="color:#000; text-decoration:none;">ログアウト</a>-->
 		       </td>
-		  </tr>
+		  	</tr>
 		      </table>
-		    </td>
-		  </tr>
 		</table>
-
 	</div>
 </body>
 

@@ -7,14 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.StaffLoginService;
 import jp.ken.interiorshop.presentation.form.StaffLoginForm;
 
 @Controller
-@SessionAttributes("loginStaff")
 public class StaffLoginController {
 	
 	private StaffLoginService staffLoginService;
@@ -33,7 +32,7 @@ public class StaffLoginController {
 	//ログイン処理
 	@PostMapping(value = "/stafflogin")
 	 public String doLogin(@Valid StaffLoginForm staffLoginForm,
-			 BindingResult result, Model model) {
+			 BindingResult result, Model model, HttpSession session) {
 		
 		//エラー時にログイン画面に戻る
 		if(result.hasErrors()) {
@@ -67,7 +66,7 @@ public class StaffLoginController {
 				staffLoginForm.setStaffName(matchedStaff.getStaffName());
 				staffLoginForm.setPassword(matchedStaff.getPassword());
 				staffLoginForm.setAdministrator(matchedStaff.getAdministrator());
-				model.addAttribute("loginStaff", staffLoginForm);
+				session.setAttribute("loginStaff", staffLoginForm);
 				return "/staffmenu";
 			}else {
 				model.addAttribute("staffLoginError", "従業員IDまたはパスワードが正しくありません");
