@@ -3,14 +3,18 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>商品一覧</title>
-		<link th:href="@{/css/style.css}" rel="stylesheet">
+		<link th:href="@{/css/common.css}" rel="stylesheet">
+		<link th:href="@{/css/item.css}" rel="stylesheet">
 		<script th:src="@{/js/main.js}"></script>
 	</head>
 <body >
-	<div id="wrapper" th:classappend="${isLogin} ? 'logged-in' : ''">
 		    <!-- 共通ヘッダーを挿入 -->
     <header th:insert="~{header :: header_area}"></header>
-		<main>
+	
+	
+	
+	<main>
+		<div id="wrapper" th:classappend="${isLogin} ? 'logged-in' : ''">
 			<div class="page">
 				<h2>商品一覧</h2>
 			    
@@ -53,9 +57,9 @@
 			        </div>
 			    </div>
 			</div>
-			    
-		</main>
+    	</div>
+	</main>
 		<footer></footer>
-	</div>
+	
 </body>
 </html>

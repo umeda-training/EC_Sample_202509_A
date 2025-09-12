@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+/* ログイン時にいろが変わる */
+#wrapper.logged-in{
+	background-color: rgb(173, 240, 254); /* ログイン時の背景色 */
+}
+
+.page {
+    display: flex;
+    flex-direction: column; /* 縦積み */
+    align-items: center;    /* 横方向中央揃え */
+    width: 100%;            /* ページ幅いっぱい */
+}
+
+.page h2 {
+    text-align: center;
+}
+
