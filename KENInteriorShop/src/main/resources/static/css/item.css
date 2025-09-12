@@ -1,20 +1,8 @@
 @charset "UTF-8";
 
-/* ログイン時にいろが変わる */
-#wrapper.logged-in{
-	background-color: rgb(173, 240, 254); /* ログイン時の背景色 */
-}
 
-/* ページ全体 */
-.page{
-	width: 1200px;       /* ページの横幅（お好みで） */
-  	margin: 0 auto;      /* 左右の余白を自動 → 横方向センター */
-}
 
-/* 見出し */
-h2{
-	text-align: center;
-}
+
 
 /* 検索フォーム */
 .item-row{
@@ -68,6 +56,7 @@ h2{
 	
 }
 
+/* エラー */
 .note-wrapper p {
 	color:red;
 }
@@ -102,8 +91,3 @@ h2{
 	height: auto;
 	margin-bottom: 10px;
 }
-
-
-
-
-
