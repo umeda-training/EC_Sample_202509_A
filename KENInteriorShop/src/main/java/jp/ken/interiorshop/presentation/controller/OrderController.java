@@ -77,6 +77,26 @@ public class OrderController {
 	        BindingResult result, @SessionAttribute("loginUser") MemberLoginForm form,
 	        HttpSession session, Model model) throws Exception  {
 		
+		
+		
+	    // addressOption のチェック
+	    if ("member".equals(orderForm.getAddressOption())) {
+	        // 会員住所を使用する場合、shippingForm に入力があればエラー
+	        if (orderForm.getShippingForm() != null &&
+	            (orderForm.getShippingForm().getShippingName() != null && !orderForm.getShippingForm().getShippingName().isEmpty() ||
+	             orderForm.getShippingForm().getShippingKana() != null && !orderForm.getShippingForm().getShippingKana().isEmpty() ||
+	             orderForm.getShippingForm().getShippingphone() != null && !orderForm.getShippingForm().getShippingphone().isEmpty() ||
+	             orderForm.getShippingForm().getShippingPostalCode() != null && !orderForm.getShippingForm().getShippingPostalCode().isEmpty() ||
+	             orderForm.getShippingForm().getShippingAddress1() != null && !orderForm.getShippingForm().getShippingAddress1().isEmpty() ||
+	             orderForm.getShippingForm().getShippingAddress2() != null && !orderForm.getShippingForm().getShippingAddress2().isEmpty() ||
+	             orderForm.getShippingForm().getShippingAddress3() != null && !orderForm.getShippingForm().getShippingAddress3().isEmpty()
+	            )) {
+	        	
+	        	model.addAttribute("message", "会員住所を使用する場合、手入力の住所は無効です");
+	            return "error";
+	        }
+	    }
+		
 		if(result.hasErrors()){
 	    // セッションのカート情報を OrderDetailsForm リストに変換してセット
 	       List<ItemForm> cartItems = (List<ItemForm>) session.getAttribute("cart");

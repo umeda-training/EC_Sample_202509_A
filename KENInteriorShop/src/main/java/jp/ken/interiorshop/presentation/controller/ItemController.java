@@ -86,7 +86,7 @@ public class ItemController {
 		itemService.addToCart(session, item);
 		
 		// フラッシュ属性でメッセージを設定
-		redirectAttributes.addFlashAttribute("message", item.getItemName() + " をカートに追加しました");
+		redirectAttributes.addFlashAttribute("message", item.getItemName() + " を" + item.getItemQuantity() + "個カートに追加しました");
 		//元のページに戻る
         return "redirect:" + redirectUrl;
 	}
