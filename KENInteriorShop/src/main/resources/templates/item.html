@@ -94,6 +94,10 @@
     					</select>
     				<input type="submit" value="検索" class="btn">
 				</form>
+				
+				<!-- エラーメッセージ表示 -->
+				<p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
+
 					<label>商品画像をクリックすると詳細ページに遷移します</label>
 				</div>
 			    

@@ -119,12 +119,37 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	        @RequestParam(name = "categoryId", required = false) Integer categoryId,
 	        Model model, HttpSession session) throws Exception {
 
+		 	// カテゴリ一覧取得（CategoryFormのリスト）
+	    	List<CategoryForm> categoryForm = itemService.getCategoryList();
+	    	model.addAttribute("categoryForm", categoryForm);
+	    	model.addAttribute("keyword", keyword);
+	    	model.addAttribute("categoryId", categoryId);
+	    	
+	    	//入力判定
+	    	boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
+	        boolean hasCategory = categoryId != null;
+	    	
+	        // 両方未入力の場合のみエラー
+	    	if (!hasKeyword && !hasCategory) {
+	    		model.addAttribute("errorMessage", "キーワードもしくはカテゴリを入力してください");
+	    		List<ItemForm> formItemList = itemService.getItemList();
+	    		List<CategoryForm> forCategorymList = itemService.getCategoryList();
+	    		model.addAttribute("itemForm", formItemList);
+	    		model.addAttribute("categoryForm", forCategorymList);
+	    		model.addAttribute("itemNewForm", new ItemForm());
+
+	    	    // 現在のURL（簡易的）
+	    	    session.setAttribute("currentUrl", "/item");
+	    	    
+	    	    return "item";
+	    	}
+		
 	        // 商品検索（Entity → Form に変換）
 	        List<ItemEntity> itemEntity = itemService.searchItem(keyword, categoryId);
 	        List<ItemForm> itemForm = itemService.convertItemForm(itemEntity); // 既存の変換メソッドを活用
 
 	        // カテゴリ一覧取得（CategoryFormのリスト）
-	        List<CategoryForm> categoryForm = itemService.getCategoryList();
+	        categoryForm = itemService.getCategoryList();
 
 	        // Modelに渡す
 	        model.addAttribute("itemForm", itemForm);
@@ -134,6 +159,11 @@ public String updateQuantity(@RequestParam("itemId") String itemId, @RequestPara
 	        
 	        //現在のURLを取得
 	        session.setAttribute("currentUrl" ,"/search");
+	        
+	        // 検索結果が0件ならメッセージを追加
+	        if (itemForm.isEmpty()) {
+	            model.addAttribute("infoMessage", "該当商品はありません");
+	        }
 
 	        return "search";
 	}

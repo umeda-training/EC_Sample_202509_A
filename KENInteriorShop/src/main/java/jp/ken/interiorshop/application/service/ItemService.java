@@ -149,7 +149,7 @@ public class ItemService {
 		
 		//検索結果を表示するメソッド
 		 public List<ItemEntity> searchItem(String keyword, Integer categoryId) throws Exception {
-		        boolean hasKeyword = keyword != null && !keyword.isEmpty();
+		        boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
 		        boolean hasCategory = categoryId != null;
 
 		        if (hasKeyword && hasCategory) {
