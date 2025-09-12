@@ -1,13 +1,61 @@
 @charset "UTF-8";
 
-table {
-	
-	color:#000; 
-	padding:10px 0; 
+/*.header{
 	border-bottom:1px solid #ccc
+}*/
+
+
+
+/*.header {
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background-color: #f5f5f5;  未ログイン時 
+    padding: 10px 20px;
+}*/
+
+.header {
+    position: fixed;
+    top: -70px; /* ヘッダーの高さ分隠す */
+    left: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: top 0.3s; /* スライドアニメーション */
+    z-index: 1000;
 }
 
-td{
-	padding-left:20px;
-	vertical-align:top;
+/* ヘッダー表示用のクラス */
+.header.show {
+    top: 0;
+}
+
+/* ロゴとユーザー名を横並び */
+.header-top {
+    display: flex;
+    justify-content: space-between; /* 左右に配置 */
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* ナビリンクを横並び */
+.header-nav {
+    display: flex;
+    gap: 45px;       /* リンク間の間隔 */
+    justify-content: center; /* 真ん中 */
+    align-items: center;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: black;
+    text-decoration: none;    /* 下線も消す場合 */
+}
+
+a {
+    color: black;             /* 黒文字 */
+    text-decoration: none;    /* 下線を消す場合 */
+    font-size: 35px;
 }

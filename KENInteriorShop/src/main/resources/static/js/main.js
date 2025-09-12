@@ -22,3 +22,16 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('header');
+
+    document.addEventListener('mousemove', (e) => {
+        if (e.clientY <= 50) { // 画面上部50px以内にマウスがある場合
+            header.classList.add('show');
+        } else {
+            header.classList.remove('show');
+        }
+    });
+});
